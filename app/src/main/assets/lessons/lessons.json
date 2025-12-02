@@ -1,0 +1,92 @@
+{
+  "lessons": [
+    {
+      "id": "lesson_01",
+      "title": "What are Number Systems?",
+      "category": "BEGINNER",
+      "estimatedTimeMinutes": 15,
+      "prerequisites": [],
+      "description": "Learn the fundamentals of number systems and why different bases exist.",
+      "sections": [
+        {
+          "type": "theory",
+          "title": "Introduction to Number Systems",
+          "content": "A number system is a way of representing numbers. The most common system we use daily is the decimal system (base 10), but computers use binary (base 2), and programmers often use hexadecimal (base 16) and octal (base 8).\n\nEach number system has a base, which determines how many unique digits are available."
+        },
+        {
+          "type": "interactive",
+          "title": "Understanding Bases",
+          "problem": "In base 10, we have digits 0-9. How many digits does base 2 have?",
+          "answer": "2",
+          "explanation": "Base 2 (binary) has only 2 digits: 0 and 1"
+        },
+        {
+          "type": "quiz",
+          "questions": [
+            {
+              "question": "What is the base of the decimal number system?",
+              "type": "multiple_choice",
+              "options": ["2", "8", "10", "16"],
+              "correctAnswer": "10",
+              "explanation": "Decimal system is base 10, using digits 0-9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson_02",
+      "title": "Understanding Binary",
+      "category": "BEGINNER",
+      "estimatedTimeMinutes": 20,
+      "prerequisites": ["lesson_01"],
+      "description": "Learn about binary numbers and how computers use them.",
+      "sections": [
+        {
+          "type": "theory",
+          "title": "What is Binary?",
+          "content": "Binary is the base-2 number system, using only two digits: 0 and 1. Each position in a binary number represents a power of 2.\n\nFor example: 1010 in binary = 1×2³ + 0×2² + 1×2¹ + 0×2⁰ = 8 + 0 + 2 + 0 = 10 in decimal"
+        },
+        {
+          "type": "interactive",
+          "title": "Binary to Decimal",
+          "problem": "Convert binary 1101 to decimal",
+          "answer": "13",
+          "explanation": "1101 = 1×8 + 1×4 + 0×2 + 1×1 = 8 + 4 + 1 = 13"
+        },
+        {
+          "type": "practice",
+          "exercises": [
+            {
+              "problem": "Convert binary 1010 to decimal",
+              "answer": "10",
+              "hint": "Multiply each bit by its position value (powers of 2)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lesson_07",
+      "title": "Fractional Conversions",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 30,
+      "prerequisites": ["lesson_05", "lesson_06"],
+      "description": "Learn how to convert fractional numbers between different bases.",
+      "sections": [
+        {
+          "type": "theory",
+          "title": "Understanding Fractional Parts",
+          "content": "Just like whole numbers, fractional parts can be represented in any base. The digits after the decimal point represent negative powers of the base.\n\nFor example: 0.101 in binary = 1×2⁻¹ + 0×2⁻² + 1×2⁻³ = 0.5 + 0 + 0.125 = 0.625 in decimal"
+        },
+        {
+          "type": "interactive",
+          "title": "Fractional Binary",
+          "problem": "Convert binary 0.11 to decimal",
+          "answer": "0.75",
+          "explanation": "0.11 = 1×0.5 + 1×0.25 = 0.5 + 0.25 = 0.75"
+        }
+      ]
+    }
+  ]
+}
