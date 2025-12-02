@@ -1,11 +1,18 @@
 package com.rejowan.numberconverter.di
 
+import com.rejowan.numberconverter.data.local.database.AppDatabase
 import com.rejowan.numberconverter.data.local.datastore.PreferencesManager
 import com.rejowan.numberconverter.data.repository.ConverterRepositoryImpl
+import com.rejowan.numberconverter.data.repository.HistoryRepositoryImpl
 import com.rejowan.numberconverter.domain.repository.ConverterRepository
+import com.rejowan.numberconverter.domain.repository.HistoryRepository
 import com.rejowan.numberconverter.domain.usecase.converter.ConvertNumberUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.FormatOutputUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.ValidateInputUseCase
+import com.rejowan.numberconverter.domain.usecase.history.DeleteHistoryUseCase
+import com.rejowan.numberconverter.domain.usecase.history.GetHistoryUseCase
+import com.rejowan.numberconverter.domain.usecase.history.SaveConversionUseCase
+import com.rejowan.numberconverter.domain.usecase.history.ToggleBookmarkUseCase
 import com.rejowan.numberconverter.presentation.converter.ConverterViewModel
 import com.rejowan.numberconverter.presentation.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
@@ -17,15 +24,12 @@ val appModule = module {
     single { PreferencesManager(androidContext()) }
 
     // Database
-    // single { AppDatabase.getInstance(get()) }
-    // single { get<AppDatabase>().historyDao() }
-    // single { get<AppDatabase>().progressDao() }
+    single { AppDatabase.getInstance(androidContext()) }
+    single { get<AppDatabase>().historyDao() }
 
     // Repositories
     single<ConverterRepository> { ConverterRepositoryImpl(get()) }
-    // single<HistoryRepository> { HistoryRepositoryImpl(get()) }
-    // single<LessonRepository> { LessonRepositoryImpl(get()) }
-    // single<ProgressRepository> { ProgressRepositoryImpl(get()) }
+    single<HistoryRepository> { HistoryRepositoryImpl(get()) }
 
     // Use Cases - Converter
     factory { ConvertNumberUseCase(get()) }
@@ -33,11 +37,13 @@ val appModule = module {
     factory { FormatOutputUseCase() }
 
     // Use Cases - History
-    // factory { SaveConversionUseCase(get()) }
-    // factory { GetHistoryUseCase(get()) }
+    factory { SaveConversionUseCase(get()) }
+    factory { GetHistoryUseCase(get()) }
+    factory { DeleteHistoryUseCase(get()) }
+    factory { ToggleBookmarkUseCase(get()) }
 
     // ViewModels
-    viewModel { ConverterViewModel(get(), get(), get()) }
+    viewModel { ConverterViewModel(get(), get(), get(), get()) }
     viewModel { HomeViewModel() }
     // viewModel { LearnViewModel(get(), get()) }
     // viewModel { LessonViewModel(get(), get()) }

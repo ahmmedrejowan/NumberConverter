@@ -2,10 +2,12 @@ package com.rejowan.numberconverter.presentation.converter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rejowan.numberconverter.domain.model.HistoryItem
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.usecase.converter.ConvertNumberUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.FormatOutputUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.ValidateInputUseCase
+import com.rejowan.numberconverter.domain.usecase.history.SaveConversionUseCase
 import com.rejowan.numberconverter.presentation.converter.state.ConverterUiState
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +21,8 @@ import kotlinx.coroutines.launch
 class ConverterViewModel(
     private val convertNumberUseCase: ConvertNumberUseCase,
     private val validateInputUseCase: ValidateInputUseCase,
-    private val formatOutputUseCase: FormatOutputUseCase
+    private val formatOutputUseCase: FormatOutputUseCase,
+    private val saveConversionUseCase: SaveConversionUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConverterUiState())
@@ -120,6 +123,19 @@ class ConverterViewModel(
                             output = formattedOutput,
                             isLoading = false,
                             errorMessage = null
+                        )
+                    }
+
+                    // Save to history
+                    viewModelScope.launch {
+                        saveConversionUseCase(
+                            HistoryItem(
+                                input = currentState.input,
+                                output = formattedOutput,
+                                fromBase = currentState.fromBase,
+                                toBase = currentState.toBase,
+                                timestamp = System.currentTimeMillis()
+                            )
                         )
                     }
                 },
