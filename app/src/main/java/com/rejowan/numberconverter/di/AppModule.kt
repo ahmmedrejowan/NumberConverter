@@ -18,13 +18,18 @@ import com.rejowan.numberconverter.domain.usecase.history.DeleteHistoryUseCase
 import com.rejowan.numberconverter.domain.usecase.history.GetHistoryUseCase
 import com.rejowan.numberconverter.domain.usecase.history.SaveConversionUseCase
 import com.rejowan.numberconverter.domain.usecase.history.ToggleBookmarkUseCase
+import com.rejowan.numberconverter.domain.generator.ProblemGenerator
 import com.rejowan.numberconverter.domain.usecase.learn.GetLessonsUseCase
 import com.rejowan.numberconverter.domain.usecase.learn.GetProgressSummaryUseCase
+import com.rejowan.numberconverter.domain.usecase.practice.CalculateScoreUseCase
+import com.rejowan.numberconverter.domain.usecase.practice.CheckAnswerUseCase
+import com.rejowan.numberconverter.domain.usecase.practice.GeneratePracticeProblemsUseCase
 import com.rejowan.numberconverter.domain.usecase.settings.GetSettingsUseCase
 import com.rejowan.numberconverter.domain.usecase.settings.UpdateSettingUseCase
 import com.rejowan.numberconverter.presentation.converter.ConverterViewModel
 import com.rejowan.numberconverter.presentation.home.HomeViewModel
 import com.rejowan.numberconverter.presentation.learn.LearnViewModel
+import com.rejowan.numberconverter.presentation.practice.PracticeViewModel
 import com.rejowan.numberconverter.presentation.settings.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
@@ -67,11 +72,18 @@ val appModule = module {
     factory { GetLessonsUseCase(get(), get()) }
     factory { GetProgressSummaryUseCase(get()) }
 
+    // Problem Generator
+    single { ProblemGenerator() }
+
+    // Use Cases - Practice
+    factory { GeneratePracticeProblemsUseCase(get()) }
+    factory { CheckAnswerUseCase() }
+    factory { CalculateScoreUseCase() }
+
     // ViewModels
     viewModel { ConverterViewModel(get(), get(), get(), get()) }
     viewModel { HomeViewModel() }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { LearnViewModel(get(), get()) }
-    // viewModel { LessonViewModel(get(), get()) }
-    // viewModel { PracticeViewModel(get(), get()) }
+    viewModel { PracticeViewModel(get(), get(), get()) }
 }
