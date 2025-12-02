@@ -1,9 +1,9 @@
 package com.rejowan.numberconverter.data.repository
 
-import androidx.compose.ui.text.AnnotatedString
 import com.rejowan.numberconverter.data.converter.BaseConverter
 import com.rejowan.numberconverter.data.converter.BinaryConverter
 import com.rejowan.numberconverter.data.converter.DecimalConverter
+import com.rejowan.numberconverter.data.converter.ExplanationGenerator
 import com.rejowan.numberconverter.data.converter.HexConverter
 import com.rejowan.numberconverter.data.converter.OctalConverter
 import com.rejowan.numberconverter.data.local.datastore.PreferencesManager
@@ -65,14 +65,48 @@ class ConverterRepositoryImpl(
         toBase: NumberBase
     ): Result<Explanation> {
         return try {
-            // Basic explanation placeholder
-            // Will be implemented with ExplanationGenerator later
+            // Validate input
+            if (!BaseConverter.isValidInput(input, fromBase)) {
+                return Result.failure(IllegalArgumentException("Invalid input for base $fromBase"))
+            }
+
+            // Get decimal places from preferences
+            val decimalPlaces = preferencesManager.decimalPlaces.first()
+
+            // Get output for summary
+            val output = performConversion(input, fromBase, toBase, decimalPlaces)
+
+            // Generate explanations
+            val integralPart = ExplanationGenerator.generateIntegralExplanation(
+                input = input,
+                fromBase = fromBase,
+                toBase = toBase
+            )
+
+            val fractionalPart = if (input.contains(".")) {
+                ExplanationGenerator.generateFractionalExplanation(
+                    input = input,
+                    fromBase = fromBase,
+                    toBase = toBase,
+                    decimalPlaces = decimalPlaces
+                )
+            } else {
+                null
+            }
+
+            val summary = ExplanationGenerator.generateSummary(
+                input = input,
+                output = output,
+                fromBase = fromBase,
+                toBase = toBase
+            )
+
             Result.success(
                 Explanation(
                     title = "Converting $input from ${fromBase.displayName} to ${toBase.displayName}",
-                    integralPart = null,
-                    fractionalPart = null,
-                    summary = AnnotatedString("Detailed explanation coming soon!")
+                    integralPart = integralPart,
+                    fractionalPart = fractionalPart,
+                    summary = summary
                 )
             )
         } catch (e: Exception) {
