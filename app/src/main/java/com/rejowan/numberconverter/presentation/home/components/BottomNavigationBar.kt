@@ -1,11 +1,11 @@
 package com.rejowan.numberconverter.presentation.home.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.MenuBook
+import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Calculate
-import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.Quiz
 import androidx.compose.material.icons.outlined.Calculate
-import androidx.compose.material.icons.outlined.MenuBook
 import androidx.compose.material.icons.outlined.Quiz
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -44,8 +44,8 @@ fun BottomNavigationBar(
         BottomNavItem(
             route = Screen.Learn.route,
             title = stringResource(R.string.title_learn),
-            selectedIcon = Icons.Filled.MenuBook,
-            unselectedIcon = Icons.Outlined.MenuBook,
+            selectedIcon = Icons.AutoMirrored.Filled.MenuBook,
+            unselectedIcon = Icons.AutoMirrored.Outlined.MenuBook,
             contentDescription = stringResource(R.string.title_learn)
         ),
         BottomNavItem(
