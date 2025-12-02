@@ -13,8 +13,11 @@ import com.rejowan.numberconverter.domain.usecase.history.DeleteHistoryUseCase
 import com.rejowan.numberconverter.domain.usecase.history.GetHistoryUseCase
 import com.rejowan.numberconverter.domain.usecase.history.SaveConversionUseCase
 import com.rejowan.numberconverter.domain.usecase.history.ToggleBookmarkUseCase
+import com.rejowan.numberconverter.domain.usecase.settings.GetSettingsUseCase
+import com.rejowan.numberconverter.domain.usecase.settings.UpdateSettingUseCase
 import com.rejowan.numberconverter.presentation.converter.ConverterViewModel
 import com.rejowan.numberconverter.presentation.home.HomeViewModel
+import com.rejowan.numberconverter.presentation.settings.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -42,11 +45,15 @@ val appModule = module {
     factory { DeleteHistoryUseCase(get()) }
     factory { ToggleBookmarkUseCase(get()) }
 
+    // Use Cases - Settings
+    factory { GetSettingsUseCase(get()) }
+    factory { UpdateSettingUseCase(get()) }
+
     // ViewModels
     viewModel { ConverterViewModel(get(), get(), get(), get()) }
     viewModel { HomeViewModel() }
+    viewModel { SettingsViewModel(get(), get(), get()) }
     // viewModel { LearnViewModel(get(), get()) }
     // viewModel { LessonViewModel(get(), get()) }
     // viewModel { PracticeViewModel(get(), get()) }
-    // viewModel { SettingsViewModel(get()) }
 }
