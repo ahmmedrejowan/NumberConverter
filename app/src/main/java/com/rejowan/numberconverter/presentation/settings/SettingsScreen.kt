@@ -41,7 +41,7 @@ fun SettingsScreen(
     val spacing = spacing
 
     Scaffold(
-        topAppBar = {
+        topBar = {
             TopAppBar(
                 title = { Text("Settings") },
                 navigationIcon = {

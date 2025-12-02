@@ -30,18 +30,17 @@ class GetSettingsUseCase(
             preferencesManager.inputValidation,
             preferencesManager.autoAdvanceLessons,
             preferencesManager.dailyReminders
-        ) { theme, dynamicColors, fontSize, decimalPlaces, autoSaveHistory,
-            showExplanations, inputValidation, autoAdvanceLessons, dailyReminders ->
+        ) { values: Array<*> ->
             AppSettings(
-                theme = theme,
-                dynamicColors = dynamicColors,
-                fontSize = fontSize,
-                decimalPlaces = decimalPlaces,
-                autoSaveHistory = autoSaveHistory,
-                showExplanations = showExplanations,
-                inputValidation = inputValidation,
-                autoAdvanceLessons = autoAdvanceLessons,
-                dailyReminders = dailyReminders
+                theme = values[0] as String,
+                dynamicColors = values[1] as Boolean,
+                fontSize = values[2] as String,
+                decimalPlaces = values[3] as Int,
+                autoSaveHistory = values[4] as Boolean,
+                showExplanations = values[5] as Boolean,
+                inputValidation = values[6] as String,
+                autoAdvanceLessons = values[7] as Boolean,
+                dailyReminders = values[8] as Boolean
             )
         }
     }
