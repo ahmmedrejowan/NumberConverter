@@ -1,7 +1,8 @@
-package com.rejowan.numberconverter.ui.theme
+package com.rejowan.numberconverter.presentation.common.theme
 
 import androidx.compose.ui.graphics.Color
 
+// Light Theme Colors
 val primaryLight = Color(0xFF64568F)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFE8DDFF)
@@ -31,7 +32,7 @@ val inverseSurfaceLight = Color(0xFF322F35)
 val inverseOnSurfaceLight = Color(0xFFF5EFF7)
 val inversePrimaryLight = Color(0xFFCEBDFF)
 
-
+// Dark Theme Colors
 val primaryDark = Color(0xFFCEBDFF)
 val onPrimaryDark = Color(0xFF35275E)
 val primaryContainerDark = Color(0xFF4B3E76)
@@ -61,3 +62,10 @@ val inverseSurfaceDark = Color(0xFFE6E1E9)
 val inverseOnSurfaceDark = Color(0xFF322F35)
 val inversePrimaryDark = Color(0xFF64568F)
 
+// Semantic Colors
+val correctAnswerLight = Color(0xFF2E7D32)
+val correctAnswerDark = Color(0xFF81C784)
+val incorrectAnswerLight = Color(0xFFC62828)
+val incorrectAnswerDark = Color(0xFFEF9A9A)
+val highlightLight = Color(0xFFFFF9C4)
+val highlightDark = Color(0xFF5D4037)

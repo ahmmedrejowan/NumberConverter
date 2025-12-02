@@ -1,10 +1,9 @@
-package com.rejowan.numberconverter.ui.theme
+package com.rejowan.numberconverter.presentation.common.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.font.FontFamily
-
-import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import com.rejowan.numberconverter.R
 
 val provider = GoogleFont.Provider(
@@ -27,8 +26,7 @@ val displayFontFamily = FontFamily(
     )
 )
 
-// Default Material 3 typography values
-val baseline = Typography()
+private val baseline = Typography()
 
 val AppTypography = Typography(
     displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
@@ -47,4 +45,3 @@ val AppTypography = Typography(
     labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
     labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
 )
-

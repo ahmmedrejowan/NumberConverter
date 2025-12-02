@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Colors -->
+    <color name="primary">#FF64568F</color>
+    <color name="primary_dark">#FF4B3E76</color>
+    <color name="splash_background">#FFFDF7FF</color>
+
+    <!-- Legacy Colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
