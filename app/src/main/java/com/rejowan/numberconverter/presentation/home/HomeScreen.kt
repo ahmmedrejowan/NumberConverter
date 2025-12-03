@@ -2,6 +2,7 @@ package com.rejowan.numberconverter.presentation.home
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -41,11 +42,21 @@ fun HomeScreen(
         else -> stringResource(R.string.app_name)
     }
 
+    val isConverterScreen = currentDestination?.hierarchy?.any { it.route == Screen.Converter.route } == true
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = title) },
                 actions = {
+                    if (isConverterScreen) {
+                        IconButton(onClick = { /* TODO: Show history */ }) {
+                            Icon(
+                                imageVector = Icons.Default.History,
+                                contentDescription = "History"
+                            )
+                        }
+                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             imageVector = Icons.Default.Settings,

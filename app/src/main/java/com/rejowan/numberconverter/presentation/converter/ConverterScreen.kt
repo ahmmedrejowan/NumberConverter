@@ -56,32 +56,14 @@ fun ConverterScreen(
     val uiState by viewModel.uiState.collectAsState()
     val spacing = spacing
     var showExplanation by remember { mutableStateOf(false) }
-    var showHistory by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(spacing.medium),
-        verticalArrangement = Arrangement.spacedBy(spacing.medium)
+            .padding(spacing.medium, spacing.extraSmall),
+        verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
     ) {
-        // Header with History button
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Number Converter",
-                style = MaterialTheme.typography.headlineSmall,
-                fontWeight = FontWeight.Bold
-            )
-
-            IconButton(onClick = { showHistory = !showHistory }) {
-                Icon(Icons.Default.History, contentDescription = "History")
-            }
-        }
-
         // Main Conversion Card
         ElevatedCard(
             modifier = Modifier.fillMaxWidth()
@@ -208,11 +190,6 @@ fun ConverterScreen(
                 explanation = uiState.explanation!!,
                 onDismiss = { showExplanation = false }
             )
-        }
-
-        // History Section (placeholder)
-        if (showHistory) {
-            HistorySection(onDismiss = { showHistory = false })
         }
 
         // Error message
@@ -372,31 +349,6 @@ private fun ExplanationCard(
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-        }
-    }
-}
-
-@Composable
-private fun HistorySection(onDismiss: () -> Unit) {
-    OutlinedCard(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Column(
-            modifier = Modifier.padding(spacing.medium)
-        ) {
-            Text(
-                text = "Recent Conversions",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-
-            Spacer(modifier = Modifier.height(spacing.medium))
-
-            Text(
-                text = "History feature coming soon!",
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
         }
     }
 }
