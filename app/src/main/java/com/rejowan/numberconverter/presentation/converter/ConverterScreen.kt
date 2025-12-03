@@ -44,6 +44,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -137,22 +138,17 @@ fun ConverterScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 
-                Spacer(Modifier.height(4.dp))
-
                 // Output display
-                OutlinedCard(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(
-                        text = if (uiState.output.isEmpty()) "Result" else uiState.output,
-                        style = MaterialTheme.typography.titleMedium,
-                        color = if (uiState.output.isEmpty())
-                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                        else
-                            MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(spacing.medium)
-                    )
-                }
+                OutlinedTextField(
+                    value = uiState.output,
+                    onValueChange = {},
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(uiState.toBase.displayName) },
+                    placeholder = { Text("Result") },
+                    readOnly = true,
+                    singleLine = false,
+                    textStyle = MaterialTheme.typography.titleMedium
+                )
 
                 // Quick action icons
                 if (uiState.output.isNotEmpty()) {
