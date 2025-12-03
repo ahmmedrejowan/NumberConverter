@@ -47,10 +47,7 @@ object ExplanationGenerator {
         }
 
         val result = buildAnnotatedString {
-            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                append("Integral Part: ")
-            }
-            append("$integral (${fromBase.displayName}) = ")
+            append("$integral (${fromBase.displayName}) \n= ")
             withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
                 append(BaseConverter.convertIntegralToBase(decimalValue, toBase))
             }
@@ -95,10 +92,7 @@ object ExplanationGenerator {
         }
 
         val resultString = buildAnnotatedString {
-            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
-                append("Fractional Part: ")
-            }
-            append("0.$fractional (${fromBase.displayName}) = ")
+            append("0.$fractional (${fromBase.displayName}) \n= ")
             withStyle(SpanStyle(color = Color(0xFF2196F3), fontWeight = FontWeight.Bold)) {
                 append("0.$result")
             }

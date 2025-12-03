@@ -44,6 +44,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -226,6 +227,10 @@ fun ConverterScreen(
         if (showExplanation && uiState.explanation != null) {
             ExplanationCard(
                 explanation = uiState.explanation!!,
+                fromBase = uiState.fromBase,
+                toBase = uiState.toBase,
+                input = uiState.input,
+                output = uiState.output,
                 onDismiss = { showExplanation = false }
             )
         }
@@ -301,11 +306,28 @@ private fun CompactBaseSelector(
     }
 }
 
+// Helper function to get short base name
+private fun getShortBaseName(base: NumberBase): String {
+    return when (base) {
+        NumberBase.BINARY -> "BIN"
+        NumberBase.OCTAL -> "OCT"
+        NumberBase.DECIMAL -> "DEC"
+        NumberBase.HEXADECIMAL -> "HEX"
+    }
+}
+
 @Composable
 private fun ExplanationCard(
     explanation: com.rejowan.numberconverter.domain.model.Explanation,
+    fromBase: NumberBase,
+    toBase: NumberBase,
+    input: String,
+    output: String,
     onDismiss: () -> Unit
 ) {
+    val fromShort = getShortBaseName(fromBase)
+    val toShort = getShortBaseName(toBase)
+
     OutlinedCard(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -323,7 +345,7 @@ private fun ExplanationCard(
             // Integral Part
             explanation.integralPart?.let { integral ->
                 Spacer(modifier = Modifier.height(spacing.small))
-                Divider()
+                HorizontalDivider()
                 Spacer(modifier = Modifier.height(spacing.small))
 
                 Text(
@@ -368,11 +390,7 @@ private fun ExplanationCard(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = "Input: ${integral.result}",
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        Text(
-                            text = "Output: ${integral.result}",
+                            text = "${integral.result}",
                             style = MaterialTheme.typography.bodySmall,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -383,7 +401,7 @@ private fun ExplanationCard(
             // Fractional Part
             explanation.fractionalPart?.let { fractional ->
                 Spacer(modifier = Modifier.height(spacing.small))
-                Divider()
+                HorizontalDivider()
                 Spacer(modifier = Modifier.height(spacing.small))
 
                 Text(
@@ -428,11 +446,7 @@ private fun ExplanationCard(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = "Input: ${fractional.result}",
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                        Text(
-                            text = "Output: ${fractional.result}",
+                            text = "${fractional.result}",
                             style = MaterialTheme.typography.bodySmall,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -441,44 +455,34 @@ private fun ExplanationCard(
             }
 
             // Final Result Section
-            val integralResult = explanation.integralPart?.result?.text ?: ""
-            val fractionalResult = explanation.fractionalPart?.result?.text ?: ""
-            val finalResult = if (fractionalResult.isNotEmpty()) {
-                "$integralResult.$fractionalResult"
-            } else {
-                integralResult
-            }
+            Spacer(modifier = Modifier.height(spacing.small))
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(spacing.small))
 
-            if (finalResult.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(spacing.small))
-                Divider()
-                Spacer(modifier = Modifier.height(spacing.small))
-
-                // Final Result Card
-                ElevatedCard(
-                    modifier = Modifier.fillMaxWidth()
+            // Final Result Card
+            ElevatedCard(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(spacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
                 ) {
-                    Column(
-                        modifier = Modifier.padding(spacing.medium),
-                        verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
-                    ) {
-                        Text(
-                            text = "Final Result",
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                        Text(
-                            text = "Input: $finalResult",
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                        Text(
-                            text = "Output: $finalResult",
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
+                    Text(
+                        text = "Final Result",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = "$fromBase: $input",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        text = "$toBase: $output",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
         }
