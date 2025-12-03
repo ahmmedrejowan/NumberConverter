@@ -474,11 +474,11 @@ private fun ExplanationCard(
                         color = MaterialTheme.colorScheme.primary
                     )
                     Text(
-                        text = "$fromBase: $input",
+                        text = "${fromBase.displayName}: $input",
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Text(
-                        text = "$toBase: $output",
+                        text = "${toBase.displayName}: $output",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
