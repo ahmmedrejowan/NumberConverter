@@ -75,6 +75,7 @@ fun ConverterScreen(
         // Main Conversion Card
         ElevatedCard(
             modifier = Modifier
+                .padding(top = 4.dp)
                 .fillMaxWidth()
                 .clickable { focusManager.clearFocus() }
         ) {
@@ -305,110 +306,180 @@ private fun ExplanationCard(
     explanation: com.rejowan.numberconverter.domain.model.Explanation,
     onDismiss: () -> Unit
 ) {
-    ElevatedCard(
+    OutlinedCard(
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(
-            modifier = Modifier.padding(spacing.medium)
+            modifier = Modifier.padding(spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(spacing.small)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Step-by-Step Explanation",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            Spacer(modifier = Modifier.height(spacing.medium))
-
-            // Summary
+            // Summary section
             Text(
                 text = explanation.summary,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             // Integral Part
             explanation.integralPart?.let { integral ->
-                Spacer(modifier = Modifier.height(spacing.medium))
+                Spacer(modifier = Modifier.height(spacing.small))
                 Divider()
-                Spacer(modifier = Modifier.height(spacing.medium))
+                Spacer(modifier = Modifier.height(spacing.small))
 
                 Text(
                     text = integral.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
-                Spacer(modifier = Modifier.height(spacing.small))
+                Spacer(modifier = Modifier.height(spacing.extraSmall))
 
-                integral.steps.forEach { step ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = spacing.small)
+                integral.steps.forEachIndexed { index, step ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(spacing.small)
                     ) {
                         Text(
-                            text = "Step ${step.stepNumber}",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary
+                            text = "${index + 1}.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
                             text = step.description,
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.weight(1f)
                         )
                     }
                 }
 
                 Spacer(modifier = Modifier.height(spacing.small))
 
-                Text(
-                    text = integral.result,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                // Part Result Card
+                OutlinedCard(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.padding(spacing.medium),
+                        verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                    ) {
+                        Text(
+                            text = "Integral Part Result",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = "Input: ${integral.result}",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text(
+                            text = "Output: ${integral.result}",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
             }
 
             // Fractional Part
             explanation.fractionalPart?.let { fractional ->
-                Spacer(modifier = Modifier.height(spacing.medium))
+                Spacer(modifier = Modifier.height(spacing.small))
                 Divider()
-                Spacer(modifier = Modifier.height(spacing.medium))
+                Spacer(modifier = Modifier.height(spacing.small))
 
                 Text(
                     text = fractional.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
-                Spacer(modifier = Modifier.height(spacing.small))
+                Spacer(modifier = Modifier.height(spacing.extraSmall))
 
-                fractional.steps.forEach { step ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = spacing.small)
+                fractional.steps.forEachIndexed { index, step ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(spacing.small)
                     ) {
                         Text(
-                            text = "Step ${step.stepNumber}",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.primary
+                            text = "${index + 1}.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
                             text = step.description,
-                            style = MaterialTheme.typography.bodySmall
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.weight(1f)
                         )
                     }
                 }
 
                 Spacer(modifier = Modifier.height(spacing.small))
 
-                Text(
-                    text = fractional.result,
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                // Part Result Card
+                OutlinedCard(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.padding(spacing.medium),
+                        verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                    ) {
+                        Text(
+                            text = "Fractional Part Result",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = "Input: ${fractional.result}",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text(
+                            text = "Output: ${fractional.result}",
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                }
+            }
+
+            // Final Result Section
+            val integralResult = explanation.integralPart?.result?.text ?: ""
+            val fractionalResult = explanation.fractionalPart?.result?.text ?: ""
+            val finalResult = if (fractionalResult.isNotEmpty()) {
+                "$integralResult.$fractionalResult"
+            } else {
+                integralResult
+            }
+
+            if (finalResult.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(spacing.small))
+                Divider()
+                Spacer(modifier = Modifier.height(spacing.small))
+
+                // Final Result Card
+                ElevatedCard(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column(
+                        modifier = Modifier.padding(spacing.medium),
+                        verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                    ) {
+                        Text(
+                            text = "Final Result",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Text(
+                            text = "Input: $finalResult",
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            text = "Output: $finalResult",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
             }
         }
     }
