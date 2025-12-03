@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -61,39 +62,30 @@ fun ConverterScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(spacing.medium, spacing.extraSmall),
-        verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+            .padding(spacing.medium),
+        verticalArrangement = Arrangement.spacedBy(spacing.small)
     ) {
         // Main Conversion Card
         ElevatedCard(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(
-                modifier = Modifier.padding(spacing.medium)
+                modifier = Modifier.padding(spacing.medium),
+                verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
             ) {
-                // FROM section with compact base selector
-                Text(
-                    text = "FROM",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.primary
-                )
-
-                Spacer(modifier = Modifier.height(spacing.small))
-
                 // Compact base chips
                 CompactBaseSelector(
                     selectedBase = uiState.fromBase,
-                    onBaseSelected = { viewModel.onFromBaseChanged(it) }
+                    onBaseSelected = { viewModel.onFromBaseChanged(it) },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-
-                Spacer(modifier = Modifier.height(spacing.small))
 
                 // Input field
                 OutlinedTextField(
                     value = uiState.input,
                     onValueChange = { viewModel.onInputChanged(it) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Enter ${uiState.fromBase.displayName} number") },
+                    label = { Text(uiState.fromBase.displayName) },
                     supportingText = {
                         if (uiState.validationError != null) {
                             Text(uiState.validationError!!)
@@ -101,59 +93,52 @@ fun ConverterScreen(
                     },
                     isError = uiState.validationError != null,
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.titleMedium
+                    textStyle = MaterialTheme.typography.titleMedium,
+                    trailingIcon = {
+                        if (uiState.input.isNotEmpty() && uiState.output.isEmpty()) {
+                            IconButton(onClick = { /* TODO: Copy to clipboard */ }) {
+                                Icon(Icons.Default.ContentCopy, "Copy")
+                            }
+                        }
+                    }
                 )
 
                 // Swap button
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+                IconButton(
+                    onClick = { viewModel.swapBases() },
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .size(32.dp)
+                        .clip(RoundedCornerShape(50))
+                        .background(MaterialTheme.colorScheme.primaryContainer)
                 ) {
-                    IconButton(
-                        onClick = { viewModel.swapBases() },
-                        modifier = Modifier
-                            .padding(vertical = spacing.small)
-                            .clip(RoundedCornerShape(50))
-                            .background(MaterialTheme.colorScheme.primaryContainer)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.SwapVert,
-                            contentDescription = "Swap bases",
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                    }
+                    Icon(
+                        imageVector = Icons.Default.SwapVert,
+                        contentDescription = "Swap bases",
+                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                        modifier = Modifier.size(20.dp)
+                    )
                 }
 
-                // TO section with compact base selector
-                Text(
-                    text = "TO",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.primary
-                )
-
-                Spacer(modifier = Modifier.height(spacing.small))
+                Spacer(Modifier.height(12.dp))
 
                 // Compact base chips
                 CompactBaseSelector(
                     selectedBase = uiState.toBase,
-                    onBaseSelected = { viewModel.onToBaseChanged(it) }
+                    onBaseSelected = { viewModel.onToBaseChanged(it) },
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 
-                Spacer(modifier = Modifier.height(spacing.small))
-
-                // Output field with copy button
+                // Output field (also editable)
                 OutlinedTextField(
                     value = uiState.output,
-                    onValueChange = {},
+                    onValueChange = { viewModel.onOutputChanged(it) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Result in ${uiState.toBase.displayName}") },
-                    readOnly = true,
+                    label = { Text(uiState.toBase.displayName) },
                     singleLine = true,
-                    textStyle = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.Bold
-                    ),
+                    textStyle = MaterialTheme.typography.titleMedium,
                     trailingIcon = {
-                        if (uiState.output.isNotEmpty()) {
+                        if (uiState.output.isNotEmpty() && uiState.input.isEmpty()) {
                             IconButton(onClick = { /* TODO: Copy to clipboard */ }) {
                                 Icon(Icons.Default.ContentCopy, "Copy")
                             }
@@ -225,15 +210,20 @@ private fun CompactBaseSelector(
     )
 
     Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(spacing.small)
+        modifier = modifier.wrapContentWidth(),
+        horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
     ) {
         bases.forEach { (base, label) ->
             FilterChip(
                 selected = selectedBase == base,
                 onClick = { onBaseSelected(base) },
-                label = { Text(label) },
-                modifier = Modifier.weight(1f)
+                label = {
+                    Text(
+                        text = label,
+                        style = MaterialTheme.typography.labelSmall
+                    )
+                },
+                modifier = Modifier.height(28.dp)
             )
         }
     }
