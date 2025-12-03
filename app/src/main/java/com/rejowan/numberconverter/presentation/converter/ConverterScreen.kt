@@ -18,8 +18,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Lightbulb
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
@@ -66,7 +68,7 @@ fun ConverterScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(spacing.medium),
+            .padding(horizontal = spacing.medium),
         verticalArrangement = Arrangement.spacedBy(spacing.small)
     ) {
         // Main Conversion Card
@@ -95,6 +97,7 @@ fun ConverterScreen(
                     },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(uiState.fromBase.displayName) },
+                    placeholder = { Text("Enter value") },
                     supportingText = {
                         if (uiState.validationError != null) {
                             Text(uiState.validationError!!)
@@ -105,14 +108,7 @@ fun ConverterScreen(
                     textStyle = MaterialTheme.typography.titleMedium,
                     keyboardOptions = KeyboardOptions(
                         keyboardType = getKeyboardTypeForBase(uiState.fromBase)
-                    ),
-                    trailingIcon = {
-                        if (uiState.input.isNotEmpty() && uiState.output.isEmpty()) {
-                            IconButton(onClick = { /* TODO: Copy to clipboard */ }) {
-                                Icon(Icons.Default.ContentCopy, "Copy")
-                            }
-                        }
-                    }
+                    )
                 )
 
                 // Swap button
@@ -141,28 +137,68 @@ fun ConverterScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 
-                // Output field (also editable)
-                OutlinedTextField(
-                    value = uiState.output,
-                    onValueChange = {
-                        val filtered = filterInputForBase(it, uiState.toBase)
-                        viewModel.onOutputChanged(filtered)
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text(uiState.toBase.displayName) },
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.titleMedium,
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = getKeyboardTypeForBase(uiState.toBase)
-                    ),
-                    trailingIcon = {
-                        if (uiState.output.isNotEmpty() && uiState.input.isEmpty()) {
-                            IconButton(onClick = { /* TODO: Copy to clipboard */ }) {
-                                Icon(Icons.Default.ContentCopy, "Copy")
+                // Output display
+                OutlinedCard(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(spacing.medium),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = if (uiState.output.isEmpty()) "Result" else uiState.output,
+                            style = MaterialTheme.typography.titleMedium,
+                            color = if (uiState.output.isEmpty())
+                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                            else
+                                MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.weight(1f)
+                        )
+
+                        // Quick action icons
+                        if (uiState.output.isNotEmpty()) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                            ) {
+                                IconButton(
+                                    onClick = { /* TODO: Copy to clipboard */ },
+                                    modifier = Modifier.size(32.dp)
+                                ) {
+                                    Icon(
+                                        Icons.Default.ContentCopy,
+                                        contentDescription = "Copy",
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+
+                                IconButton(
+                                    onClick = { viewModel.clearInput() },
+                                    modifier = Modifier.size(32.dp)
+                                ) {
+                                    Icon(
+                                        Icons.Default.Delete,
+                                        contentDescription = "Clear",
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+
+                                IconButton(
+                                    onClick = { /* TODO: Share */ },
+                                    modifier = Modifier.size(32.dp)
+                                ) {
+                                    Icon(
+                                        Icons.Default.Share,
+                                        contentDescription = "Share",
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
                             }
                         }
                     }
-                )
+                }
             }
         }
 

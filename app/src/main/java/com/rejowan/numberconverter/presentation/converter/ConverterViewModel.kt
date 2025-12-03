@@ -30,7 +30,6 @@ class ConverterViewModel(
     val uiState: StateFlow<ConverterUiState> = _uiState.asStateFlow()
 
     private val _inputFlow = MutableStateFlow("")
-    private val _outputFlow = MutableStateFlow("")
 
     init {
         // Observe input changes with debouncing
@@ -39,52 +38,30 @@ class ConverterViewModel(
                 .debounce(300) // Wait 300ms after user stops typing
                 .collect { input ->
                     if (input.isNotEmpty()) {
-                        convertFromInput()
+                        convertNumber()
                     } else {
-                        _uiState.update { it.copy(output = "", errorMessage = null, validationError = null) }
-                    }
-                }
-        }
-
-        // Observe output changes with debouncing (reverse conversion)
-        viewModelScope.launch {
-            _outputFlow
-                .debounce(300)
-                .collect { output ->
-                    if (output.isNotEmpty()) {
-                        convertFromOutput()
-                    } else {
-                        _uiState.update { it.copy(input = "", errorMessage = null, validationError = null) }
+                        _uiState.update { it.copy(output = "", errorMessage = null, validationError = null, explanation = null) }
                     }
                 }
         }
     }
 
     fun onInputChanged(input: String) {
-        _uiState.update { it.copy(input = input, validationError = null) }
+        _uiState.update { it.copy(input = input, validationError = null, explanation = null) }
         _inputFlow.value = input
-        _outputFlow.value = "" // Clear output flow to avoid conflict
-    }
-
-    fun onOutputChanged(output: String) {
-        _uiState.update { it.copy(output = output, validationError = null) }
-        _outputFlow.value = output
-        _inputFlow.value = "" // Clear input flow to avoid conflict
     }
 
     fun onFromBaseChanged(base: NumberBase) {
         _uiState.update { it.copy(fromBase = base) }
         if (_uiState.value.input.isNotEmpty()) {
-            convertFromInput()
+            convertNumber()
         }
     }
 
     fun onToBaseChanged(base: NumberBase) {
         _uiState.update { it.copy(toBase = base) }
         if (_uiState.value.input.isNotEmpty()) {
-            convertFromInput()
-        } else if (_uiState.value.output.isNotEmpty()) {
-            convertFromOutput()
+            convertNumber()
         }
     }
 
@@ -109,13 +86,14 @@ class ConverterViewModel(
                 input = "",
                 output = "",
                 errorMessage = null,
-                validationError = null
+                validationError = null,
+                explanation = null
             )
         }
         _inputFlow.value = ""
     }
 
-    private fun convertFromInput() {
+    private fun convertNumber() {
         val currentState = _uiState.value
 
         // Validate input first
@@ -182,81 +160,6 @@ class ConverterViewModel(
                         it.copy(
                             errorMessage = error.message ?: "Conversion failed",
                             output = "",
-                            isLoading = false
-                        )
-                    }
-                }
-            )
-        }
-    }
-
-    private fun convertFromOutput() {
-        val currentState = _uiState.value
-
-        // Validate output first (treat it as input in toBase)
-        val validationResult = validateInputUseCase(currentState.output, currentState.toBase)
-        if (!validationResult.isValid) {
-            _uiState.update {
-                it.copy(
-                    validationError = validationResult.errorMessage,
-                    input = "",
-                    errorMessage = null
-                )
-            }
-            return
-        }
-
-        // Perform reverse conversion (from toBase to fromBase)
-        viewModelScope.launch {
-            _uiState.update { it.copy(isLoading = true, errorMessage = null, validationError = null) }
-
-            convertNumberUseCase(
-                input = currentState.output,
-                fromBase = currentState.toBase,
-                toBase = currentState.fromBase
-            ).fold(
-                onSuccess = { result ->
-                    val formattedInput = formatOutputUseCase(result.output)
-                    _uiState.update {
-                        it.copy(
-                            input = formattedInput,
-                            isLoading = false,
-                            errorMessage = null
-                        )
-                    }
-
-                    // Fetch explanation
-                    viewModelScope.launch {
-                        converterRepository.explain(
-                            input = currentState.output,
-                            fromBase = currentState.toBase,
-                            toBase = currentState.fromBase
-                        ).fold(
-                            onSuccess = { explanation ->
-                                _uiState.update { it.copy(explanation = explanation) }
-                            },
-                            onFailure = { /* Silently fail, explanation is optional */ }
-                        )
-                    }
-
-                    // Save to history
-                    viewModelScope.launch {
-                        saveConversionUseCase(
-                            HistoryItem(
-                                input = currentState.output,
-                                output = formattedInput,
-                                fromBase = currentState.toBase,
-                                toBase = currentState.fromBase,
-                                timestamp = System.currentTimeMillis()
-                            )
-                        )
-                    }
-                },
-                onFailure = { error ->
-                    _uiState.update {
-                        it.copy(
-                            errorMessage = error.message ?: "Conversion failed",
-                            input = "",
                             isLoading = false
                         )
                     }
