@@ -49,10 +49,14 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import android.content.Intent
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.presentation.common.theme.spacing
 import org.koin.androidx.compose.koinViewModel
@@ -65,6 +69,8 @@ fun ConverterScreen(
     val spacing = spacing
     var showExplanation by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
+    val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -162,7 +168,9 @@ fun ConverterScreen(
                             horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
                         ) {
                             IconButton(
-                                onClick = { /* TODO: Copy to clipboard */ },
+                                onClick = {
+                                    clipboardManager.setText(AnnotatedString(uiState.output))
+                                },
                                 modifier = Modifier.size(28.dp)
                             ) {
                                 Icon(
@@ -184,7 +192,14 @@ fun ConverterScreen(
                             }
 
                             IconButton(
-                                onClick = { /* TODO: Share */ },
+                                onClick = {
+                                    val shareText = "${uiState.fromBase.displayName}: ${uiState.input}\n${uiState.toBase.displayName}: ${uiState.output}"
+                                    val intent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_TEXT, shareText)
+                                    }
+                                    context.startActivity(Intent.createChooser(intent, "Share conversion"))
+                                },
                                 modifier = Modifier.size(28.dp)
                             ) {
                                 Icon(
