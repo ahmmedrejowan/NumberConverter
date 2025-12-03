@@ -340,8 +340,6 @@ private fun ExplanationCard(
     output: String,
     onDismiss: () -> Unit
 ) {
-    val fromShort = getShortBaseName(fromBase)
-    val toShort = getShortBaseName(toBase)
 
     OutlinedCard(
         modifier = Modifier.fillMaxWidth()
