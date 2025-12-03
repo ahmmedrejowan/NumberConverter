@@ -137,64 +137,63 @@ fun ConverterScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 
+                Spacer(Modifier.height(4.dp))
+
                 // Output display
                 OutlinedCard(
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    Text(
+                        text = if (uiState.output.isEmpty()) "Result" else uiState.output,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = if (uiState.output.isEmpty())
+                            MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                        else
+                            MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(spacing.medium)
+                    )
+                }
+
+                // Quick action icons
+                if (uiState.output.isNotEmpty()) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(spacing.medium),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        Text(
-                            text = if (uiState.output.isEmpty()) "Result" else uiState.output,
-                            style = MaterialTheme.typography.titleMedium,
-                            color = if (uiState.output.isEmpty())
-                                MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
-                            else
-                                MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.weight(1f)
-                        )
-
-                        // Quick action icons
-                        if (uiState.output.isNotEmpty()) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                        ) {
+                            IconButton(
+                                onClick = { /* TODO: Copy to clipboard */ },
+                                modifier = Modifier.size(28.dp)
                             ) {
-                                IconButton(
-                                    onClick = { /* TODO: Copy to clipboard */ },
-                                    modifier = Modifier.size(32.dp)
-                                ) {
-                                    Icon(
-                                        Icons.Default.ContentCopy,
-                                        contentDescription = "Copy",
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                }
+                                Icon(
+                                    Icons.Default.ContentCopy,
+                                    contentDescription = "Copy",
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
 
-                                IconButton(
-                                    onClick = { viewModel.clearInput() },
-                                    modifier = Modifier.size(32.dp)
-                                ) {
-                                    Icon(
-                                        Icons.Default.Delete,
-                                        contentDescription = "Clear",
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                }
+                            IconButton(
+                                onClick = { viewModel.clearInput() },
+                                modifier = Modifier.size(28.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Delete,
+                                    contentDescription = "Clear",
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
 
-                                IconButton(
-                                    onClick = { /* TODO: Share */ },
-                                    modifier = Modifier.size(32.dp)
-                                ) {
-                                    Icon(
-                                        Icons.Default.Share,
-                                        contentDescription = "Share",
-                                        modifier = Modifier.size(20.dp)
-                                    )
-                                }
+                            IconButton(
+                                onClick = { /* TODO: Share */ },
+                                modifier = Modifier.size(28.dp)
+                            ) {
+                                Icon(
+                                    Icons.Default.Share,
+                                    contentDescription = "Share",
+                                    modifier = Modifier.size(20.dp)
+                                )
                             }
                         }
                     }
