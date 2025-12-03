@@ -22,7 +22,8 @@ class ConverterViewModel(
     private val convertNumberUseCase: ConvertNumberUseCase,
     private val validateInputUseCase: ValidateInputUseCase,
     private val formatOutputUseCase: FormatOutputUseCase,
-    private val saveConversionUseCase: SaveConversionUseCase
+    private val saveConversionUseCase: SaveConversionUseCase,
+    private val converterRepository: com.rejowan.numberconverter.domain.repository.ConverterRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConverterUiState())
@@ -123,6 +124,20 @@ class ConverterViewModel(
                             output = formattedOutput,
                             isLoading = false,
                             errorMessage = null
+                        )
+                    }
+
+                    // Fetch explanation
+                    viewModelScope.launch {
+                        converterRepository.explain(
+                            input = currentState.input,
+                            fromBase = currentState.fromBase,
+                            toBase = currentState.toBase
+                        ).fold(
+                            onSuccess = { explanation ->
+                                _uiState.update { it.copy(explanation = explanation) }
+                            },
+                            onFailure = { /* Silently fail, explanation is optional */ }
                         )
                     }
 

@@ -1,5 +1,6 @@
 package com.rejowan.numberconverter.presentation.converter.state
 
+import com.rejowan.numberconverter.domain.model.Explanation
 import com.rejowan.numberconverter.domain.model.NumberBase
 
 data class ConverterUiState(
@@ -9,5 +10,6 @@ data class ConverterUiState(
     val toBase: NumberBase = NumberBase.BINARY,
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
-    val validationError: String? = null
+    val validationError: String? = null,
+    val explanation: Explanation? = null
 )
