@@ -62,7 +62,7 @@ fun ConverterScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(spacing.medium),
+            .padding(horizontal = spacing.medium),
         verticalArrangement = Arrangement.spacedBy(spacing.small)
     ) {
         // Main Conversion Card
