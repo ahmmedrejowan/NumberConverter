@@ -41,10 +41,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.presentation.common.theme.spacing
@@ -57,17 +60,20 @@ fun ConverterScreen(
     val uiState by viewModel.uiState.collectAsState()
     val spacing = spacing
     var showExplanation by remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = spacing.medium),
+            .padding(spacing.medium),
         verticalArrangement = Arrangement.spacedBy(spacing.small)
     ) {
         // Main Conversion Card
         ElevatedCard(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { focusManager.clearFocus() }
         ) {
             Column(
                 modifier = Modifier.padding(spacing.medium),
@@ -83,7 +89,10 @@ fun ConverterScreen(
                 // Input field
                 OutlinedTextField(
                     value = uiState.input,
-                    onValueChange = { viewModel.onInputChanged(it) },
+                    onValueChange = {
+                        val filtered = filterInputForBase(it, uiState.fromBase)
+                        viewModel.onInputChanged(filtered)
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(uiState.fromBase.displayName) },
                     supportingText = {
@@ -94,6 +103,9 @@ fun ConverterScreen(
                     isError = uiState.validationError != null,
                     singleLine = true,
                     textStyle = MaterialTheme.typography.titleMedium,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = getKeyboardTypeForBase(uiState.fromBase)
+                    ),
                     trailingIcon = {
                         if (uiState.input.isNotEmpty() && uiState.output.isEmpty()) {
                             IconButton(onClick = { /* TODO: Copy to clipboard */ }) {
@@ -132,11 +144,17 @@ fun ConverterScreen(
                 // Output field (also editable)
                 OutlinedTextField(
                     value = uiState.output,
-                    onValueChange = { viewModel.onOutputChanged(it) },
+                    onValueChange = {
+                        val filtered = filterInputForBase(it, uiState.toBase)
+                        viewModel.onOutputChanged(filtered)
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(uiState.toBase.displayName) },
                     singleLine = true,
                     textStyle = MaterialTheme.typography.titleMedium,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = getKeyboardTypeForBase(uiState.toBase)
+                    ),
                     trailingIcon = {
                         if (uiState.output.isNotEmpty() && uiState.input.isEmpty()) {
                             IconButton(onClick = { /* TODO: Copy to clipboard */ }) {
@@ -155,7 +173,10 @@ fun ConverterScreen(
                 horizontalArrangement = Arrangement.spacedBy(spacing.small)
             ) {
                 OutlinedButton(
-                    onClick = { showExplanation = !showExplanation },
+                    onClick = {
+                        focusManager.clearFocus()
+                        showExplanation = !showExplanation
+                    },
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
@@ -193,6 +214,25 @@ fun ConverterScreen(
                 )
             }
         }
+    }
+}
+
+// Helper function to filter input based on number base
+private fun filterInputForBase(input: String, base: NumberBase): String {
+    val allowedChars = when (base) {
+        NumberBase.BINARY -> "[01.]"
+        NumberBase.OCTAL -> "[0-7.]"
+        NumberBase.DECIMAL -> "[0-9.]"
+        NumberBase.HEXADECIMAL -> "[0-9a-fA-F.]"
+    }
+    return input.filter { it.toString().matches(Regex(allowedChars)) }
+}
+
+// Helper function to get keyboard type based on number base
+private fun getKeyboardTypeForBase(base: NumberBase): KeyboardType {
+    return when (base) {
+        NumberBase.BINARY, NumberBase.OCTAL, NumberBase.DECIMAL -> KeyboardType.Number
+        NumberBase.HEXADECIMAL -> KeyboardType.Text
     }
 }
 
