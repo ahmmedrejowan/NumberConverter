@@ -7,13 +7,18 @@ import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.usecase.converter.ConvertNumberUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.FormatOutputUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.ValidateInputUseCase
+import com.rejowan.numberconverter.domain.usecase.history.DeleteHistoryUseCase
+import com.rejowan.numberconverter.domain.usecase.history.GetHistoryUseCase
 import com.rejowan.numberconverter.domain.usecase.history.SaveConversionUseCase
+import com.rejowan.numberconverter.domain.usecase.history.ToggleBookmarkUseCase
 import com.rejowan.numberconverter.presentation.converter.state.ConverterUiState
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -23,11 +28,29 @@ class ConverterViewModel(
     private val validateInputUseCase: ValidateInputUseCase,
     private val formatOutputUseCase: FormatOutputUseCase,
     private val saveConversionUseCase: SaveConversionUseCase,
-    private val converterRepository: com.rejowan.numberconverter.domain.repository.ConverterRepository
+    private val converterRepository: com.rejowan.numberconverter.domain.repository.ConverterRepository,
+    private val getHistoryUseCase: GetHistoryUseCase,
+    private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
+    private val deleteHistoryUseCase: DeleteHistoryUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConverterUiState())
     val uiState: StateFlow<ConverterUiState> = _uiState.asStateFlow()
+
+    // History state
+    val historyItems: StateFlow<List<HistoryItem>> = getHistoryUseCase()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    val bookmarkedItems: StateFlow<List<HistoryItem>> = getHistoryUseCase.getBookmarked()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
     private val _inputFlow = MutableStateFlow("")
 
@@ -165,6 +188,37 @@ class ConverterViewModel(
                     }
                 }
             )
+        }
+    }
+
+    // History actions
+    fun restoreFromHistory(item: HistoryItem) {
+        _uiState.update {
+            it.copy(
+                input = item.input,
+                output = item.output,
+                fromBase = item.fromBase,
+                toBase = item.toBase
+            )
+        }
+        _inputFlow.value = item.input
+    }
+
+    fun toggleBookmark(id: Long) {
+        viewModelScope.launch {
+            toggleBookmarkUseCase(id)
+        }
+    }
+
+    fun deleteHistoryItem(item: HistoryItem) {
+        viewModelScope.launch {
+            deleteHistoryUseCase(item)
+        }
+    }
+
+    fun clearAllHistory() {
+        viewModelScope.launch {
+            deleteHistoryUseCase.deleteAll()
         }
     }
 }

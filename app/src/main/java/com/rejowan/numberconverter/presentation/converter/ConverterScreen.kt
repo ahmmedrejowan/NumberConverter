@@ -63,9 +63,13 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ConverterScreen(
-    viewModel: ConverterViewModel = koinViewModel()
+    viewModel: ConverterViewModel = koinViewModel(),
+    showHistory: Boolean = false,
+    onHistoryDismissed: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val historyItems by viewModel.historyItems.collectAsState()
+    val bookmarkedItems by viewModel.bookmarkedItems.collectAsState()
     val spacing = spacing
     var showExplanation by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -266,6 +270,28 @@ fun ConverterScreen(
                 )
             }
         }
+    }
+
+    // History Bottom Sheet
+    if (showHistory) {
+        com.rejowan.numberconverter.presentation.converter.components.HistoryBottomSheet(
+            historyItems = historyItems,
+            bookmarkedItems = bookmarkedItems,
+            onDismiss = onHistoryDismissed,
+            onItemClick = { item ->
+                viewModel.restoreFromHistory(item)
+                onHistoryDismissed()
+            },
+            onToggleBookmark = { id ->
+                viewModel.toggleBookmark(id)
+            },
+            onDeleteItem = { item ->
+                viewModel.deleteHistoryItem(item)
+            },
+            onClearAll = {
+                viewModel.clearAllHistory()
+            }
+        )
     }
 }
 

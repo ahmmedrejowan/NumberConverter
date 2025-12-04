@@ -12,6 +12,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -31,6 +34,7 @@ fun HomeScreen(
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    var showHistorySheet by remember { mutableStateOf(false) }
 
     val title = when {
         currentDestination?.hierarchy?.any { it.route == Screen.Converter.route } == true ->
@@ -50,7 +54,7 @@ fun HomeScreen(
                 title = { Text(text = title) },
                 actions = {
                     if (isConverterScreen) {
-                        IconButton(onClick = { /* TODO: Show history */ }) {
+                        IconButton(onClick = { showHistorySheet = true }) {
                             Icon(
                                 imageVector = Icons.Default.History,
                                 contentDescription = "History"
@@ -76,6 +80,8 @@ fun HomeScreen(
         HomeNavGraph(
             navController = homeNavController,
             onNavigateToLesson = onNavigateToLesson,
+            showHistory = showHistorySheet,
+            onHistoryDismissed = { showHistorySheet = false },
             modifier = Modifier.padding(paddingValues)
         )
     }

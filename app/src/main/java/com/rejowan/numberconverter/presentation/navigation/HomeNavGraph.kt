@@ -15,6 +15,8 @@ import com.rejowan.numberconverter.presentation.practice.PracticeScreen
 fun HomeNavGraph(
     navController: NavHostController,
     onNavigateToLesson: (String) -> Unit,
+    showHistory: Boolean = false,
+    onHistoryDismissed: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
@@ -23,7 +25,10 @@ fun HomeNavGraph(
             startDestination = Screen.Converter.route
         ) {
             composable(route = Screen.Converter.route) {
-                ConverterScreen()
+                ConverterScreen(
+                    showHistory = showHistory,
+                    onHistoryDismissed = onHistoryDismissed
+                )
             }
 
             composable(route = Screen.Learn.route) {

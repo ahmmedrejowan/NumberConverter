@@ -81,7 +81,7 @@ val appModule = module {
     factory { CalculateScoreUseCase() }
 
     // ViewModels
-    viewModel { ConverterViewModel(get(), get(), get(), get(), get()) }
+    viewModel { ConverterViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { HomeViewModel() }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { LearnViewModel(get(), get()) }
