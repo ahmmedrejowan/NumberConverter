@@ -98,9 +98,13 @@ class ConverterViewModel(
                 fromBase = currentTo,
                 toBase = currentFrom,
                 input = currentOutput,
-                output = _uiState.value.input
+                output = _uiState.value.input,
+                explanation = null // Clear old explanation
             )
         }
+
+        // Trigger new conversion with swapped values
+        _inputFlow.value = currentOutput
     }
 
     fun clearInput() {

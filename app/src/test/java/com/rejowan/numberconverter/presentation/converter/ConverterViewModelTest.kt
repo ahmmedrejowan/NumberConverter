@@ -221,10 +221,14 @@ class ConverterViewModelTest {
     fun `swapBases swaps input and output`() = runTest {
         val input = "10"
         val expected = ConversionResult(input, "1010", NumberBase.DECIMAL, NumberBase.BINARY)
+        val swappedExpected = ConversionResult("1010", "10", NumberBase.BINARY, NumberBase.DECIMAL)
 
         every { validateInputUseCase.invoke(input, NumberBase.DECIMAL) } returns ValidationResult(true)
+        every { validateInputUseCase.invoke("1010", NumberBase.BINARY) } returns ValidationResult(true)
         coEvery { convertNumberUseCase.invoke(input, NumberBase.DECIMAL, NumberBase.BINARY) } returns Result.success(expected)
+        coEvery { convertNumberUseCase.invoke("1010", NumberBase.BINARY, NumberBase.DECIMAL) } returns Result.success(swappedExpected)
         every { formatOutputUseCase.invoke("1010") } returns "1010"
+        every { formatOutputUseCase.invoke("10") } returns "10"
         coEvery { converterRepository.explain(any(), any(), any()) } returns Result.failure(Exception())
 
         viewModel.onInputChanged(input)
@@ -232,10 +236,14 @@ class ConverterViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
         viewModel.swapBases()
+        advanceTimeBy(350) // Wait for debounce after swap
+        testDispatcher.scheduler.advanceUntilIdle()
 
         val state = viewModel.uiState.value
         assertEquals("1010", state.input)
         assertEquals("10", state.output)
+        assertEquals(NumberBase.BINARY, state.fromBase)
+        assertEquals(NumberBase.DECIMAL, state.toBase)
     }
 
     // Clear functionality tests
