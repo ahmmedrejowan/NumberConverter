@@ -13,7 +13,8 @@ object OctalConverter {
     fun toDecimal(input: String): String {
         val (integral, fractional) = BaseConverter.toBaseTen(input, NumberBase.OCTAL)
         return if (fractional != null && fractional.compareTo(java.math.BigDecimal.ZERO) > 0) {
-            "$integral.$fractional".trimEnd('0').trimEnd('.')
+            val fractionalStr = fractional.toPlainString().removePrefix("0.")
+            "$integral.$fractionalStr".trimEnd('0').trimEnd('.')
         } else {
             integral.toString()
         }

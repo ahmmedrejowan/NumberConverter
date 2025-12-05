@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
@@ -82,6 +83,7 @@ private val DarkColorScheme = darkColorScheme(
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = false,
+    fontSize: String = "medium",
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -92,6 +94,9 @@ fun AppTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+    // Scale typography based on font size preference
+    val typography = getScaledTypography(fontSize)
 
     val view = LocalView.current
     if (!view.isInEditMode) {
@@ -105,9 +110,42 @@ fun AppTheme(
     CompositionLocalProvider(LocalSpacing provides Spacing()) {
         MaterialTheme(
             colorScheme = colorScheme,
-            typography = AppTypography,
+            typography = typography,
             shapes = AppShapes,
             content = content
+        )
+    }
+}
+
+@Composable
+private fun getScaledTypography(fontSize: String): Typography {
+    val scaleFactor = when (fontSize) {
+        "small" -> 0.9f
+        "large" -> 1.1f
+        else -> 1.0f // medium
+    }
+
+    val baseline = AppTypography
+
+    return if (scaleFactor == 1.0f) {
+        baseline
+    } else {
+        Typography(
+            displayLarge = baseline.displayLarge.copy(fontSize = baseline.displayLarge.fontSize * scaleFactor),
+            displayMedium = baseline.displayMedium.copy(fontSize = baseline.displayMedium.fontSize * scaleFactor),
+            displaySmall = baseline.displaySmall.copy(fontSize = baseline.displaySmall.fontSize * scaleFactor),
+            headlineLarge = baseline.headlineLarge.copy(fontSize = baseline.headlineLarge.fontSize * scaleFactor),
+            headlineMedium = baseline.headlineMedium.copy(fontSize = baseline.headlineMedium.fontSize * scaleFactor),
+            headlineSmall = baseline.headlineSmall.copy(fontSize = baseline.headlineSmall.fontSize * scaleFactor),
+            titleLarge = baseline.titleLarge.copy(fontSize = baseline.titleLarge.fontSize * scaleFactor),
+            titleMedium = baseline.titleMedium.copy(fontSize = baseline.titleMedium.fontSize * scaleFactor),
+            titleSmall = baseline.titleSmall.copy(fontSize = baseline.titleSmall.fontSize * scaleFactor),
+            bodyLarge = baseline.bodyLarge.copy(fontSize = baseline.bodyLarge.fontSize * scaleFactor),
+            bodyMedium = baseline.bodyMedium.copy(fontSize = baseline.bodyMedium.fontSize * scaleFactor),
+            bodySmall = baseline.bodySmall.copy(fontSize = baseline.bodySmall.fontSize * scaleFactor),
+            labelLarge = baseline.labelLarge.copy(fontSize = baseline.labelLarge.fontSize * scaleFactor),
+            labelMedium = baseline.labelMedium.copy(fontSize = baseline.labelMedium.fontSize * scaleFactor),
+            labelSmall = baseline.labelSmall.copy(fontSize = baseline.labelSmall.fontSize * scaleFactor),
         )
     }
 }
