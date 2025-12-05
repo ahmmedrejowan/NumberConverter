@@ -6,7 +6,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.rejowan.numberconverter.domain.model.ExplanationPart
 import com.rejowan.numberconverter.domain.model.NumberBase
@@ -19,8 +18,6 @@ import java.math.RoundingMode
  * Generates detailed step-by-step explanations for number base conversions.
  */
 object ExplanationGenerator {
-    // Primary color for highlighting important values
-    private val primaryColor = Color(0xFF6750A4)
 
     /**
      * Generates explanation for converting integral part.
@@ -49,8 +46,11 @@ object ExplanationGenerator {
         }
 
         val result = buildAnnotatedString {
-            append("$integral (${fromBase.displayName}) \n= ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                append("Integral Part: ")
+            }
+            append("$integral (${fromBase.displayName}) = ")
+            withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
                 append(BaseConverter.convertIntegralToBase(decimalValue, toBase))
             }
             append(" (${toBase.displayName})")
@@ -94,8 +94,11 @@ object ExplanationGenerator {
         }
 
         val resultString = buildAnnotatedString {
-            append("0.$fractional (${fromBase.displayName}) \n= ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
+                append("Fractional Part: ")
+            }
+            append("0.$fractional (${fromBase.displayName}) = ")
+            withStyle(SpanStyle(color = Color(0xFF2196F3), fontWeight = FontWeight.Bold)) {
                 append("0.$result")
             }
             append(" (${toBase.displayName})")
@@ -132,7 +135,7 @@ object ExplanationGenerator {
         val calculations = mutableListOf<String>()
 
         input.reversed().forEachIndexed { index, char ->
-            val digitValue = BaseConverter.charToDigitValue(char, fromBase)
+            val digitValue = charToDigitValue(char, fromBase)
             val positionValue = base.pow(index)
             val contribution = digitValue.toBigInteger() * positionValue
 
@@ -147,7 +150,7 @@ object ExplanationGenerator {
                 append("  $calc\n")
             }
             append("\nSum: ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
                 append(result.toString())
             }
         }
@@ -182,7 +185,7 @@ object ExplanationGenerator {
 
         input.forEachIndexed { index, char ->
             val position = index + 1
-            val digitValue = BaseConverter.charToDigitValue(char, fromBase)
+            val digitValue = charToDigitValue(char, fromBase)
             val positionValue = BigDecimal.ONE.divide(base.pow(position), 50, RoundingMode.HALF_UP)
             val contribution = digitValue.toBigDecimal() * positionValue
 
@@ -197,7 +200,7 @@ object ExplanationGenerator {
                 append("  $calc\n")
             }
             append("\nSum: ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = Color(0xFF2196F3), fontWeight = FontWeight.Bold)) {
                 append(result.setScale(10, RoundingMode.HALF_UP).toString())
             }
         }
@@ -233,7 +236,7 @@ object ExplanationGenerator {
 
         while (quotient > BigInteger.ZERO) {
             val remainder = quotient.mod(base)
-            val remainderChar = BaseConverter.digitValueToChar(remainder.toInt())
+            val remainderChar = digitValueToChar(remainder.toInt())
             remainders.add(0, remainderChar.toString())
             divisions.add("$quotient ÷ ${toBase.value} = ${quotient.divide(base)} remainder $remainder ($remainderChar)")
             quotient = quotient.divide(base)
@@ -245,7 +248,7 @@ object ExplanationGenerator {
                 append("  $div\n")
             }
             append("\nResult (read remainders bottom to top): ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                 append(remainders.joinToString(""))
             }
         }
@@ -282,7 +285,7 @@ object ExplanationGenerator {
         while (fraction > BigDecimal.ZERO && places < decimalPlaces && places < 10) {
             fraction = fraction.multiply(base)
             val digit = fraction.toInt()
-            val digitChar = BaseConverter.digitValueToChar(digit)
+            val digitChar = digitValueToChar(digit)
             result.append(digitChar)
 
             multiplications.add("${fraction.subtract(digit.toBigDecimal()).setScale(6, RoundingMode.HALF_UP)} × ${toBase.value} = ${fraction.setScale(6, RoundingMode.HALF_UP)} → digit: $digitChar")
@@ -297,7 +300,7 @@ object ExplanationGenerator {
                 append("  $mult\n")
             }
             append("\nResult: ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                 append(result.toString())
             }
         }
@@ -322,13 +325,13 @@ object ExplanationGenerator {
             }
 
             append("Input: ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                 append(input)
             }
             append(" (${fromBase.displayName})\n\n")
 
             append("Output: ")
-            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(fontWeight = FontWeight.Bold)) {
                 append(output)
             }
             append(" (${toBase.displayName})\n\n")
@@ -351,7 +354,7 @@ object ExplanationGenerator {
     /**
      * Helper function to convert char to digit value (duplicated from BaseConverter for explanation context).
      */
-    private fun BaseConverter.charToDigitValue(char: Char, base: NumberBase): Int {
+    private fun charToDigitValue(char: Char, base: NumberBase): Int {
         val value = when (char) {
             in '0'..'9' -> char - '0'
             in 'A'..'Z' -> char - 'A' + 10
@@ -369,7 +372,7 @@ object ExplanationGenerator {
     /**
      * Helper function to convert digit value to char (duplicated from BaseConverter for explanation context).
      */
-    private fun BaseConverter.digitValueToChar(value: Int): Char {
+    private fun digitValueToChar(value: Int): Char {
         return when (value) {
             in 0..9 -> '0' + value
             in 10..35 -> 'A' + (value - 10)
