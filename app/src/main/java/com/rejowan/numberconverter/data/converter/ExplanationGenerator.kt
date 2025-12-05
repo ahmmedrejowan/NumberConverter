@@ -19,6 +19,8 @@ import java.math.RoundingMode
  * Generates detailed step-by-step explanations for number base conversions.
  */
 object ExplanationGenerator {
+    // Primary color for highlighting important values
+    private val primaryColor = Color(0xFF6750A4)
 
     /**
      * Generates explanation for converting integral part.
@@ -48,7 +50,7 @@ object ExplanationGenerator {
 
         val result = buildAnnotatedString {
             append("$integral (${fromBase.displayName}) \n= ")
-            withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(BaseConverter.convertIntegralToBase(decimalValue, toBase))
             }
             append(" (${toBase.displayName})")
@@ -93,7 +95,7 @@ object ExplanationGenerator {
 
         val resultString = buildAnnotatedString {
             append("0.$fractional (${fromBase.displayName}) \n= ")
-            withStyle(SpanStyle(color = Color(0xFF2196F3), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append("0.$result")
             }
             append(" (${toBase.displayName})")
@@ -145,7 +147,7 @@ object ExplanationGenerator {
                 append("  $calc\n")
             }
             append("\nSum: ")
-            withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(result.toString())
             }
         }
@@ -195,7 +197,7 @@ object ExplanationGenerator {
                 append("  $calc\n")
             }
             append("\nSum: ")
-            withStyle(SpanStyle(color = Color(0xFF2196F3), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(result.setScale(10, RoundingMode.HALF_UP).toString())
             }
         }
@@ -243,7 +245,7 @@ object ExplanationGenerator {
                 append("  $div\n")
             }
             append("\nResult (read remainders bottom to top): ")
-            withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(remainders.joinToString(""))
             }
         }
@@ -295,7 +297,7 @@ object ExplanationGenerator {
                 append("  $mult\n")
             }
             append("\nResult: ")
-            withStyle(SpanStyle(color = Color(0xFF2196F3), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(result.toString())
             }
         }
@@ -320,13 +322,13 @@ object ExplanationGenerator {
             }
 
             append("Input: ")
-            withStyle(SpanStyle(color = Color(0xFFFF9800), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(input)
             }
             append(" (${fromBase.displayName})\n\n")
 
             append("Output: ")
-            withStyle(SpanStyle(color = Color(0xFF4CAF50), fontWeight = FontWeight.Bold)) {
+            withStyle(SpanStyle(color = primaryColor, fontWeight = FontWeight.Bold)) {
                 append(output)
             }
             append(" (${toBase.displayName})\n\n")
