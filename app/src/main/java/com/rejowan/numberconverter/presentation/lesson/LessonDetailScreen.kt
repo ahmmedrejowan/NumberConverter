@@ -45,6 +45,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
@@ -73,6 +74,14 @@ fun LessonDetailScreen(
     viewModel: LessonDetailViewModel = koinViewModel { parametersOf(lessonId) }
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // Handle navigation back when lesson is finished
+    LaunchedEffect(uiState) {
+        if (uiState is LessonDetailUiState.Success && (uiState as LessonDetailUiState.Success).shouldNavigateBack) {
+            onNavigateBack()
+            viewModel.onNavigatedBack()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -136,7 +145,8 @@ fun LessonDetailScreen(
                         onNextSection = viewModel::nextSection,
                         onPreviousSection = viewModel::previousSection,
                         onSubmitQuiz = viewModel::submitQuizAnswers,
-                        onRetryQuiz = viewModel::retryQuiz
+                        onRetryQuiz = viewModel::retryQuiz,
+                        onFinishLesson = viewModel::finishLesson
                     )
                 }
             }
@@ -169,11 +179,12 @@ private fun ErrorContent(
 @Composable
 private fun LessonContent(
     state: LessonDetailUiState.Success,
-    onMarkSectionComplete: (String) -> Unit,
+    onMarkSectionComplete: (String, Boolean) -> Unit,
     onNextSection: () -> Unit,
     onPreviousSection: () -> Unit,
     onSubmitQuiz: (Map<String, Any>) -> Unit,
-    onRetryQuiz: () -> Unit
+    onRetryQuiz: () -> Unit,
+    onFinishLesson: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
@@ -195,7 +206,7 @@ private fun LessonContent(
                     TheorySection(
                         section = section,
                         isCompleted = section.id in state.completedSections,
-                        onMarkComplete = { onMarkSectionComplete(section.id) }
+                        onMarkComplete = { onMarkSectionComplete(section.id, false) }
                     )
                 }
 
@@ -203,7 +214,7 @@ private fun LessonContent(
                     InteractiveSection(
                         section = section,
                         isCompleted = section.id in state.completedSections,
-                        onMarkComplete = { onMarkSectionComplete(section.id) }
+                        onMarkComplete = { onMarkSectionComplete(section.id, true) }
                     )
                 }
 
@@ -211,7 +222,7 @@ private fun LessonContent(
                     PracticeSection(
                         section = section,
                         isCompleted = section.id in state.completedSections,
-                        onMarkComplete = { onMarkSectionComplete(section.id) }
+                        onMarkComplete = { onMarkSectionComplete(section.id, true) }
                     )
                 }
 
@@ -228,12 +239,16 @@ private fun LessonContent(
             }
         }
 
-        // Navigation buttons
-        NavigationButtons(
-            state = state,
-            onPrevious = onPreviousSection,
-            onNext = onNextSection
-        )
+        // Navigation buttons or Finish button
+        if (state.isLastSection && state.allSectionsCompleted) {
+            FinishButton(onFinish = onFinishLesson)
+        } else {
+            NavigationButtons(
+                state = state,
+                onPrevious = onPreviousSection,
+                onNext = onNextSection
+            )
+        }
     }
 }
 
@@ -456,8 +471,9 @@ private fun InteractiveSection(
 
                 Button(
                     onClick = {
-                        isCorrect = userAnswer.trim().equals(section.exercise.correctAnswer, ignoreCase = true)
-                        if (isCorrect == true) {
+                        val correct = userAnswer.trim().equals(section.exercise.correctAnswer, ignoreCase = true)
+                        isCorrect = correct
+                        if (correct) {
                             keyboardController?.hide()
                             focusManager.clearFocus()
                             onMarkComplete()
@@ -743,6 +759,7 @@ private fun QuizSection(
     val focusManager = LocalFocusManager.current
 
     val answers = remember { mutableStateMapOf<String, Any>() }
+    val shownHints = remember { mutableStateMapOf<String, Int>() } // Track how many hints shown per question
 
     Column(
         modifier = Modifier
@@ -773,7 +790,14 @@ private fun QuizSection(
                 index = index + 1,
                 userAnswer = if (showResults) userAnswers[question.id] else answers[question.id],
                 onAnswerSelected = { answers[question.id] = it },
-                showResult = showResults
+                showResult = showResults,
+                shownHintsCount = shownHints[question.id] ?: 0,
+                onShowHint = {
+                    val currentCount = shownHints[question.id] ?: 0
+                    if (currentCount < question.hints.size) {
+                        shownHints[question.id] = currentCount + 1
+                    }
+                }
             )
 
             if (index < section.questions.size - 1) {
@@ -855,7 +879,9 @@ private fun QuestionItem(
     index: Int,
     userAnswer: Any?,
     onAnswerSelected: (Any) -> Unit,
-    showResult: Boolean
+    showResult: Boolean,
+    shownHintsCount: Int = 0,
+    onShowHint: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier.fillMaxWidth(),
@@ -864,16 +890,80 @@ private fun QuestionItem(
         )
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = "Question $index",
-                style = MaterialTheme.typography.titleSmall,
-                fontWeight = FontWeight.Bold
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Question $index",
+                    style = MaterialTheme.typography.titleSmall,
+                    fontWeight = FontWeight.Bold
+                )
+
+                // Show hint button if hints available and not showing results
+                if (!showResult && question.hints.isNotEmpty()) {
+                    OutlinedButton(
+                        onClick = onShowHint,
+                        enabled = shownHintsCount < question.hints.size,
+                        modifier = Modifier.height(32.dp)
+                    ) {
+                        Text(
+                            text = if (shownHintsCount < question.hints.size) {
+                                "Hint (${shownHintsCount}/${question.hints.size})"
+                            } else {
+                                "No more hints"
+                            },
+                            style = MaterialTheme.typography.labelSmall
+                        )
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = question.questionText,
                 style = MaterialTheme.typography.bodyMedium
             )
+
+            // Show hints if any have been revealed
+            if (shownHintsCount > 0 && question.hints.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(12.dp))
+                question.hints.take(shownHintsCount).forEachIndexed { hintIndex, hint ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(12.dp),
+                            verticalAlignment = Alignment.Top
+                        ) {
+                            Text(
+                                text = "💡",
+                                style = MaterialTheme.typography.bodyMedium,
+                                modifier = Modifier.padding(end = 8.dp)
+                            )
+                            Column {
+                                Text(
+                                    text = "Hint ${hintIndex + 1}:",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = hint,
+                                    style = MaterialTheme.typography.bodySmall
+                                )
+                            }
+                        }
+                    }
+                    if (hintIndex < shownHintsCount - 1) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.height(12.dp))
 
             when (question) {
@@ -1123,6 +1213,57 @@ private fun NavigationButtons(
                 }
             } else {
                 Spacer(modifier = Modifier.weight(1f))
+            }
+        }
+    }
+}
+
+@Composable
+private fun FinishButton(onFinish: () -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Default.CheckCircle,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
+                tint = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Congratulations!",
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = "You've completed this lesson",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(
+                onClick = onFinish,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(text = "Finish")
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
             }
         }
     }

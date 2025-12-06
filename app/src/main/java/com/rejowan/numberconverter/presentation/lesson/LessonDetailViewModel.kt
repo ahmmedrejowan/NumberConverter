@@ -24,7 +24,8 @@ sealed class LessonDetailUiState {
         val quizAnswers: Map<String, Any> = emptyMap(),
         val quizScore: Int? = null,
         val showQuizResults: Boolean = false,
-        val lessonProgress: LessonProgress? = null
+        val lessonProgress: LessonProgress? = null,
+        val shouldNavigateBack: Boolean = false
     ) : LessonDetailUiState() {
         val currentSection: LessonSection
             get() = lesson.sections[currentSectionIndex]
@@ -38,11 +39,15 @@ sealed class LessonDetailUiState {
         val canProceedToNext: Boolean
             get() = when (currentSection) {
                 is LessonSection.Quiz -> quizScore != null && quizScore >= 70
+                is LessonSection.Theory -> true // Theory sections can always proceed
                 else -> currentSection.id in completedSections
             }
 
         val overallProgress: Float
             get() = completedSections.size.toFloat() / lesson.sections.size
+
+        val allSectionsCompleted: Boolean
+            get() = completedSections.size == lesson.sections.size
     }
 }
 
@@ -69,9 +74,17 @@ class LessonDetailViewModel(
                 }
 
                 progressRepository.getProgressByLessonId(lessonId).collect { progress ->
+                    val completedSections = progress?.completedSections?.toSet() ?: emptySet()
+
+                    // Find the first incomplete section to resume from
+                    val resumeSectionIndex = lesson.sections.indexOfFirst { section ->
+                        section.id !in completedSections
+                    }.takeIf { it >= 0 } ?: 0 // Default to first section if all completed
+
                     _uiState.value = LessonDetailUiState.Success(
                         lesson = lesson,
-                        completedSections = progress?.completedSections?.toSet() ?: emptySet(),
+                        currentSectionIndex = resumeSectionIndex,
+                        completedSections = completedSections,
                         quizScore = progress?.quizScore,
                         lessonProgress = progress
                     )
@@ -86,6 +99,13 @@ class LessonDetailViewModel(
 
     fun nextSection() {
         val currentState = _uiState.value as? LessonDetailUiState.Success ?: return
+
+        // Auto-complete Theory sections when Next is pressed
+        if (currentState.currentSection is LessonSection.Theory &&
+            currentState.currentSection.id !in currentState.completedSections) {
+            markSectionComplete(currentState.currentSection.id)
+        }
+
         if (!currentState.isLastSection) {
             _uiState.update {
                 currentState.copy(
@@ -108,7 +128,7 @@ class LessonDetailViewModel(
         }
     }
 
-    fun markSectionComplete(sectionId: String) {
+    fun markSectionComplete(sectionId: String, autoNavigate: Boolean = false) {
         viewModelScope.launch {
             val currentState = _uiState.value as? LessonDetailUiState.Success ?: return@launch
 
@@ -119,6 +139,7 @@ class LessonDetailViewModel(
             // Check if all sections are completed
             if (newCompletedSections.size == currentState.lesson.sections.size) {
                 progressRepository.markLessonComplete(lessonId)
+                // Don't auto-navigate yet, let user click Finish button
             } else {
                 // Update progress status to IN_PROGRESS
                 val updatedProgress = LessonProgress(
@@ -130,7 +151,31 @@ class LessonDetailViewModel(
                     completedAt = null
                 )
                 progressRepository.updateProgress(updatedProgress)
+
+                // Auto-navigate to next section if requested
+                if (autoNavigate && !currentState.isLastSection) {
+                    _uiState.update {
+                        currentState.copy(
+                            currentSectionIndex = currentState.currentSectionIndex + 1,
+                            showQuizResults = false
+                        )
+                    }
+                }
             }
+        }
+    }
+
+    fun finishLesson() {
+        val currentState = _uiState.value as? LessonDetailUiState.Success ?: return
+        _uiState.update {
+            currentState.copy(shouldNavigateBack = true)
+        }
+    }
+
+    fun onNavigatedBack() {
+        val currentState = _uiState.value as? LessonDetailUiState.Success ?: return
+        _uiState.update {
+            currentState.copy(shouldNavigateBack = false)
         }
     }
 
@@ -169,9 +214,9 @@ class LessonDetailViewModel(
                 )
             }
 
-            // If score is passing (>=70), mark section as complete
+            // If score is passing (>=70), mark section as complete and auto-navigate
             if (score >= 70) {
-                markSectionComplete(quizSection.id)
+                markSectionComplete(quizSection.id, autoNavigate = true)
             }
         }
     }
