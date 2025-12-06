@@ -30,4 +30,5 @@
     <!-- Errors -->
     <string name="error_invalid_input">Invalid input for this number base</string>
     <string name="error_empty_input">Please enter a number</string>
+    <string name="retry">Retry</string>
 </resources>
