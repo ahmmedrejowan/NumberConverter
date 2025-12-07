@@ -1802,6 +1802,1873 @@
           ]
         }
       ]
+    },
+    {
+      "id": "octal_basics",
+      "title": "Introduction to Octal",
+      "category": "BEGINNER",
+      "estimatedTimeMinutes": 10,
+      "order": 11,
+      "prerequisites": ["binary_to_decimal"],
+      "description": "Learn about the octal number system and its historical use in computing.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_octal",
+          "title": "What is Octal?",
+          "content": "Octal is the base-8 number system, using only 8 digits: 0, 1, 2, 3, 4, 5, 6, and 7. Notice that 8 and 9 are NOT used in octal!\n\nWhy is octal useful? Before hexadecimal became popular, octal was commonly used in early computing because it has a clean relationship with binary: each octal digit represents exactly 3 binary bits.\n\n**Place values in octal use powers of 8:**\n• 8⁰ = 1 (ones place)\n• 8¹ = 8 (eights place)\n• 8² = 64 (sixty-fours place)\n• 8³ = 512 (five-hundred-twelves place)\n\n**Where is octal still used today?**\n• **Unix/Linux file permissions**: chmod 755 (rwxr-xr-x)\n• **Legacy systems**: Some older computer systems\n• **Educational purposes**: Learning number systems\n\n**Binary-to-Octal Relationship:**\nEach octal digit = 3 binary bits\n• 0 = 000\n• 1 = 001\n• 2 = 010\n• 3 = 011\n• 4 = 100\n• 5 = 101\n• 6 = 110\n• 7 = 111\n\n**Example: What is 25 in octal?**\n2 is in the 8s place: 2 × 8 = 16\n5 is in the 1s place: 5 × 1 = 5\nTotal: 16 + 5 = 21 in decimal\n\nOctal is less common than hexadecimal today, but understanding it helps you master number systems and is essential for working with Unix permissions!"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_octal_valid",
+          "title": "Identifying Valid Octal Numbers",
+          "description": "Let's practice recognizing valid octal numbers.",
+          "exercise": {
+            "id": "ex_valid_octal",
+            "problem": "Which of these is a valid octal number: 158, 247, or 189?",
+            "correctAnswer": "247",
+            "difficulty": "EASY",
+            "explanation": "247 is valid because all digits (2, 4, 7) are 0-7. 158 has 8, and 189 has both 8 and 9, which don't exist in octal!",
+            "hints": [
+              "Octal only uses digits 0-7",
+              "Any number with 8 or 9 cannot be octal"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_octal_basics",
+          "title": "Octal Fundamentals",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "How many unique digits does octal use?",
+              "correctAnswer": "8",
+              "difficulty": "EASY",
+              "explanation": "Octal is base 8, so it uses 8 digits: 0-7",
+              "hints": ["Octal is base 8"]
+            },
+            {
+              "id": "p2",
+              "problem": "What is 8² (the third place value in octal)?",
+              "correctAnswer": "64",
+              "difficulty": "EASY",
+              "explanation": "8² = 8 × 8 = 64",
+              "hints": ["Multiply 8 × 8"]
+            },
+            {
+              "id": "p3",
+              "problem": "How many binary bits does one octal digit represent?",
+              "correctAnswer": "3",
+              "difficulty": "EASY",
+              "explanation": "Each octal digit represents exactly 3 binary bits",
+              "hints": ["Think about 2³ = 8"]
+            },
+            {
+              "id": "p4",
+              "problem": "Is 382 a valid octal number? (yes/no)",
+              "correctAnswer": "no",
+              "difficulty": "EASY",
+              "explanation": "No, because it contains the digit 8, which doesn't exist in octal (only 0-7)",
+              "hints": ["Check if all digits are 0-7"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_octal",
+          "title": "Octal Basics Quiz",
+          "questions": [
+            {
+              "type": "TrueFalse",
+              "id": "q1",
+              "questionText": "Octal uses digits 0 through 7.",
+              "explanation": "True! Octal is base 8, using exactly 8 digits: 0, 1, 2, 3, 4, 5, 6, and 7.",
+              "correctAnswer": true,
+              "hints": [
+                "Base 8 means 8 unique digits",
+                "Count: 0, 1, 2, 3, 4, 5, 6, 7"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q2",
+              "questionText": "What is the base of the octal number system?",
+              "explanation": "Octal is base 8, which is why it uses 8 different digits (0-7).",
+              "options": ["2", "8", "10", "16"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "The name 'octal' comes from 'octo' meaning 8",
+                "It uses 8 digits total"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q3",
+              "questionText": "Each octal digit represents ____ binary bits.",
+              "explanation": "Each octal digit represents exactly 3 binary bits. For example, 7 = 111, 5 = 101, etc.",
+              "correctAnswer": "3",
+              "acceptableAnswers": ["3", "three"],
+              "hints": [
+                "2³ = 8 possible values",
+                "7 in octal = 111 in binary (count the bits)"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "Which is a common use of octal today?",
+              "explanation": "Unix/Linux file permissions use octal! For example, 'chmod 755' sets permissions using octal notation.",
+              "options": [
+                "Web colors",
+                "Unix file permissions",
+                "IP addresses",
+                "Phone numbers"
+              ],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Think about chmod commands",
+                "Used in Unix/Linux systems"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q5",
+              "questionText": "The number 589 is a valid octal number.",
+              "explanation": "False! Octal only uses digits 0-7. The digits 8 and 9 don't exist in octal, so 589 is not valid.",
+              "correctAnswer": false,
+              "hints": [
+                "Check each digit: 5, 8, 9",
+                "Is 8 or 9 allowed in octal?"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q6",
+              "questionText": "What is 8³ (the fourth place value in octal)?",
+              "explanation": "8³ = 8 × 8 × 8 = 512. This is the five-hundred-twelves place in octal.",
+              "options": ["64", "128", "256", "512"],
+              "correctAnswerIndex": 3,
+              "hints": [
+                "8³ means multiply 8 by itself 3 times",
+                "8 × 8 × 8 = ?"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "octal_to_decimal",
+      "title": "Octal to Decimal Conversion",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 12,
+      "order": 12,
+      "prerequisites": ["octal_basics"],
+      "description": "Learn to convert octal numbers into decimal format.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_oct_to_dec",
+          "title": "Converting Octal to Decimal",
+          "content": "Converting octal to decimal uses the same place value method as binary and hexadecimal, but with powers of 8!\n\n**Step-by-Step Method:**\n\n1. Write down the octal number\n2. Write the position values (powers of 8) below each digit\n3. Multiply each digit by its position value\n4. Add all the results\n\n**Example 1: Convert 157 (octal) to decimal**\n\nOctal:     1    5    7\nPositions: 64   8    1\nCalculate: 1×64 5×8  7×1\nResults:   64 + 40 + 7 = 111\n\nSo 157 in octal = 111 in decimal!\n\n**Example 2: Convert 725 (octal) to decimal**\n\nOctal:     7    2    5\nPositions: 64   8    1\nCalculate: 7×64 2×8  5×1\nResults:   448 + 16 + 5 = 469\n\nSo 725 in octal = 469 in decimal!\n\n**Example 3: Convert 1000 (octal) to decimal**\n\nOctal:     1    0    0    0\nPositions: 512  64   8    1\nCalculate: 1×512 0×64 0×8 0×1\nResults:   512 + 0 + 0 + 0 = 512\n\nSo 1000 in octal = 512 in decimal!\n\n**Common Place Values to Remember:**\n• 8⁰ = 1\n• 8¹ = 8\n• 8² = 64\n• 8³ = 512\n• 8⁴ = 4096\n\n**Pro Tip:** Just like other conversions, multiply each digit by its power of 8 and add them up. Simple!"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_oct_to_dec",
+          "title": "Octal to Decimal Practice",
+          "description": "Let's convert octal 23 to decimal step by step.",
+          "exercise": {
+            "id": "ex_23",
+            "problem": "What is 23 in octal converted to decimal?",
+            "correctAnswer": "19",
+            "difficulty": "EASY",
+            "explanation": "23 (octal) = (2×8) + (3×1) = 16 + 3 = 19 in decimal.",
+            "hints": [
+              "Position values: 8, 1",
+              "Calculate: (2×8) + (3×1)",
+              "16 + 3 = ?"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_oct_to_dec",
+          "title": "Octal to Decimal Conversions",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert octal 7 to decimal",
+              "correctAnswer": "7",
+              "difficulty": "EASY",
+              "explanation": "7 in octal = 7 in decimal (single digit)",
+              "hints": ["Single digit octal numbers are the same in decimal"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert octal 10 to decimal",
+              "correctAnswer": "8",
+              "difficulty": "EASY",
+              "explanation": "10 (octal) = 1×8 + 0×1 = 8",
+              "hints": ["1 in the 8s place"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert octal 17 to decimal",
+              "correctAnswer": "15",
+              "difficulty": "EASY",
+              "explanation": "17 (octal) = 1×8 + 7×1 = 8 + 7 = 15",
+              "hints": ["(1×8) + (7×1)"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert octal 77 to decimal",
+              "correctAnswer": "63",
+              "difficulty": "MEDIUM",
+              "explanation": "77 (octal) = 7×8 + 7×1 = 56 + 7 = 63",
+              "hints": ["Both digits are 7"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert octal 100 to decimal",
+              "correctAnswer": "64",
+              "difficulty": "EASY",
+              "explanation": "100 (octal) = 1×64 = 64 (it's 8²)",
+              "hints": ["100 in octal = 8²"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert octal 52 to decimal",
+              "correctAnswer": "42",
+              "difficulty": "MEDIUM",
+              "explanation": "52 (octal) = 5×8 + 2×1 = 40 + 2 = 42",
+              "hints": ["(5×8) + (2×1)"]
+            },
+            {
+              "id": "p7",
+              "problem": "Convert octal 377 to decimal",
+              "correctAnswer": "255",
+              "difficulty": "MEDIUM",
+              "explanation": "377 (octal) = 3×64 + 7×8 + 7×1 = 192 + 56 + 7 = 255",
+              "hints": [
+                "Position values: 64, 8, 1",
+                "This equals FF in hex!"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_oct_to_dec",
+          "title": "Octal to Decimal Quiz",
+          "questions": [
+            {
+              "type": "MultipleChoice",
+              "id": "q1",
+              "questionText": "What is octal 12 in decimal?",
+              "explanation": "12 (octal) = 1×8 + 2×1 = 8 + 2 = 10 in decimal.",
+              "options": ["8", "10", "12", "14"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Position values: 8, 1",
+                "Calculate: (1×8) + (2×1)"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q2",
+              "questionText": "Octal 20 equals ____ in decimal.",
+              "explanation": "20 (octal) = 2×8 + 0×1 = 16 in decimal.",
+              "correctAnswer": "16",
+              "acceptableAnswers": ["16", "sixteen"],
+              "hints": [
+                "2 in the 8s place",
+                "2 × 8 = ?"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q3",
+              "questionText": "What is octal 64 in decimal?",
+              "explanation": "64 (octal) = 6×8 + 4×1 = 48 + 4 = 52 in decimal.",
+              "options": ["48", "52", "56", "64"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Calculate: (6×8) + (4×1)",
+                "48 + 4 = ?"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q4",
+              "questionText": "Octal 100 equals 64 in decimal.",
+              "explanation": "True! 100 (octal) = 1×64 + 0×8 + 0×1 = 64. This is 8².",
+              "correctAnswer": true,
+              "hints": [
+                "100 in octal = 1 × 8²",
+                "8² = ?"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q5",
+              "questionText": "What is octal 35 in decimal?",
+              "explanation": "35 (octal) = 3×8 + 5×1 = 24 + 5 = 29 in decimal.",
+              "options": ["27", "29", "31", "35"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Position values: 8, 1",
+                "(3×8) + (5×1) = ?"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q6",
+              "questionText": "In octal to decimal conversion, the rightmost position has value ____.",
+              "explanation": "The rightmost position is 8⁰ = 1, just like in any positional number system.",
+              "correctAnswer": "1",
+              "acceptableAnswers": ["1", "one"],
+              "hints": [
+                "Any number to the power of 0 equals 1",
+                "8⁰ = ?"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q7",
+              "questionText": "What is octal 777 in decimal?",
+              "explanation": "777 (octal) = 7×64 + 7×8 + 7×1 = 448 + 56 + 7 = 511 in decimal.",
+              "options": ["511", "512", "777", "888"],
+              "correctAnswerIndex": 0,
+              "hints": [
+                "All digits are 7",
+                "Position values: 64, 8, 1"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decimal_to_octal",
+      "title": "Decimal to Octal Conversion",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 12,
+      "order": 13,
+      "prerequisites": ["octal_to_decimal"],
+      "description": "Master converting decimal numbers into octal representation.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_dec_to_oct",
+          "title": "Converting Decimal to Octal",
+          "content": "Converting decimal to octal uses the division method, just like decimal to binary or hex, but we divide by 8!\n\n**Division by 8 Method:**\n\n1. Divide the decimal number by 8\n2. Write down the remainder (0-7)\n3. Divide the quotient by 8\n4. Repeat until quotient is 0\n5. Read remainders from BOTTOM to TOP\n\n**Example 1: Convert 156 to octal**\n\n156 ÷ 8 = 19 remainder 4\n19 ÷ 8 = 2 remainder 3\n2 ÷ 8 = 0 remainder 2\n\nReading bottom to top: 234\nSo 156 in decimal = 234 in octal!\n\nVerify: 2×64 + 3×8 + 4×1 = 128 + 24 + 4 = 156 ✓\n\n**Example 2: Convert 100 to octal**\n\n100 ÷ 8 = 12 remainder 4\n12 ÷ 8 = 1 remainder 4\n1 ÷ 8 = 0 remainder 1\n\nReading bottom to top: 144\nSo 100 in decimal = 144 in octal!\n\n**Example 3: Convert 64 to octal**\n\n64 ÷ 8 = 8 remainder 0\n8 ÷ 8 = 1 remainder 0\n1 ÷ 8 = 0 remainder 1\n\nReading bottom to top: 100\nSo 64 in decimal = 100 in octal! (Makes sense: 64 = 8²)\n\n**Pro Tips:**\n• All remainders will be 0-7 (valid octal digits)\n• Powers of 8 are easy: 8 = 10, 64 = 100, 512 = 1000\n• Remember to read from BOTTOM to TOP!"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_dec_to_oct",
+          "title": "Division Method Practice",
+          "description": "Let's convert decimal 25 to octal using division.",
+          "exercise": {
+            "id": "ex_25",
+            "problem": "What is 25 in decimal converted to octal?",
+            "correctAnswer": "31",
+            "difficulty": "EASY",
+            "explanation": "25÷8=3 r1, 3÷8=0 r3. Reading bottom to top: 31",
+            "hints": [
+              "25 ÷ 8 = 3 remainder 1",
+              "3 ÷ 8 = 0 remainder 3",
+              "Read bottom to top: 31"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_dec_to_oct",
+          "title": "Decimal to Octal Practice",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert decimal 8 to octal",
+              "correctAnswer": "10",
+              "difficulty": "EASY",
+              "explanation": "8 in decimal = 10 in octal (one 8, zero 1s)",
+              "hints": ["8 is the first two-digit octal number"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert decimal 7 to octal",
+              "correctAnswer": "7",
+              "difficulty": "EASY",
+              "explanation": "7 in decimal = 7 in octal (single digit)",
+              "hints": ["Single digits 0-7 are the same"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert decimal 16 to octal",
+              "correctAnswer": "20",
+              "difficulty": "EASY",
+              "explanation": "16 = 2×8, so octal is 20",
+              "hints": ["16 ÷ 8 = 2 remainder 0"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert decimal 64 to octal",
+              "correctAnswer": "100",
+              "difficulty": "EASY",
+              "explanation": "64 = 8², so octal is 100",
+              "hints": ["64 is a power of 8: 8²"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert decimal 50 to octal",
+              "correctAnswer": "62",
+              "difficulty": "MEDIUM",
+              "explanation": "50÷8=6 r2, result: 62",
+              "hints": ["50 ÷ 8 = 6 remainder 2"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert decimal 255 to octal",
+              "correctAnswer": "377",
+              "difficulty": "MEDIUM",
+              "explanation": "255÷8=31 r7, 31÷8=3 r7, 3÷8=0 r3, result: 377",
+              "hints": [
+                "This equals FF in hex!",
+                "Bottom to top: 377"
+              ]
+            },
+            {
+              "id": "p7",
+              "problem": "Convert decimal 83 to octal",
+              "correctAnswer": "123",
+              "difficulty": "MEDIUM",
+              "explanation": "83÷8=10 r3, 10÷8=1 r2, 1÷8=0 r1, result: 123",
+              "hints": ["Keep dividing by 8 until quotient is 0"]
+            },
+            {
+              "id": "p8",
+              "problem": "Convert decimal 512 to octal",
+              "correctAnswer": "1000",
+              "difficulty": "MEDIUM",
+              "explanation": "512 = 8³, so octal is 1000",
+              "hints": ["512 is a power of 8: 8³"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_dec_to_oct",
+          "title": "Decimal to Octal Quiz",
+          "questions": [
+            {
+              "type": "MultipleChoice",
+              "id": "q1",
+              "questionText": "What is decimal 19 in octal?",
+              "explanation": "19÷8=2 r3, 2÷8=0 r2. Reading bottom to top: 23.",
+              "options": ["21", "22", "23", "24"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "19 ÷ 8 = 2 remainder 3",
+                "Read bottom to top"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q2",
+              "questionText": "When converting decimal to octal, you divide repeatedly by ____.",
+              "explanation": "You divide by 8 because octal is base 8. Each division gives one octal digit.",
+              "correctAnswer": "8",
+              "acceptableAnswers": ["8", "eight"],
+              "hints": [
+                "Octal is base 8",
+                "Same as the base number"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q3",
+              "questionText": "When using division method, you read octal digits from bottom to top.",
+              "explanation": "True! The last remainder becomes the leftmost (most significant) digit, so always read from bottom to top.",
+              "correctAnswer": true,
+              "hints": [
+                "Same rule as binary and hex conversion",
+                "Last remainder is most significant"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "What is decimal 42 in octal?",
+              "explanation": "42÷8=5 r2, 5÷8=0 r5. Result: 52.",
+              "options": ["50", "52", "54", "62"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "42 ÷ 8 = 5 remainder 2",
+                "5 ÷ 8 = 0 remainder 5"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q5",
+              "questionText": "What is decimal 100 in octal?",
+              "explanation": "100÷8=12 r4, 12÷8=1 r4, 1÷8=0 r1. Result: 144.",
+              "options": ["124", "140", "144", "164"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "100 ÷ 8 = 12 remainder 4",
+                "Keep dividing: 12 ÷ 8 = 1 r4"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q6",
+              "questionText": "Decimal 64 in octal is ____.",
+              "explanation": "64 = 8² = 100 in octal.",
+              "correctAnswer": "100",
+              "acceptableAnswers": ["100"],
+              "hints": [
+                "64 is a power of 8",
+                "8² = 64"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q7",
+              "questionText": "All remainders in decimal to octal conversion will be between 0 and 7.",
+              "explanation": "True! Since we're dividing by 8, remainders can only be 0, 1, 2, 3, 4, 5, 6, or 7 - all valid octal digits.",
+              "correctAnswer": true,
+              "hints": [
+                "Think about what remainders are possible when dividing by 8",
+                "Remainders are always less than the divisor"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "binary_to_octal",
+      "title": "Binary to Octal Conversion",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 12,
+      "order": 14,
+      "prerequisites": ["binary_to_decimal", "octal_to_decimal"],
+      "description": "Learn the quick grouping method to convert binary to octal.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_bin_to_oct",
+          "title": "Binary to Octal: The 3-Bit Grouping Method",
+          "content": "Converting binary to octal is super easy! Each octal digit represents exactly 3 binary bits.\n\n**The 3-Bit Grouping Method:**\n\n1. Start from the RIGHT side of the binary number\n2. Group the bits into sets of 3\n3. If the leftmost group has fewer than 3 bits, add leading zeros\n4. Convert each 3-bit group to its octal digit (0-7)\n5. Combine the octal digits\n\n**Reference Table:**\n000 = 0    010 = 2    100 = 4    110 = 6\n001 = 1    011 = 3    101 = 5    111 = 7\n\n**Example 1: Convert 110101 to octal**\n\nStep 1: Group from right: 110 101\nStep 2: Convert each group:\n  • 110 = 6\n  • 101 = 5\nResult: 65\n\n**Example 2: Convert 11010110 to octal**\n\nStep 1: Group from right: 11 010 110\nStep 2: Pad left group: 011 010 110\nStep 3: Convert:\n  • 011 = 3\n  • 010 = 2\n  • 110 = 6\nResult: 326\n\n**Example 3: Convert 1111111 to octal**\n\nStep 1: Group from right: 1 111 111\nStep 2: Pad left: 001 111 111\nStep 3: Convert:\n  • 001 = 1\n  • 111 = 7\n  • 111 = 7\nResult: 177\n\n**Why This Works:**\nEach octal digit (0-7) represents values 0-7, which is exactly what 3 bits can represent (2³=8 values)!\n\n**Pro Tips:**\n• Always group from RIGHT to LEFT\n• Memorize the 8 conversions (000-111 to 0-7)\n• Compare to hex: hex uses 4-bit groups, octal uses 3-bit groups\n• This is MUCH faster than converting to decimal first!"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_bin_to_oct",
+          "title": "Grouping Practice",
+          "description": "Let's convert binary 101110 to octal using grouping.",
+          "exercise": {
+            "id": "ex_bin_oct",
+            "problem": "What is binary 101110 in octal?",
+            "correctAnswer": "56",
+            "difficulty": "EASY",
+            "explanation": "Group: 101 110. Convert: 101=5, 110=6. Result: 56",
+            "hints": [
+              "Group into 3 bits: 101 110",
+              "101 = 5, 110 = 6",
+              "Combine: 56"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_bin_to_oct",
+          "title": "Binary to Octal Conversions",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert binary 111 to octal",
+              "correctAnswer": "7",
+              "difficulty": "EASY",
+              "explanation": "111 = 7 (single group)",
+              "hints": ["111 is the highest 3-bit value"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert binary 101 to octal",
+              "correctAnswer": "5",
+              "difficulty": "EASY",
+              "explanation": "101 = 5",
+              "hints": ["101 in binary = 5"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert binary 1000 to octal",
+              "correctAnswer": "10",
+              "difficulty": "EASY",
+              "explanation": "Group: 1 000, pad: 001 000 = 1 0 = 10",
+              "hints": ["Group from right: 001 000"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert binary 111111 to octal",
+              "correctAnswer": "77",
+              "difficulty": "EASY",
+              "explanation": "Group: 111 111 = 7 7 = 77",
+              "hints": ["Both groups are 111 = 7"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert binary 100101 to octal",
+              "correctAnswer": "45",
+              "difficulty": "MEDIUM",
+              "explanation": "Group: 100 101 = 4 5 = 45",
+              "hints": ["Split: 100 101"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert binary 11111111 to octal",
+              "correctAnswer": "377",
+              "difficulty": "MEDIUM",
+              "explanation": "Group: 11 111 111, pad: 011 111 111 = 3 7 7 = 377",
+              "hints": [
+                "Group from right",
+                "This equals 255 in decimal!"
+              ]
+            },
+            {
+              "id": "p7",
+              "problem": "Convert binary 1010110 to octal",
+              "correctAnswer": "126",
+              "difficulty": "MEDIUM",
+              "explanation": "Group: 1 010 110, pad: 001 010 110 = 1 2 6 = 126",
+              "hints": ["Group into 3s: 001 010 110"]
+            },
+            {
+              "id": "p8",
+              "problem": "Convert binary 110011 to octal",
+              "correctAnswer": "63",
+              "difficulty": "EASY",
+              "explanation": "Group: 110 011 = 6 3 = 63",
+              "hints": ["Split: 110 011"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_bin_to_oct",
+          "title": "Binary to Octal Quiz",
+          "questions": [
+            {
+              "type": "TrueFalse",
+              "id": "q1",
+              "questionText": "Each octal digit represents exactly 3 binary bits.",
+              "explanation": "True! This is why binary-to-octal conversion is so easy. 3 bits can represent 8 values (0-7), matching the 8 octal digits.",
+              "correctAnswer": true,
+              "hints": [
+                "2³ = 8 possible values",
+                "Octal has 8 digits (0-7)"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q2",
+              "questionText": "What is binary 100 in octal?",
+              "explanation": "100 in binary = 4 in octal (single 3-bit group).",
+              "options": ["2", "4", "6", "8"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "100 is a single 3-bit group",
+                "100 = 4"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q3",
+              "questionText": "Binary 110 equals ____ in octal.",
+              "explanation": "110 in binary = 4+2 = 6 in octal.",
+              "correctAnswer": "6",
+              "acceptableAnswers": ["6", "six"],
+              "hints": [
+                "110 = 4 + 2",
+                "Single group conversion"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "What is binary 1001 in octal?",
+              "explanation": "Group: 1 001, pad: 001 001 = 1 1 = 11 in octal.",
+              "options": ["9", "10", "11", "12"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "Group from right: 001 001",
+                "Both groups equal 1"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q5",
+              "questionText": "When grouping binary bits for octal conversion, you start from the left side.",
+              "explanation": "False! Always group from the RIGHT side. This ensures the rightmost bits (least significant) stay aligned correctly.",
+              "correctAnswer": false,
+              "hints": [
+                "Think about place values",
+                "Start from the least significant bit"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q6",
+              "questionText": "What is binary 111000 in octal?",
+              "explanation": "Group: 111 000 = 7 0 = 70 in octal.",
+              "options": ["60", "70", "76", "77"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Split: 111 000",
+                "111=7, 000=0"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q7",
+              "questionText": "Binary 11 should be padded to ____ before converting to octal.",
+              "explanation": "Binary 11 should be padded to 011 (3 bits), which equals 3 in octal.",
+              "correctAnswer": "011",
+              "acceptableAnswers": ["011"],
+              "hints": [
+                "Need 3 bits total",
+                "Add one zero at the front"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "octal_to_binary",
+      "title": "Octal to Binary Conversion",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 12,
+      "order": 15,
+      "prerequisites": ["binary_to_octal"],
+      "description": "Master the reverse process of converting octal to binary.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_oct_to_bin",
+          "title": "Octal to Binary: Expansion Method",
+          "content": "Converting octal to binary is even easier than binary to octal! Each octal digit simply expands into 3 binary bits.\n\n**The Expansion Method:**\n\n1. Take each octal digit one at a time\n2. Convert each digit to its 3-bit binary equivalent\n3. Combine all the 3-bit groups together\n4. Remove unnecessary leading zeros (optional)\n\n**Quick Reference Table:**\n0 = 000    2 = 010    4 = 100    6 = 110\n1 = 001    3 = 011    5 = 101    7 = 111\n\n**Example 1: Convert 247 (octal) to binary**\n\nStep 1: Convert each digit:\n  • 2 = 010\n  • 4 = 100\n  • 7 = 111\nStep 2: Combine: 010 100 111\nResult: 010100111 (or 10100111 removing leading zero)\n\n**Example 2: Convert 52 (octal) to binary**\n\nStep 1: Convert:\n  • 5 = 101\n  • 2 = 010\nStep 2: Combine: 101 010\nResult: 101010\n\n**Example 3: Convert 777 (octal) to binary**\n\nStep 1: Convert each:\n  • 7 = 111\n  • 7 = 111\n  • 7 = 111\nStep 2: Combine: 111 111 111\nResult: 111111111\n\n**Pro Tips:**\n• Each octal digit ALWAYS becomes exactly 3 bits\n• Don't forget leading zeros within each group!\n• For the leftmost octal digit, you can remove leading zeros from final result\n• Common values: 7=111, 0=000, 4=100\n\nThis is the fastest number system conversion because it's just direct substitution!"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_oct_to_bin",
+          "title": "Expansion Practice",
+          "description": "Let's convert octal 35 to binary.",
+          "exercise": {
+            "id": "ex_oct_bin",
+            "problem": "What is octal 35 in binary?",
+            "correctAnswer": "011101",
+            "difficulty": "EASY",
+            "explanation": "3=011, 5=101. Combine: 011101",
+            "hints": [
+              "3 = 011 in binary",
+              "5 = 101 in binary",
+              "Combine: 011 101"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_oct_to_bin",
+          "title": "Octal to Binary Practice",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert octal 7 to binary",
+              "correctAnswer": "111",
+              "difficulty": "EASY",
+              "explanation": "7 = 111 (all bits on)",
+              "hints": ["7 is the highest single octal digit = 111"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert octal 5 to binary",
+              "correctAnswer": "101",
+              "difficulty": "EASY",
+              "explanation": "5 = 101 in binary",
+              "hints": ["5 = 4+1 = 101"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert octal 4 to binary",
+              "correctAnswer": "100",
+              "difficulty": "EASY",
+              "explanation": "4 = 100 in binary",
+              "hints": ["4 in binary needs 3 bits: 100"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert octal 10 to binary",
+              "correctAnswer": "001000",
+              "difficulty": "EASY",
+              "explanation": "1=001, 0=000, combine: 001000",
+              "hints": ["1=001, 0=000"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert octal 27 to binary",
+              "correctAnswer": "010111",
+              "difficulty": "MEDIUM",
+              "explanation": "2=010, 7=111, combine: 010111",
+              "hints": ["2=010, 7=111"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert octal 64 to binary",
+              "correctAnswer": "110100",
+              "difficulty": "MEDIUM",
+              "explanation": "6=110, 4=100, combine: 110100",
+              "hints": ["6=110, 4=100"]
+            },
+            {
+              "id": "p7",
+              "problem": "Convert octal 377 to binary",
+              "correctAnswer": "011111111",
+              "difficulty": "MEDIUM",
+              "explanation": "3=011, 7=111, 7=111, combine: 011111111",
+              "hints": [
+                "3=011, 7=111, 7=111",
+                "This equals 255 in decimal!"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_oct_to_bin",
+          "title": "Octal to Binary Quiz",
+          "questions": [
+            {
+              "type": "TrueFalse",
+              "id": "q1",
+              "questionText": "Each octal digit converts to exactly 3 binary bits.",
+              "explanation": "True! This is the fundamental relationship. One octal digit always equals exactly 3 binary bits, no exceptions.",
+              "correctAnswer": true,
+              "hints": [
+                "Octal has 8 values, 3 bits have 8 combinations",
+                "Always 3 bits per octal digit"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q2",
+              "questionText": "What is octal 6 in binary?",
+              "explanation": "6 = 4+2 = 110 in binary.",
+              "options": ["100", "101", "110", "111"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "6 = 4 + 2",
+                "Set the 4 and 2 bits"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q3",
+              "questionText": "Octal 3 in binary is ________.",
+              "explanation": "3 in octal = 011 in binary (2+1).",
+              "correctAnswer": "011",
+              "acceptableAnswers": ["011"],
+              "hints": [
+                "3 = 2 + 1",
+                "Need 3 bits: 011"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "What is octal 17 in binary?",
+              "explanation": "1=001, 7=111. Combine: 001111.",
+              "options": ["001110", "001111", "010111", "011111"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "1 = 001",
+                "7 = 111"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q5",
+              "questionText": "What is octal 45 in binary?",
+              "explanation": "4=100, 5=101. Combine: 100101.",
+              "options": ["100100", "100101", "101100", "101101"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "4 = 100",
+                "5 = 101"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q6",
+              "questionText": "When converting octal 2 to binary, the result is 10.",
+              "explanation": "False! Octal 2 = 010 in binary (3 bits), not 10. Each octal digit must expand to exactly 3 bits.",
+              "correctAnswer": false,
+              "hints": [
+                "Need 3 bits for each octal digit",
+                "2 = 010, not 10"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q7",
+              "questionText": "Octal 0 in binary is ________.",
+              "explanation": "0 in octal = 000 in binary (all bits off).",
+              "correctAnswer": "000",
+              "acceptableAnswers": ["000"],
+              "hints": [
+                "0 means all bits are off",
+                "Still need 3 bits: 000"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "binary_fractions",
+      "title": "Working with Fractional Binary Numbers",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 18,
+      "order": 16,
+      "prerequisites": ["binary_to_decimal"],
+      "description": "Learn how to work with binary numbers that have fractional parts.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_bin_frac",
+          "title": "Binary Fractions",
+          "content": "Just like decimal has a decimal point (3.14), binary has a **binary point** that separates whole numbers from fractions!\n\n**Fractional Place Values (powers of 2 with negative exponents):**\n• 2⁻¹ = 1/2 = 0.5 (halves place)\n• 2⁻² = 1/4 = 0.25 (quarters place)\n• 2⁻³ = 1/8 = 0.125 (eighths place)\n• 2⁻⁴ = 1/16 = 0.0625 (sixteenths place)\n\n**Example 1: Convert 1.101 (binary) to decimal**\n\nBinary:    1   .  1     0     1\nPositions: 1   .  0.5   0.25  0.125\nCalculate: 1×1    1×0.5 0×0.25 1×0.125\nResults:   1  +  0.5 +  0   +  0.125 = 1.625\n\nSo 1.101 in binary = 1.625 in decimal!\n\n**Example 2: Convert 0.11 (binary) to decimal**\n\nBinary:    0.  1     1\nPositions:  .  0.5   0.25\nResults:    0.5 + 0.25 = 0.75\n\nSo 0.11 in binary = 0.75 in decimal!\n\n**Example 3: Convert 10.01 (binary) to decimal**\n\nWhole part: 10 (binary) = 2 (decimal)\nFractional: .01 (binary) = 0.25 (decimal)\nTotal: 2.25\n\n**Important Facts:**\n• Each position after the point is HALF the previous\n• Some decimal fractions can't be exactly represented in binary (like 0.1)\n• This is why computers sometimes have rounding errors!\n• Powers of 2 fractions (0.5, 0.25, 0.125, etc.) convert perfectly\n\n**Pro Tips:**\n• Handle whole and fractional parts separately\n• Remember: 0.1 (binary) = 0.5 (decimal)\n• Common pattern: 0.111... approaches 1.0"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_bin_frac",
+          "title": "Binary Fraction Practice",
+          "description": "Let's convert binary 0.101 to decimal.",
+          "exercise": {
+            "id": "ex_frac",
+            "problem": "What is binary 0.101 in decimal?",
+            "correctAnswer": "0.625",
+            "difficulty": "EASY",
+            "explanation": "0.101 = (1×0.5) + (0×0.25) + (1×0.125) = 0.5 + 0 + 0.125 = 0.625",
+            "hints": [
+              "Positions after point: 0.5, 0.25, 0.125",
+              "Add: 0.5 + 0.125",
+              "Skip the 0 in middle"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_bin_frac",
+          "title": "Binary Fraction Conversions",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert binary 0.1 to decimal",
+              "correctAnswer": "0.5",
+              "difficulty": "EASY",
+              "explanation": "0.1 (binary) = 1×0.5 = 0.5",
+              "hints": ["First position after point is 0.5"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert binary 0.11 to decimal",
+              "correctAnswer": "0.75",
+              "difficulty": "EASY",
+              "explanation": "0.11 = 0.5 + 0.25 = 0.75",
+              "hints": ["0.5 + 0.25 = ?"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert binary 1.1 to decimal",
+              "correctAnswer": "1.5",
+              "difficulty": "EASY",
+              "explanation": "1.1 = 1 + 0.5 = 1.5",
+              "hints": ["Whole part: 1, Fractional: 0.5"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert binary 0.01 to decimal",
+              "correctAnswer": "0.25",
+              "difficulty": "EASY",
+              "explanation": "0.01 = 0×0.5 + 1×0.25 = 0.25",
+              "hints": ["Second position is 0.25"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert binary 1.11 to decimal",
+              "correctAnswer": "1.75",
+              "difficulty": "MEDIUM",
+              "explanation": "1.11 = 1 + 0.5 + 0.25 = 1.75",
+              "hints": ["1 + 0.75 = ?"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert binary 10.1 to decimal",
+              "correctAnswer": "2.5",
+              "difficulty": "MEDIUM",
+              "explanation": "10.1 = 2 + 0.5 = 2.5",
+              "hints": ["Whole: 2, Fractional: 0.5"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_bin_frac",
+          "title": "Binary Fractions Quiz",
+          "questions": [
+            {
+              "type": "MultipleChoice",
+              "id": "q1",
+              "questionText": "What is the value of the first position after the binary point?",
+              "explanation": "The first position after the binary point is 2⁻¹ = 1/2 = 0.5 in decimal.",
+              "options": ["0.1", "0.25", "0.5", "1.0"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "It's 2⁻¹",
+                "1 divided by 2 = ?"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q2",
+              "questionText": "Binary 0.1 equals ____ in decimal.",
+              "explanation": "Binary 0.1 = 1×0.5 = 0.5 in decimal.",
+              "correctAnswer": "0.5",
+              "acceptableAnswers": ["0.5", ".5"],
+              "hints": [
+                "First position after point",
+                "Half of 1"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q3",
+              "questionText": "What is binary 1.01 in decimal?",
+              "explanation": "1.01 = 1 + 0 + 0.25 = 1.25 in decimal.",
+              "options": ["1.0", "1.25", "1.5", "1.75"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Whole: 1, Fractional: 0.01",
+                "0.01 in binary = 0.25"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q4",
+              "questionText": "Some decimal fractions cannot be exactly represented in binary.",
+              "explanation": "True! For example, 0.1 in decimal requires infinite repeating bits in binary. This is why computers have rounding errors.",
+              "correctAnswer": true,
+              "hints": [
+                "Think about 1/3 in decimal (0.333...)",
+                "Binary has similar limitations"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q5",
+              "questionText": "What is 2⁻² in decimal?",
+              "explanation": "2⁻² = 1/(2²) = 1/4 = 0.25. This is the second position after the binary point.",
+              "options": ["0.125", "0.25", "0.5", "2.0"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "2⁻² = 1 / (2²)",
+                "1 / 4 = ?"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q6",
+              "questionText": "Binary 0.111 equals ____ in decimal.",
+              "explanation": "0.111 = 0.5 + 0.25 + 0.125 = 0.875 in decimal.",
+              "correctAnswer": "0.875",
+              "acceptableAnswers": ["0.875", ".875"],
+              "hints": [
+                "Add all three positions: 0.5, 0.25, 0.125",
+                "0.5 + 0.25 + 0.125 = ?"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q7",
+              "questionText": "Each position after the binary point is half the previous position.",
+              "explanation": "True! Just like whole number positions double going left, fractional positions halve going right: 0.5, 0.25, 0.125...",
+              "correctAnswer": true,
+              "hints": [
+                "0.5 → 0.25 → 0.125",
+                "Each is divided by 2"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decimal_fractions_to_binary",
+      "title": "Decimal Fractions to Binary",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 18,
+      "order": 17,
+      "prerequisites": ["binary_fractions"],
+      "description": "Master converting decimal fractions into binary representation.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_dec_frac_to_bin",
+          "title": "Converting Decimal Fractions to Binary",
+          "content": "Converting decimal fractions to binary uses a different method than whole numbers. We use the **multiply by 2** method!\n\n**Multiply by 2 Method:**\n\n1. Take the fractional part only\n2. Multiply by 2\n3. Write down the integer part (0 or 1)\n4. Keep the fractional remainder\n5. Repeat until remainder is 0 or desired precision\n6. Read the integer parts from TOP to BOTTOM\n\n**Example 1: Convert 0.625 to binary**\n\n0.625 × 2 = 1.25 → integer part: **1**, remainder: 0.25\n0.25 × 2 = 0.5 → integer part: **0**, remainder: 0.5\n0.5 × 2 = 1.0 → integer part: **1**, remainder: 0.0\n\nReading top to bottom: 0.101\nSo 0.625 in decimal = 0.101 in binary!\n\n**Example 2: Convert 0.75 to binary**\n\n0.75 × 2 = 1.5 → integer part: **1**, remainder: 0.5\n0.5 × 2 = 1.0 → integer part: **1**, remainder: 0.0\n\nResult: 0.11\nSo 0.75 in decimal = 0.11 in binary!\n\n**Example 3: Convert 2.75 to binary**\n\nHandle separately:\nWhole part: 2 = 10 (binary)\nFractional: 0.75 = 0.11 (binary)\nCombined: 10.11\n\n**Example 4: 0.1 (repeating binary)**\n\n0.1 × 2 = 0.2 → **0**, remainder: 0.2\n0.2 × 2 = 0.4 → **0**, remainder: 0.4\n0.4 × 2 = 0.8 → **0**, remainder: 0.8\n0.8 × 2 = 1.6 → **1**, remainder: 0.6\n0.6 × 2 = 1.2 → **1**, remainder: 0.2 (repeats!)\n\nResult: 0.00011001100... (infinite)\nThis is why 0.1 can't be exact in binary!\n\n**Pro Tips:**\n• Convert whole and fractional parts separately\n• Read bits from TOP to BOTTOM (opposite of whole number conversion!)\n• Stop when remainder is 0 or at desired precision\n• Some fractions will repeat infinitely"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_dec_frac_to_bin",
+          "title": "Fraction Conversion Practice",
+          "description": "Let's convert decimal 0.5 to binary.",
+          "exercise": {
+            "id": "ex_half",
+            "problem": "What is decimal 0.5 in binary?",
+            "correctAnswer": "0.1",
+            "difficulty": "EASY",
+            "explanation": "0.5 × 2 = 1.0. Integer part is 1, remainder is 0. Result: 0.1",
+            "hints": [
+              "Multiply 0.5 × 2",
+              "Result is 1.0, so binary is 0.1",
+              "0.5 is exactly half, first binary position"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_dec_frac_to_bin",
+          "title": "Decimal Fraction to Binary Practice",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert decimal 0.5 to binary",
+              "correctAnswer": "0.1",
+              "difficulty": "EASY",
+              "explanation": "0.5 × 2 = 1.0, result: 0.1",
+              "hints": ["0.5 is exactly half"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert decimal 0.25 to binary",
+              "correctAnswer": "0.01",
+              "difficulty": "EASY",
+              "explanation": "0.25×2=0.5 (0), 0.5×2=1.0 (1), result: 0.01",
+              "hints": ["Two multiplications needed"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert decimal 0.75 to binary",
+              "correctAnswer": "0.11",
+              "difficulty": "EASY",
+              "explanation": "0.75×2=1.5 (1), 0.5×2=1.0 (1), result: 0.11",
+              "hints": ["0.5 + 0.25 = 0.75"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert decimal 0.125 to binary",
+              "correctAnswer": "0.001",
+              "difficulty": "MEDIUM",
+              "explanation": "0.125×2=0.25 (0), 0.25×2=0.5 (0), 0.5×2=1.0 (1), result: 0.001",
+              "hints": ["Three multiplications: 0, 0, 1"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert decimal 0.875 to binary",
+              "correctAnswer": "0.111",
+              "difficulty": "MEDIUM",
+              "explanation": "0.875×2=1.75 (1), 0.75×2=1.5 (1), 0.5×2=1.0 (1), result: 0.111",
+              "hints": ["0.5 + 0.25 + 0.125 = 0.875"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert decimal 1.5 to binary",
+              "correctAnswer": "1.1",
+              "difficulty": "MEDIUM",
+              "explanation": "Whole: 1=1, Fractional: 0.5=0.1, result: 1.1",
+              "hints": ["Handle whole and fraction separately"]
+            },
+            {
+              "id": "p7",
+              "problem": "Convert decimal 3.25 to binary",
+              "correctAnswer": "11.01",
+              "difficulty": "MEDIUM",
+              "explanation": "Whole: 3=11, Fractional: 0.25=0.01, result: 11.01",
+              "hints": ["3 in binary is 11"]
+            },
+            {
+              "id": "p8",
+              "problem": "Convert decimal 0.375 to binary",
+              "correctAnswer": "0.011",
+              "difficulty": "MEDIUM",
+              "explanation": "0.375×2=0.75 (0), 0.75×2=1.5 (1), 0.5×2=1.0 (1), result: 0.011",
+              "hints": ["0.25 + 0.125 = 0.375"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_dec_frac_to_bin",
+          "title": "Decimal Fraction to Binary Quiz",
+          "questions": [
+            {
+              "type": "MultipleChoice",
+              "id": "q1",
+              "questionText": "What is decimal 0.5 in binary?",
+              "explanation": "0.5 × 2 = 1.0, so the binary is 0.1",
+              "options": ["0.0", "0.1", "0.01", "0.11"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Multiply 0.5 by 2",
+                "Result is 1.0, write 1"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q2",
+              "questionText": "When converting decimal fractions to binary, you multiply by ____.",
+              "explanation": "You multiply by 2 repeatedly, taking the integer part each time as the next binary digit.",
+              "correctAnswer": "2",
+              "acceptableAnswers": ["2", "two"],
+              "hints": [
+                "Binary is base 2",
+                "Same as the base"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q3",
+              "questionText": "When converting fractions, you read the bits from top to bottom.",
+              "explanation": "True! This is opposite from whole numbers. The first multiplication gives the first bit after the point.",
+              "correctAnswer": true,
+              "hints": [
+                "Opposite of whole number method",
+                "First multiplication = first bit"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "What is decimal 0.25 in binary?",
+              "explanation": "0.25×2=0.5 (0), 0.5×2=1.0 (1). Result: 0.01",
+              "options": ["0.01", "0.10", "0.11", "0.001"],
+              "correctAnswerIndex": 0,
+              "hints": [
+                "Two multiplications needed",
+                "First gives 0, second gives 1"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q5",
+              "questionText": "Which decimal fraction CANNOT be exactly represented in binary?",
+              "explanation": "0.1 requires infinite repeating bits in binary (0.000110011...). Powers of 2 fractions (0.5, 0.25, 0.125) convert exactly.",
+              "options": ["0.5", "0.25", "0.1", "0.125"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "Try the multiply by 2 method",
+                "Which one repeats infinitely?"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q6",
+              "questionText": "Decimal 0.75 in binary is ____.",
+              "explanation": "0.75×2=1.5 (1), 0.5×2=1.0 (1). Result: 0.11",
+              "correctAnswer": "0.11",
+              "acceptableAnswers": ["0.11", ".11"],
+              "hints": [
+                "0.75 = 0.5 + 0.25",
+                "Both bits are 1"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q7",
+              "questionText": "All decimal fractions can be perfectly represented in binary with finite digits.",
+              "explanation": "False! Only fractions that are sums of powers of 2 (like 0.5, 0.75, 0.625) can be exact. Others like 0.1 or 0.3 require infinite bits.",
+              "correctAnswer": false,
+              "hints": [
+                "Think about 0.1 in binary",
+                "Does it terminate or repeat?"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hex_fractions",
+      "title": "Hexadecimal Fractions",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 15,
+      "order": 18,
+      "prerequisites": ["binary_fractions", "hex_to_decimal"],
+      "description": "Learn to work with hexadecimal numbers that have fractional parts.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_hex_frac",
+          "title": "Hexadecimal Fractions",
+          "content": "Just like binary and decimal, hexadecimal can have fractions using a hex point!\n\n**Fractional Place Values (powers of 16 with negative exponents):**\n• 16⁻¹ = 1/16 = 0.0625 (sixteenths place)\n• 16⁻² = 1/256 = 0.00390625 (two-hundred-fifty-sixths place)\n• 16⁻³ = 1/4096 ≈ 0.000244 (and so on...)\n\n**Example 1: Convert 1.8 (hex) to decimal**\n\nHex:       1   .  8\nPositions: 1   .  1/16\nValues:    1      8 (8 in decimal)\nCalculate: 1×1    8×(1/16)\nResults:   1  +   0.5 = 1.5\n\nSo 1.8 in hex = 1.5 in decimal!\n\n**Example 2: Convert A.4 (hex) to decimal**\n\nHex:       A   .  4\nValues:    10     4\nPositions: 1      1/16\nCalculate: 10×1   4×0.0625\nResults:   10 +   0.25 = 10.25\n\nSo A.4 in hex = 10.25 in decimal!\n\n**Example 3: Convert 0.C (hex) to decimal**\n\nHex:       0.  C\nValues:     .  12\nCalculate:     12×(1/16)\nResult:        0.75\n\nSo 0.C in hex = 0.75 in decimal!\n\n**Real-World Use: Color Precision**\nHex fractions aren't commonly used in everyday programming, but understanding them helps with:\n• Color interpolation\n• High-precision graphics\n• Understanding floating-point representation\n• Academic and theoretical computer science\n\n**Pro Tips:**\n• Convert letter digits (A-F) to 10-15 first\n• First fractional position is 1/16 = 0.0625\n• Hex fractions are more precise than decimal for some values\n• Each hex digit after point = 4 binary bits after binary point"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_hex_frac",
+          "title": "Hex Fraction Practice",
+          "description": "Let's convert hex 0.8 to decimal.",
+          "exercise": {
+            "id": "ex_hex_frac",
+            "problem": "What is hex 0.8 in decimal?",
+            "correctAnswer": "0.5",
+            "difficulty": "EASY",
+            "explanation": "0.8 (hex) = 8 × (1/16) = 8/16 = 0.5 in decimal",
+            "hints": [
+              "8 in the 1/16 position",
+              "8 × (1/16) = 8/16 = 1/2",
+              "Simplifies to 0.5"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_hex_frac",
+          "title": "Hex Fraction Conversions",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert hex 0.4 to decimal",
+              "correctAnswer": "0.25",
+              "difficulty": "EASY",
+              "explanation": "0.4 (hex) = 4/16 = 0.25",
+              "hints": ["4 × (1/16) = 0.25"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert hex 0.C to decimal",
+              "correctAnswer": "0.75",
+              "difficulty": "EASY",
+              "explanation": "0.C (hex) = 12/16 = 0.75 (C=12)",
+              "hints": ["C = 12, then 12/16 = 0.75"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert hex 1.0 to decimal",
+              "correctAnswer": "1.0",
+              "difficulty": "EASY",
+              "explanation": "1.0 (hex) = 1 + 0 = 1.0",
+              "hints": ["No fractional part"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert hex 2.8 to decimal",
+              "correctAnswer": "2.5",
+              "difficulty": "MEDIUM",
+              "explanation": "2.8 = 2 + (8/16) = 2 + 0.5 = 2.5",
+              "hints": ["Whole: 2, Fractional: 0.5"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert hex F.8 to decimal",
+              "correctAnswer": "15.5",
+              "difficulty": "MEDIUM",
+              "explanation": "F.8 = 15 + 0.5 = 15.5 (F=15)",
+              "hints": ["F = 15"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert hex 0.F to decimal",
+              "correctAnswer": "0.9375",
+              "difficulty": "MEDIUM",
+              "explanation": "0.F = 15/16 = 0.9375 (F=15)",
+              "hints": ["F = 15, then 15/16"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_hex_frac",
+          "title": "Hexadecimal Fractions Quiz",
+          "questions": [
+            {
+              "type": "MultipleChoice",
+              "id": "q1",
+              "questionText": "What is the value of the first position after the hex point?",
+              "explanation": "The first position after the hex point is 16⁻¹ = 1/16 = 0.0625 in decimal.",
+              "options": ["0.0625", "0.125", "0.25", "0.5"],
+              "correctAnswerIndex": 0,
+              "hints": [
+                "It's 16⁻¹",
+                "1 divided by 16 = ?"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q2",
+              "questionText": "Hex 0.8 equals ____ in decimal.",
+              "explanation": "Hex 0.8 = 8/16 = 0.5 in decimal.",
+              "correctAnswer": "0.5",
+              "acceptableAnswers": ["0.5", ".5"],
+              "hints": [
+                "8 × (1/16)",
+                "8/16 simplifies to 1/2"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q3",
+              "questionText": "What is hex 1.4 in decimal?",
+              "explanation": "1.4 (hex) = 1 + (4/16) = 1 + 0.25 = 1.25 in decimal.",
+              "options": ["1.0", "1.25", "1.4", "1.5"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "Whole: 1, Fractional: 4/16",
+                "4/16 = 0.25"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q4",
+              "questionText": "Hex C in the fractional position equals 0.75 in decimal.",
+              "explanation": "True! C = 12, and 12/16 = 0.75 in decimal.",
+              "correctAnswer": true,
+              "hints": [
+                "C = 12",
+                "12/16 = 3/4 = 0.75"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q5",
+              "questionText": "What is 16⁻¹ in decimal?",
+              "explanation": "16⁻¹ = 1/(16¹) = 1/16 = 0.0625. This is the first position after the hex point.",
+              "options": ["0.0625", "0.125", "0.25", "0.5"],
+              "correctAnswerIndex": 0,
+              "hints": [
+                "16⁻¹ = 1/16",
+                "1 ÷ 16 = ?"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q6",
+              "questionText": "Hex 0.F equals ____ in decimal.",
+              "explanation": "0.F = 15/16 = 0.9375 in decimal (F=15).",
+              "correctAnswer": "0.9375",
+              "acceptableAnswers": ["0.9375", ".9375"],
+              "hints": [
+                "F = 15",
+                "15/16 = ?"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q7",
+              "questionText": "Each hex fractional digit represents exactly 4 binary fractional bits.",
+              "explanation": "True! Just like whole numbers, each hex digit = 4 binary bits. So 0.8 (hex) = 0.1000 (binary).",
+              "correctAnswer": true,
+              "hints": [
+                "Same 4-bit relationship as whole numbers",
+                "Hex and binary have perfect alignment"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "conversion_shortcuts",
+      "title": "Quick Conversion Tricks",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 15,
+      "order": 19,
+      "prerequisites": ["binary_to_hex", "decimal_to_hex", "binary_to_decimal"],
+      "description": "Learn mental shortcuts and patterns for faster number system conversions.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_shortcuts",
+          "title": "Conversion Shortcuts and Patterns",
+          "content": "After learning all the formal methods, let's discover shortcuts that make conversions lightning-fast!\n\n**Powers of 2 Recognition:**\nMemoriz these common values:\n• 2¹ = 2\n• 2² = 4\n• 2³ = 8\n• 2⁴ = 16 (also 10 in hex!)\n• 2⁵ = 32\n• 2⁶ = 64 (also 40 in hex!)\n• 2⁷ = 128 (also 80 in hex!)\n• 2⁸ = 256 (also 100 in hex!)\n• 2⁹ = 512\n• 2¹⁰ = 1024 (1K!)\n\n**Common Hex Values:**\n• FF = 255 (max byte!)\n• 80 = 128 (high bit of byte)\n• 100 = 256\n• 3FF = 1023\n• FFF = 4095\n\n**Binary Doubling/Halving:**\nShift left = multiply by 2:\n• 1010 << 1 = 10100 (10 becomes 20)\nShift right = divide by 2:\n• 1010 >> 1 = 101 (10 becomes 5)\n\n**Nibble Thinking (4-bit groups):**\nThink in hex chunks:\n• 10101010 = AA (1010=A, 1010=A)\n• 11110000 = F0 (1111=F, 0000=0)\n\n**Quick Binary to Hex:**\nMemoize these 16 patterns:\n0000=0, 0001=1, 0010=2, 0011=3\n0100=4, 0101=5, 0110=6, 0111=7\n1000=8, 1001=9, 1010=A, 1011=B\n1100=C, 1101=D, 1110=E, 1111=F\n\n**Decimal to Hex Shortcuts:**\n• 255 = FF (always!)\n• Multiples of 16: 16=10, 32=20, 48=30, 64=40\n• Add: 17 = 16+1 = 10+1 = 11 (hex)\n\n**Pattern Recognition:**\n• All 1s in binary = power of 2 minus 1\n  - 111 = 7, 1111 = 15, 11111 = 31\n• Alternating bits: often simple fractions\n  - 101010 = AA (hex) = 170 (decimal)\n\n**Mental Math Tricks:**\n• To convert small hex to decimal: multiply first digit by 16, add second\n• 2F = 2×16 + 15 = 32 + 15 = 47\n• For binary, add powers of 2 where bits are 1\n• 1101 = 8+4+1 = 13"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_shortcuts",
+          "title": "Quick Pattern Recognition",
+          "description": "Let's use shortcuts to convert quickly!",
+          "exercise": {
+            "id": "ex_pattern",
+            "problem": "What is hex FF in decimal? (use the shortcut)",
+            "correctAnswer": "255",
+            "difficulty": "EASY",
+            "explanation": "FF is the maximum value for one byte, which is always 255. This is a fundamental value to memorize!",
+            "hints": [
+              "This is the max byte value",
+              "Think: F=15, so 15×16 + 15",
+              "Or just memorize: FF = 255!"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_shortcuts",
+          "title": "Quick Conversion Practice",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "What is 2¹⁰ in decimal?",
+              "correctAnswer": "1024",
+              "difficulty": "EASY",
+              "explanation": "2¹⁰ = 1024, also known as 1K. Memorize this!",
+              "hints": ["This is 1 kilobyte (1K)"]
+            },
+            {
+              "id": "p2",
+              "problem": "Hex 100 in decimal?",
+              "correctAnswer": "256",
+              "difficulty": "EASY",
+              "explanation": "Hex 100 = 16² = 256. Power of 16!",
+              "hints": ["16² = ?"]
+            },
+            {
+              "id": "p3",
+              "problem": "Binary 1111 in hex? (quick!)",
+              "correctAnswer": "F",
+              "difficulty": "EASY",
+              "explanation": "1111 = F. All bits on = F!",
+              "hints": ["All 1s in 4 bits = ?"]
+            },
+            {
+              "id": "p4",
+              "problem": "What is 16 in hex?",
+              "correctAnswer": "10",
+              "difficulty": "EASY",
+              "explanation": "16 = 10 in hex (one sixteen, zero ones)",
+              "hints": ["16 is the first 2-digit hex"]
+            },
+            {
+              "id": "p5",
+              "problem": "Binary 10000000 in hex? (think nibbles)",
+              "correctAnswer": "80",
+              "difficulty": "MEDIUM",
+              "explanation": "Split: 1000 0000 = 8 0 = 80 (hex)",
+              "hints": ["Split into 1000 and 0000"]
+            },
+            {
+              "id": "p6",
+              "problem": "Quick: hex AA in decimal?",
+              "correctAnswer": "170",
+              "difficulty": "MEDIUM",
+              "explanation": "AA = 10×16 + 10 = 160 + 10 = 170",
+              "hints": ["A = 10, so 10×16 + 10"]
+            },
+            {
+              "id": "p7",
+              "problem": "2⁸ in decimal?",
+              "correctAnswer": "256",
+              "difficulty": "EASY",
+              "explanation": "2⁸ = 256 (also FF+1 in hex)",
+              "hints": ["Max byte + 1"]
+            },
+            {
+              "id": "p8",
+              "problem": "Binary 111 in decimal? (fast!)",
+              "correctAnswer": "7",
+              "difficulty": "EASY",
+              "explanation": "111 = 4+2+1 = 7. Or remember: all 1s for 3 bits = 7",
+              "hints": ["All 1s in 3 bits"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_shortcuts",
+          "title": "Quick Conversion Quiz",
+          "questions": [
+            {
+              "type": "FillBlank",
+              "id": "q1",
+              "questionText": "Hex FF always equals ____ in decimal.",
+              "explanation": "FF = 15×16 + 15 = 255. This is the maximum value for one byte and should be memorized!",
+              "correctAnswer": "255",
+              "acceptableAnswers": ["255"],
+              "hints": [
+                "Maximum value in one byte",
+                "15×16 + 15 = ?"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q2",
+              "questionText": "What is 2¹⁰?",
+              "explanation": "2¹⁰ = 1024, also known as 1K (kilobyte). This is a fundamental computer value.",
+              "options": ["512", "1000", "1024", "2048"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "This is 1 kilobyte",
+                "1K in computer terms"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q3",
+              "questionText": "Shifting binary left by 1 position multiplies the value by 2.",
+              "explanation": "True! Left shift adds a 0 on the right, which doubles the value. Example: 101 (5) << 1 = 1010 (10).",
+              "correctAnswer": true,
+              "hints": [
+                "Think about what happens to place values",
+                "Try it: 101 becomes 1010"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "Quick! What is hex 10 in decimal?",
+              "explanation": "Hex 10 = 1×16 + 0×1 = 16 in decimal.",
+              "options": ["10", "16", "20", "256"],
+              "correctAnswerIndex": 1,
+              "hints": [
+                "First 2-digit hex number",
+                "One sixteen, zero ones"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q5",
+              "questionText": "Binary 1111 equals hex ____.",
+              "explanation": "1111 in binary = 15 in decimal = F in hex. All bits on in 4-bit nibble = F!",
+              "correctAnswer": "F",
+              "acceptableAnswers": ["F", "f"],
+              "hints": [
+                "All 1s in a nibble",
+                "Highest single hex digit"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q6",
+              "questionText": "What is 2⁸ in decimal?",
+              "explanation": "2⁸ = 256. This is also hex 100, and it's one more than the max byte value (255).",
+              "options": ["128", "200", "256", "512"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "Max byte + 1",
+                "Hex 100"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q7",
+              "questionText": "Each hex digit represents exactly 4 binary bits, making binary-hex conversion very fast.",
+              "explanation": "True! This perfect 4-to-1 relationship is why hex is so useful in computing. Just group 4 bits and convert each group.",
+              "correctAnswer": true,
+              "hints": [
+                "Nibble = 4 bits = 1 hex digit",
+                "16 = 2⁴"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "octal_hex_relationship",
+      "title": "Octal and Hex Relationships",
+      "category": "INTERMEDIATE",
+      "estimatedTimeMinutes": 12,
+      "order": 20,
+      "prerequisites": ["binary_to_octal", "binary_to_hex"],
+      "description": "Understand how to convert between octal and hexadecimal via binary.",
+      "sections": [
+        {
+          "type": "theory",
+          "id": "theory_oct_hex",
+          "title": "Converting Between Octal and Hex",
+          "content": "There's no direct conversion between octal and hex! But we can use binary as a bridge since both have clean relationships with binary.\n\n**The Binary Bridge Method:**\n\nOctal → Binary → Hex\n• Octal to Binary: each octal digit = 3 bits\n• Binary to Hex: group 4 bits = 1 hex digit\n• May need to regroup bits!\n\nHex → Binary → Octal\n• Hex to Binary: each hex digit = 4 bits\n• Binary to Octal: group 3 bits = 1 octal digit\n• May need to regroup bits!\n\n**Example 1: Convert octal 157 to hex**\n\nStep 1: Octal to Binary (3 bits each)\n• 1 = 001\n• 5 = 101\n• 7 = 111\nBinary: 001 101 111\n\nStep 2: Regroup for Hex (4 bits each)\nFrom right: 0 0110 1111\nPad: 0000 0110 1111\n\nStep 3: Binary to Hex\n• 0000 = 0\n• 0110 = 6\n• 1111 = F\nResult: 6F\n\nSo octal 157 = hex 6F!\n\n**Example 2: Convert hex 2F to octal**\n\nStep 1: Hex to Binary (4 bits each)\n• 2 = 0010\n• F = 1111\nBinary: 0010 1111\n\nStep 2: Regroup for Octal (3 bits each)\nFrom right: 010 111 1\nPad: 010 111 001 (wait, from right: 001 011 111)\nCorrect grouping: 000 101 111\n\nStep 3: Binary to Octal\n• 000 = 0\n• 101 = 5\n• 111 = 7\nResult: 057 (or just 57)\n\nSo hex 2F = octal 57!\n\n**Why No Direct Method?**\n• Octal uses 3-bit groups (base 8)\n• Hex uses 4-bit groups (base 16)\n• 3 and 4 don't divide evenly!\n• Binary is the common language\n\n**When to Use Each:**\n• **Hex**: Modern computing, web colors, memory addresses\n• **Octal**: Unix permissions, legacy systems\n• **Binary**: Low-level programming, understanding hardware\n• **Decimal**: Human-friendly, everyday use\n\n**Pro Tips:**\n• Always use binary as intermediate step\n• Be careful with bit grouping (3 vs 4)\n• Group from RIGHT to LEFT\n• Hex is more common today than octal"
+        },
+        {
+          "type": "interactive",
+          "id": "interactive_oct_hex",
+          "title": "Octal-Hex Bridge Practice",
+          "description": "Let's convert octal 17 to hex via binary.",
+          "exercise": {
+            "id": "ex_bridge",
+            "problem": "What is octal 17 in hexadecimal?",
+            "correctAnswer": "F",
+            "difficulty": "EASY",
+            "explanation": "Octal 17 → Binary: 1=001, 7=111 → 001111 → Hex: 0000 1111 → 0F (or just F)",
+            "hints": [
+              "First convert to binary: 001 111",
+              "Then regroup for hex: 0000 1111",
+              "0000=0, 1111=F, result: 0F or F"
+            ]
+          }
+        },
+        {
+          "type": "practice",
+          "id": "practice_oct_hex",
+          "title": "Octal-Hex Conversions",
+          "exercises": [
+            {
+              "id": "p1",
+              "problem": "Convert octal 7 to hex",
+              "correctAnswer": "7",
+              "difficulty": "EASY",
+              "explanation": "Octal 7 = Binary 111 = Hex 7 (single digit)",
+              "hints": ["7 is the same in both systems"]
+            },
+            {
+              "id": "p2",
+              "problem": "Convert hex F to octal",
+              "correctAnswer": "17",
+              "difficulty": "EASY",
+              "explanation": "Hex F = Binary 1111 → regroup: 001 111 = Octal 17",
+              "hints": ["F = 1111, split as 001 111"]
+            },
+            {
+              "id": "p3",
+              "problem": "Convert octal 10 to hex",
+              "correctAnswer": "8",
+              "difficulty": "EASY",
+              "explanation": "Octal 10 = Binary 001 000 → 0000 1000 = Hex 8",
+              "hints": ["10 in octal = 8 in decimal = 8 in hex"]
+            },
+            {
+              "id": "p4",
+              "problem": "Convert hex 10 to octal",
+              "correctAnswer": "20",
+              "difficulty": "MEDIUM",
+              "explanation": "Hex 10 = Binary 0001 0000 → 000 010 000 = Octal 020 (or 20)",
+              "hints": ["Hex 10 = decimal 16 = octal 20"]
+            },
+            {
+              "id": "p5",
+              "problem": "Convert octal 77 to hex",
+              "correctAnswer": "3F",
+              "difficulty": "MEDIUM",
+              "explanation": "Octal 77 = Binary 111 111 → 0011 1111 = Hex 3F",
+              "hints": ["77 → 111111 → 0011 1111"]
+            },
+            {
+              "id": "p6",
+              "problem": "Convert hex A to octal",
+              "correctAnswer": "12",
+              "difficulty": "MEDIUM",
+              "explanation": "Hex A = Binary 1010 → 001 010 = Octal 12",
+              "hints": ["A = 1010 → 001 010"]
+            },
+            {
+              "id": "p7",
+              "problem": "Convert octal 100 to hex",
+              "correctAnswer": "40",
+              "difficulty": "MEDIUM",
+              "explanation": "Octal 100 = Binary 001 000 000 → 0100 0000 = Hex 40",
+              "hints": ["Octal 100 = decimal 64 = hex 40"]
+            }
+          ]
+        },
+        {
+          "type": "quiz",
+          "id": "quiz_oct_hex",
+          "title": "Octal-Hex Relationship Quiz",
+          "questions": [
+            {
+              "type": "TrueFalse",
+              "id": "q1",
+              "questionText": "You can directly convert between octal and hex without using binary.",
+              "explanation": "False! There's no direct method because octal uses 3-bit groups and hex uses 4-bit groups. Binary is the bridge.",
+              "correctAnswer": false,
+              "hints": [
+                "Octal = 3 bits, Hex = 4 bits",
+                "Need a common format"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q2",
+              "questionText": "What is octal 7 in hexadecimal?",
+              "explanation": "Octal 7 = Binary 111 = Hex 7. Single digits 0-7 are the same in both systems!",
+              "options": ["5", "6", "7", "8"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "Both use the same digit",
+                "7 is valid in both systems"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q3",
+              "questionText": "When converting octal to hex, use ____ as the intermediate step.",
+              "explanation": "Use binary as the intermediate step. Convert octal to binary (3 bits per digit), then binary to hex (4 bits per digit).",
+              "correctAnswer": "binary",
+              "acceptableAnswers": ["binary"],
+              "hints": [
+                "Both systems relate cleanly to this",
+                "Uses 3-bit and 4-bit grouping"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q4",
+              "questionText": "What is hex F in octal?",
+              "explanation": "Hex F = Binary 1111. Regrouping as 001 111 = Octal 17.",
+              "options": ["15", "16", "17", "1F"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "F = 1111 in binary",
+                "Split as 001 111 for octal"
+              ]
+            },
+            {
+              "type": "TrueFalse",
+              "id": "q5",
+              "questionText": "Hexadecimal is more commonly used in modern computing than octal.",
+              "explanation": "True! Hex is used for colors, memory addresses, and general programming. Octal is mainly used for Unix permissions and legacy systems.",
+              "correctAnswer": true,
+              "hints": [
+                "Think about web colors (#FF5733)",
+                "What do programmers use more?"
+              ]
+            },
+            {
+              "type": "MultipleChoice",
+              "id": "q6",
+              "questionText": "When converting hex to octal via binary, how many bits does each hex digit become?",
+              "explanation": "Each hex digit becomes 4 binary bits, which then get regrouped into 3-bit groups for octal.",
+              "options": ["2 bits", "3 bits", "4 bits", "8 bits"],
+              "correctAnswerIndex": 2,
+              "hints": [
+                "Hex uses 4-bit groups",
+                "16 = 2⁴"
+              ]
+            },
+            {
+              "type": "FillBlank",
+              "id": "q7",
+              "questionText": "Octal 10 equals hex ____.",
+              "explanation": "Octal 10 = Binary 001000 = Hex 8. (This is also decimal 8!)",
+              "correctAnswer": "8",
+              "acceptableAnswers": ["8"],
+              "hints": [
+                "Octal 10 = decimal 8",
+                "Same value in decimal and hex"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
