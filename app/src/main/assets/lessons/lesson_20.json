@@ -1,0 +1,223 @@
+{
+  "id": "octal_hex_relationship",
+  "title": "Octal and Hex Relationships",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 12,
+  "order": 20,
+  "prerequisites": [
+    "binary_to_octal",
+    "binary_to_hex"
+  ],
+  "description": "Understand how to convert between octal and hexadecimal via binary.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_oct_hex",
+      "title": "Converting Between Octal and Hex",
+      "content": "There's no direct conversion between octal and hex! But we can use binary as a bridge since both have clean relationships with binary.\n\n**The Binary Bridge Method:**\n\nOctal \u2192 Binary \u2192 Hex\n\u2022 Octal to Binary: each octal digit = 3 bits\n\u2022 Binary to Hex: group 4 bits = 1 hex digit\n\u2022 May need to regroup bits!\n\nHex \u2192 Binary \u2192 Octal\n\u2022 Hex to Binary: each hex digit = 4 bits\n\u2022 Binary to Octal: group 3 bits = 1 octal digit\n\u2022 May need to regroup bits!\n\n**Example 1: Convert octal 157 to hex**\n\nStep 1: Octal to Binary (3 bits each)\n\u2022 1 = 001\n\u2022 5 = 101\n\u2022 7 = 111\nBinary: 001 101 111\n\nStep 2: Regroup for Hex (4 bits each)\nFrom right: 0 0110 1111\nPad: 0000 0110 1111\n\nStep 3: Binary to Hex\n\u2022 0000 = 0\n\u2022 0110 = 6\n\u2022 1111 = F\nResult: 6F\n\nSo octal 157 = hex 6F!\n\n**Example 2: Convert hex 2F to octal**\n\nStep 1: Hex to Binary (4 bits each)\n\u2022 2 = 0010\n\u2022 F = 1111\nBinary: 0010 1111\n\nStep 2: Regroup for Octal (3 bits each)\nFrom right: 010 111 1\nPad: 010 111 001 (wait, from right: 001 011 111)\nCorrect grouping: 000 101 111\n\nStep 3: Binary to Octal\n\u2022 000 = 0\n\u2022 101 = 5\n\u2022 111 = 7\nResult: 057 (or just 57)\n\nSo hex 2F = octal 57!\n\n**Why No Direct Method?**\n\u2022 Octal uses 3-bit groups (base 8)\n\u2022 Hex uses 4-bit groups (base 16)\n\u2022 3 and 4 don't divide evenly!\n\u2022 Binary is the common language\n\n**When to Use Each:**\n\u2022 **Hex**: Modern computing, web colors, memory addresses\n\u2022 **Octal**: Unix permissions, legacy systems\n\u2022 **Binary**: Low-level programming, understanding hardware\n\u2022 **Decimal**: Human-friendly, everyday use\n\n**Pro Tips:**\n\u2022 Always use binary as intermediate step\n\u2022 Be careful with bit grouping (3 vs 4)\n\u2022 Group from RIGHT to LEFT\n\u2022 Hex is more common today than octal"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_oct_hex",
+      "title": "Octal-Hex Bridge Practice",
+      "description": "Let's convert octal 17 to hex via binary.",
+      "exercise": {
+        "id": "ex_bridge",
+        "problem": "What is octal 17 in hexadecimal?",
+        "correctAnswer": "F",
+        "difficulty": "EASY",
+        "explanation": "Octal 17 \u2192 Binary: 1=001, 7=111 \u2192 001111 \u2192 Hex: 0000 1111 \u2192 0F (or just F)",
+        "hints": [
+          "First convert to binary: 001 111",
+          "Then regroup for hex: 0000 1111",
+          "0000=0, 1111=F, result: 0F or F"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_oct_hex",
+      "title": "Octal-Hex Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert octal 7 to hex",
+          "correctAnswer": "7",
+          "difficulty": "EASY",
+          "explanation": "Octal 7 = Binary 111 = Hex 7 (single digit)",
+          "hints": [
+            "7 is the same in both systems"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert hex F to octal",
+          "correctAnswer": "17",
+          "difficulty": "EASY",
+          "explanation": "Hex F = Binary 1111 \u2192 regroup: 001 111 = Octal 17",
+          "hints": [
+            "F = 1111, split as 001 111"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert octal 10 to hex",
+          "correctAnswer": "8",
+          "difficulty": "EASY",
+          "explanation": "Octal 10 = Binary 001 000 \u2192 0000 1000 = Hex 8",
+          "hints": [
+            "10 in octal = 8 in decimal = 8 in hex"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert hex 10 to octal",
+          "correctAnswer": "20",
+          "difficulty": "MEDIUM",
+          "explanation": "Hex 10 = Binary 0001 0000 \u2192 000 010 000 = Octal 020 (or 20)",
+          "hints": [
+            "Hex 10 = decimal 16 = octal 20"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert octal 77 to hex",
+          "correctAnswer": "3F",
+          "difficulty": "MEDIUM",
+          "explanation": "Octal 77 = Binary 111 111 \u2192 0011 1111 = Hex 3F",
+          "hints": [
+            "77 \u2192 111111 \u2192 0011 1111"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert hex A to octal",
+          "correctAnswer": "12",
+          "difficulty": "MEDIUM",
+          "explanation": "Hex A = Binary 1010 \u2192 001 010 = Octal 12",
+          "hints": [
+            "A = 1010 \u2192 001 010"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert octal 100 to hex",
+          "correctAnswer": "40",
+          "difficulty": "MEDIUM",
+          "explanation": "Octal 100 = Binary 001 000 000 \u2192 0100 0000 = Hex 40",
+          "hints": [
+            "Octal 100 = decimal 64 = hex 40"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_oct_hex",
+      "title": "Octal-Hex Relationship Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "You can directly convert between octal and hex without using binary.",
+          "explanation": "False! There's no direct method because octal uses 3-bit groups and hex uses 4-bit groups. Binary is the bridge.",
+          "correctAnswer": false,
+          "hints": [
+            "Octal = 3 bits, Hex = 4 bits",
+            "Need a common format"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is octal 7 in hexadecimal?",
+          "explanation": "Octal 7 = Binary 111 = Hex 7. Single digits 0-7 are the same in both systems!",
+          "options": [
+            "5",
+            "6",
+            "7",
+            "8"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Both use the same digit",
+            "7 is valid in both systems"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "When converting octal to hex, use ____ as the intermediate step.",
+          "explanation": "Use binary as the intermediate step. Convert octal to binary (3 bits per digit), then binary to hex (4 bits per digit).",
+          "correctAnswer": "binary",
+          "acceptableAnswers": [
+            "binary"
+          ],
+          "hints": [
+            "Both systems relate cleanly to this",
+            "Uses 3-bit and 4-bit grouping"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is hex F in octal?",
+          "explanation": "Hex F = Binary 1111. Regrouping as 001 111 = Octal 17.",
+          "options": [
+            "15",
+            "16",
+            "17",
+            "1F"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "F = 1111 in binary",
+            "Split as 001 111 for octal"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q5",
+          "questionText": "Hexadecimal is more commonly used in modern computing than octal.",
+          "explanation": "True! Hex is used for colors, memory addresses, and general programming. Octal is mainly used for Unix permissions and legacy systems.",
+          "correctAnswer": true,
+          "hints": [
+            "Think about web colors (#FF5733)",
+            "What do programmers use more?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q6",
+          "questionText": "When converting hex to octal via binary, how many bits does each hex digit become?",
+          "explanation": "Each hex digit becomes 4 binary bits, which then get regrouped into 3-bit groups for octal.",
+          "options": [
+            "2 bits",
+            "3 bits",
+            "4 bits",
+            "8 bits"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Hex uses 4-bit groups",
+            "16 = 2\u2074"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q7",
+          "questionText": "Octal 10 equals hex ____.",
+          "explanation": "Octal 10 = Binary 001000 = Hex 8. (This is also decimal 8!)",
+          "correctAnswer": "8",
+          "acceptableAnswers": [
+            "8"
+          ],
+          "hints": [
+            "Octal 10 = decimal 8",
+            "Same value in decimal and hex"
+          ]
+        }
+      ]
+    }
+  ]
+}

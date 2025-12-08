@@ -1,0 +1,188 @@
+{
+  "id": "hexadecimal_basics",
+  "title": "Introduction to Hexadecimal",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 12,
+  "order": 6,
+  "prerequisites": [
+    "binary_to_decimal"
+  ],
+  "description": "Discover hexadecimal, the base-16 system used in programming and web design.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_hex",
+      "title": "What is Hexadecimal?",
+      "content": "Hexadecimal (or 'hex' for short) is the base-16 number system. It uses 16 different digits:\n\n\u2022 Numbers: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\n\u2022 Letters: A, B, C, D, E, F\n\nThe letters represent decimal values:\n\u2022 A = 10\n\u2022 B = 11\n\u2022 C = 12\n\u2022 D = 13\n\u2022 E = 14\n\u2022 F = 15\n\nWhy use hexadecimal? It's a compact way to represent binary! Each hex digit represents exactly 4 binary bits:\n\u2022 0 = 0000, 1 = 0001, 2 = 0010, ..., F = 1111\n\nHexadecimal is used everywhere in computing:\n\u2022 **Web Colors**: #FF5733 (red-green-blue values)\n\u2022 **Memory Addresses**: 0x7FFF (in programming)\n\u2022 **MAC Addresses**: 00:1B:63:84:45:E6\n\u2022 **File Data**: Viewing file contents in hex editors\n\nPlace values in hex use powers of 16:\n\u2022 16\u2070 = 1 (ones place)\n\u2022 16\u00b9 = 16 (sixteens place)\n\u2022 16\u00b2 = 256 (two-hundred-fifty-sixes place)\n\u2022 16\u00b3 = 4096\n\nExample: 2F in hex\n2 is in the 16s place: 2 \u00d7 16 = 32\nF (15) is in the 1s place: 15 \u00d7 1 = 15\nTotal: 32 + 15 = 47 in decimal"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_hex_letters",
+      "title": "Understanding Hex Digits",
+      "description": "Let's practice matching hex letters to their decimal values.",
+      "exercise": {
+        "id": "ex_hex_letter",
+        "problem": "What decimal value does the hex digit 'C' represent?",
+        "correctAnswer": "12",
+        "difficulty": "EASY",
+        "explanation": "In hexadecimal: A=10, B=11, C=12, D=13, E=14, F=15. So C represents 12 in decimal.",
+        "hints": [
+          "Count: A=10, B=11, C=?",
+          "C is the third letter after 9"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_hex_basics",
+      "title": "Hexadecimal Fundamentals",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "What decimal value does hex digit 'A' represent?",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "A is the first letter in hex and represents 10 in decimal",
+          "hints": [
+            "A comes right after 9"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "What decimal value does hex digit 'F' represent?",
+          "correctAnswer": "15",
+          "difficulty": "EASY",
+          "explanation": "F is the last hex digit and represents 15 in decimal",
+          "hints": [
+            "F is the highest single hex digit"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "How many bits does one hex digit represent?",
+          "correctAnswer": "4",
+          "difficulty": "EASY",
+          "explanation": "One hex digit represents exactly 4 binary bits (a nibble)",
+          "hints": [
+            "Each hex digit maps to 4 binary bits"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "What is 16\u00b2 (the third place value in hex)?",
+          "correctAnswer": "256",
+          "difficulty": "MEDIUM",
+          "explanation": "16\u00b2 = 16 \u00d7 16 = 256",
+          "hints": [
+            "Multiply 16 \u00d7 16"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "What hex digit represents decimal 14?",
+          "correctAnswer": "E",
+          "difficulty": "MEDIUM",
+          "explanation": "E is the 14th hex digit (0-9, then A=10, B=11, C=12, D=13, E=14)",
+          "hints": [
+            "Count: A=10, B=11, C=12, D=13, E=?"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_hex",
+      "title": "Hexadecimal Basics Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Hexadecimal uses the digits 0-9 and letters A-F.",
+          "explanation": "True! Hex (base 16) uses 16 digits total: 0-9 (10 digits) plus A-F (6 letters).",
+          "correctAnswer": true,
+          "hints": [
+            "Base 16 needs 16 unique digits",
+            "Numbers give us 10, letters A-F give us 6 more"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What does the hex digit 'B' equal in decimal?",
+          "explanation": "B is the 11th hex digit. Counting: 0,1,2,3,4,5,6,7,8,9 (that's 10), A=10, B=11.",
+          "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "A = 10, so B = ?",
+            "B comes right after A"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "One hexadecimal digit represents ____ binary bits.",
+          "explanation": "Each hex digit represents exactly 4 binary bits. For example, F = 1111, A = 1010, etc.",
+          "correctAnswer": "4",
+          "acceptableAnswers": [
+            "4",
+            "four"
+          ],
+          "hints": [
+            "Think about how hex shortens binary",
+            "F in hex = 1111 in binary (count the bits)"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "Which is a common use of hexadecimal?",
+          "explanation": "Web colors use hex! For example, #FF0000 is red, where FF is maximum red, 00 is no green, 00 is no blue.",
+          "options": [
+            "Measuring temperature",
+            "Web color codes",
+            "Counting money",
+            "Telling time"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Think about #FF5733 style codes",
+            "Used for RGB colors on websites"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is the base of hexadecimal?",
+          "explanation": "Hexadecimal is base 16, which is why it uses 16 different digits (0-9 and A-F).",
+          "options": [
+            "2",
+            "8",
+            "10",
+            "16"
+          ],
+          "correctAnswerIndex": 3,
+          "hints": [
+            "'Hex' means 6, 'decimal' means 10: 6+10=16",
+            "Count all the digits: 0-9 (10) + A-F (6)"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q6",
+          "questionText": "In hexadecimal, the letter 'G' is a valid digit.",
+          "explanation": "False! Hex only uses A through F. G would be the 17th digit, but hex is base 16.",
+          "correctAnswer": false,
+          "hints": [
+            "Hex uses A, B, C, D, E, F",
+            "Only 6 letters are used"
+          ]
+        }
+      ]
+    }
+  ]
+}

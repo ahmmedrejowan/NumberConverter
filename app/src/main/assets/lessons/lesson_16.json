@@ -1,0 +1,214 @@
+{
+  "id": "binary_fractions",
+  "title": "Working with Fractional Binary Numbers",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 18,
+  "order": 16,
+  "prerequisites": [
+    "binary_to_decimal"
+  ],
+  "description": "Learn how to work with binary numbers that have fractional parts.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_bin_frac",
+      "title": "Binary Fractions",
+      "content": "Just like decimal has a decimal point (3.14), binary has a **binary point** that separates whole numbers from fractions!\n\n**Fractional Place Values (powers of 2 with negative exponents):**\n\u2022 2\u207b\u00b9 = 1/2 = 0.5 (halves place)\n\u2022 2\u207b\u00b2 = 1/4 = 0.25 (quarters place)\n\u2022 2\u207b\u00b3 = 1/8 = 0.125 (eighths place)\n\u2022 2\u207b\u2074 = 1/16 = 0.0625 (sixteenths place)\n\n**Example 1: Convert 1.101 (binary) to decimal**\n\nBinary:    1   .  1     0     1\nPositions: 1   .  0.5   0.25  0.125\nCalculate: 1\u00d71    1\u00d70.5 0\u00d70.25 1\u00d70.125\nResults:   1  +  0.5 +  0   +  0.125 = 1.625\n\nSo 1.101 in binary = 1.625 in decimal!\n\n**Example 2: Convert 0.11 (binary) to decimal**\n\nBinary:    0.  1     1\nPositions:  .  0.5   0.25\nResults:    0.5 + 0.25 = 0.75\n\nSo 0.11 in binary = 0.75 in decimal!\n\n**Example 3: Convert 10.01 (binary) to decimal**\n\nWhole part: 10 (binary) = 2 (decimal)\nFractional: .01 (binary) = 0.25 (decimal)\nTotal: 2.25\n\n**Important Facts:**\n\u2022 Each position after the point is HALF the previous\n\u2022 Some decimal fractions can't be exactly represented in binary (like 0.1)\n\u2022 This is why computers sometimes have rounding errors!\n\u2022 Powers of 2 fractions (0.5, 0.25, 0.125, etc.) convert perfectly\n\n**Pro Tips:**\n\u2022 Handle whole and fractional parts separately\n\u2022 Remember: 0.1 (binary) = 0.5 (decimal)\n\u2022 Common pattern: 0.111... approaches 1.0"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_bin_frac",
+      "title": "Binary Fraction Practice",
+      "description": "Let's convert binary 0.101 to decimal.",
+      "exercise": {
+        "id": "ex_frac",
+        "problem": "What is binary 0.101 in decimal?",
+        "correctAnswer": "0.625",
+        "difficulty": "EASY",
+        "explanation": "0.101 = (1\u00d70.5) + (0\u00d70.25) + (1\u00d70.125) = 0.5 + 0 + 0.125 = 0.625",
+        "hints": [
+          "Positions after point: 0.5, 0.25, 0.125",
+          "Add: 0.5 + 0.125",
+          "Skip the 0 in middle"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_bin_frac",
+      "title": "Binary Fraction Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert binary 0.1 to decimal",
+          "correctAnswer": "0.5",
+          "difficulty": "EASY",
+          "explanation": "0.1 (binary) = 1\u00d70.5 = 0.5",
+          "hints": [
+            "First position after point is 0.5"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert binary 0.11 to decimal",
+          "correctAnswer": "0.75",
+          "difficulty": "EASY",
+          "explanation": "0.11 = 0.5 + 0.25 = 0.75",
+          "hints": [
+            "0.5 + 0.25 = ?"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert binary 1.1 to decimal",
+          "correctAnswer": "1.5",
+          "difficulty": "EASY",
+          "explanation": "1.1 = 1 + 0.5 = 1.5",
+          "hints": [
+            "Whole part: 1, Fractional: 0.5"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert binary 0.01 to decimal",
+          "correctAnswer": "0.25",
+          "difficulty": "EASY",
+          "explanation": "0.01 = 0\u00d70.5 + 1\u00d70.25 = 0.25",
+          "hints": [
+            "Second position is 0.25"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert binary 1.11 to decimal",
+          "correctAnswer": "1.75",
+          "difficulty": "MEDIUM",
+          "explanation": "1.11 = 1 + 0.5 + 0.25 = 1.75",
+          "hints": [
+            "1 + 0.75 = ?"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert binary 10.1 to decimal",
+          "correctAnswer": "2.5",
+          "difficulty": "MEDIUM",
+          "explanation": "10.1 = 2 + 0.5 = 2.5",
+          "hints": [
+            "Whole: 2, Fractional: 0.5"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_bin_frac",
+      "title": "Binary Fractions Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is the value of the first position after the binary point?",
+          "explanation": "The first position after the binary point is 2\u207b\u00b9 = 1/2 = 0.5 in decimal.",
+          "options": [
+            "0.1",
+            "0.25",
+            "0.5",
+            "1.0"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "It's 2\u207b\u00b9",
+            "1 divided by 2 = ?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "Binary 0.1 equals ____ in decimal.",
+          "explanation": "Binary 0.1 = 1\u00d70.5 = 0.5 in decimal.",
+          "correctAnswer": "0.5",
+          "acceptableAnswers": [
+            "0.5",
+            ".5"
+          ],
+          "hints": [
+            "First position after point",
+            "Half of 1"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q3",
+          "questionText": "What is binary 1.01 in decimal?",
+          "explanation": "1.01 = 1 + 0 + 0.25 = 1.25 in decimal.",
+          "options": [
+            "1.0",
+            "1.25",
+            "1.5",
+            "1.75"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Whole: 1, Fractional: 0.01",
+            "0.01 in binary = 0.25"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q4",
+          "questionText": "Some decimal fractions cannot be exactly represented in binary.",
+          "explanation": "True! For example, 0.1 in decimal requires infinite repeating bits in binary. This is why computers have rounding errors.",
+          "correctAnswer": true,
+          "hints": [
+            "Think about 1/3 in decimal (0.333...)",
+            "Binary has similar limitations"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is 2\u207b\u00b2 in decimal?",
+          "explanation": "2\u207b\u00b2 = 1/(2\u00b2) = 1/4 = 0.25. This is the second position after the binary point.",
+          "options": [
+            "0.125",
+            "0.25",
+            "0.5",
+            "2.0"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "2\u207b\u00b2 = 1 / (2\u00b2)",
+            "1 / 4 = ?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "Binary 0.111 equals ____ in decimal.",
+          "explanation": "0.111 = 0.5 + 0.25 + 0.125 = 0.875 in decimal.",
+          "correctAnswer": "0.875",
+          "acceptableAnswers": [
+            "0.875",
+            ".875"
+          ],
+          "hints": [
+            "Add all three positions: 0.5, 0.25, 0.125",
+            "0.5 + 0.25 + 0.125 = ?"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q7",
+          "questionText": "Each position after the binary point is half the previous position.",
+          "explanation": "True! Just like whole number positions double going left, fractional positions halve going right: 0.5, 0.25, 0.125...",
+          "correctAnswer": true,
+          "hints": [
+            "0.5 \u2192 0.25 \u2192 0.125",
+            "Each is divided by 2"
+          ]
+        }
+      ]
+    }
+  ]
+}

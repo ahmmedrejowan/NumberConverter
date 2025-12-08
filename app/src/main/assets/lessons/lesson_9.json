@@ -1,0 +1,236 @@
+{
+  "id": "binary_to_hex",
+  "title": "Binary to Hexadecimal Conversion",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 15,
+  "order": 9,
+  "prerequisites": [
+    "binary_to_decimal",
+    "hex_to_decimal"
+  ],
+  "description": "Learn the quick grouping method to convert binary to hexadecimal.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_bin_to_hex",
+      "title": "Binary to Hex: The Grouping Method",
+      "content": "Converting binary to hexadecimal is much easier than converting to decimal! Why? Because each hex digit represents exactly 4 binary bits.\n\n**The 4-Bit Grouping Method:**\n\n1. Start from the RIGHT side of the binary number\n2. Group the bits into sets of 4\n3. If the leftmost group has fewer than 4 bits, add leading zeros\n4. Convert each 4-bit group to its hex digit (0-F)\n5. Combine the hex digits\n\n**Reference Table:**\n0000 = 0    0100 = 4    1000 = 8    1100 = C\n0001 = 1    0101 = 5    1001 = 9    1101 = D\n0010 = 2    0110 = 6    1010 = A    1110 = E\n0011 = 3    0111 = 7    1011 = B    1111 = F\n\n**Example 1: Convert 11010110 to hex**\n\nStep 1: Group from right: 1101 0110\nStep 2: Convert each group:\n  \u2022 1101 = 13 = D\n  \u2022 0110 = 6 = 6\nResult: D6\n\n**Example 2: Convert 101111 to hex**\n\nStep 1: Group from right: 10 1111\nStep 2: Pad left group: 0010 1111\nStep 3: Convert:\n  \u2022 0010 = 2\n  \u2022 1111 = 15 = F\nResult: 2F\n\n**Why This Works:**\nEach hex digit (0-F) represents values 0-15, which is exactly what 4 bits can represent (2\u2074=16 values)! This makes binary-to-hex conversion super fast - no multiplication needed!\n\n**Pro Tips:**\n\u2022 Always group from RIGHT to LEFT\n\u2022 Memorize the 16 conversions (0000-1111 to 0-F)\n\u2022 Common patterns: 1111=F, 1010=A, 0000=0"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_bin_to_hex",
+      "title": "Grouping Practice",
+      "description": "Let's convert binary 10011101 to hex using grouping.",
+      "exercise": {
+        "id": "ex_bin_hex",
+        "problem": "What is binary 10011101 in hexadecimal?",
+        "correctAnswer": "9D",
+        "difficulty": "EASY",
+        "explanation": "Group: 1001 1101. Convert: 1001=9, 1101=13=D. Result: 9D",
+        "hints": [
+          "Group into 4 bits: 1001 1101",
+          "1001 = 9, 1101 = 13 = D",
+          "Combine: 9D"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_bin_to_hex",
+      "title": "Binary to Hex Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert binary 1111 to hex",
+          "correctAnswer": "F",
+          "difficulty": "EASY",
+          "explanation": "1111 = 15 = F",
+          "hints": [
+            "1111 is the highest 4-bit value"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert binary 1010 to hex",
+          "correctAnswer": "A",
+          "difficulty": "EASY",
+          "explanation": "1010 = 10 = A",
+          "hints": [
+            "1010 in binary = 10 in decimal = A in hex"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert binary 10101010 to hex",
+          "correctAnswer": "AA",
+          "difficulty": "EASY",
+          "explanation": "Group: 1010 1010. Both groups = A. Result: AA",
+          "hints": [
+            "Split: 1010 1010, both are A"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert binary 11111111 to hex",
+          "correctAnswer": "FF",
+          "difficulty": "EASY",
+          "explanation": "Group: 1111 1111. Both = F. Result: FF (equals 255!)",
+          "hints": [
+            "All bits are 1, both groups = F"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert binary 1100 to hex",
+          "correctAnswer": "C",
+          "difficulty": "EASY",
+          "explanation": "1100 = 12 = C",
+          "hints": [
+            "1100 = 8+4 = 12 = C"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert binary 110 to hex",
+          "correctAnswer": "6",
+          "difficulty": "MEDIUM",
+          "explanation": "Pad to 4 bits: 0110 = 6",
+          "hints": [
+            "Add leading zero: 0110"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert binary 11011110 to hex",
+          "correctAnswer": "DE",
+          "difficulty": "MEDIUM",
+          "explanation": "Group: 1101 1110 = D E = DE",
+          "hints": [
+            "Split: 1101 1110",
+            "1101=D, 1110=E"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Convert binary 100111010 to hex",
+          "correctAnswer": "13A",
+          "difficulty": "MEDIUM",
+          "explanation": "Group: 1 0011 1010, pad: 0001 0011 1010 = 1 3 A = 13A",
+          "hints": [
+            "Group from right, pad left",
+            "0001=1, 0011=3, 1010=A"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_bin_to_hex",
+      "title": "Binary to Hex Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Each hexadecimal digit represents exactly 4 binary bits.",
+          "explanation": "True! This is why binary-to-hex conversion is so easy. 4 bits can represent 16 values (0-15), matching the 16 hex digits (0-F).",
+          "correctAnswer": true,
+          "hints": [
+            "2\u2074 = 16 possible values",
+            "Hex has 16 digits (0-F)"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is binary 1011 in hexadecimal?",
+          "explanation": "1011 = 8+2+1 = 11 in decimal = B in hex.",
+          "options": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "1011 = 11 in decimal",
+            "11 in hex = B"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "Binary 1110 equals ____ in hexadecimal.",
+          "explanation": "1110 = 8+4+2 = 14 in decimal = E in hex.",
+          "correctAnswer": "E",
+          "acceptableAnswers": [
+            "E",
+            "e"
+          ],
+          "hints": [
+            "1110 = 14 in decimal",
+            "14 in hex = E"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is binary 10011000 in hexadecimal?",
+          "explanation": "Group: 1001 1000. Convert: 1001=9, 1000=8. Result: 98.",
+          "options": [
+            "88",
+            "98",
+            "A8",
+            "B8"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Split: 1001 1000",
+            "1001=9, 1000=8"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q5",
+          "questionText": "When grouping binary bits for hex conversion, you start from the left side.",
+          "explanation": "False! Always group from the RIGHT side. This ensures the rightmost bits (least significant) stay aligned correctly.",
+          "correctAnswer": false,
+          "hints": [
+            "Think about place values",
+            "Start from the least significant bit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q6",
+          "questionText": "What is binary 11110000 in hexadecimal?",
+          "explanation": "Group: 1111 0000. Convert: 1111=F, 0000=0. Result: F0.",
+          "options": [
+            "E0",
+            "F0",
+            "FF",
+            "0F"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Split: 1111 0000",
+            "1111=F, 0000=0"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q7",
+          "questionText": "Binary 101 should be padded to ____ before converting to hex.",
+          "explanation": "Binary 101 should be padded with a leading zero to make 0101 (4 bits), which equals 5 in hex.",
+          "correctAnswer": "0101",
+          "acceptableAnswers": [
+            "0101"
+          ],
+          "hints": [
+            "Need 4 bits total",
+            "Add one zero at the front"
+          ]
+        }
+      ]
+    }
+  ]
+}

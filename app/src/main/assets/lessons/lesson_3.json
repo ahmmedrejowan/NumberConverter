@@ -1,0 +1,189 @@
+{
+  "id": "binary_basics",
+  "title": "Introduction to Binary",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 12,
+  "order": 3,
+  "prerequisites": [
+    "decimal_basics"
+  ],
+  "description": "Learn about the binary number system that computers use.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_binary",
+      "title": "What is Binary?",
+      "content": "Binary is the base-2 number system, using only two digits: 0 and 1. These digits are called 'bits' (binary digits). This system is perfect for computers because electrical circuits can easily represent two states: ON (1) or OFF (0).\n\nJust like decimal uses powers of 10, binary uses powers of 2:\n\n\u2022 2\u2070 = 1 (ones place)\n\u2022 2\u00b9 = 2 (twos place)\n\u2022 2\u00b2 = 4 (fours place)\n\u2022 2\u00b3 = 8 (eights place)\n\u2022 2\u2074 = 16 (sixteens place)\n\u2022 And so on...\n\nEach position's value doubles as you move left! Let's count in binary:\n0 = 0\n1 = 1\n10 = 2 (one 2, zero 1s)\n11 = 3 (one 2, one 1)\n100 = 4 (one 4, zero 2s, zero 1s)\n101 = 5 (one 4, zero 2s, one 1)\n110 = 6\n111 = 7\n1000 = 8\n\nNotice how we need more digits in binary to represent the same value as decimal? That's because we only have 2 digits to work with instead of 10!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_binary_count",
+      "title": "Counting in Binary",
+      "description": "Let's practice counting in binary!",
+      "exercise": {
+        "id": "ex_count",
+        "problem": "What comes after 101 when counting in binary?",
+        "correctAnswer": "110",
+        "difficulty": "EASY",
+        "explanation": "101 is 5 in decimal. The next number is 6, which is 110 in binary (one 4, one 2, zero 1s).",
+        "hints": [
+          "101 in binary is 5 in decimal",
+          "Think about what 6 looks like in binary"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_binary_basics",
+      "title": "Binary Fundamentals",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "How many unique digits does binary use?",
+          "correctAnswer": "2",
+          "difficulty": "EASY",
+          "explanation": "Binary is base 2, so it uses exactly 2 digits: 0 and 1",
+          "hints": [
+            "Binary is base 2"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "What is 2\u00b3?",
+          "correctAnswer": "8",
+          "difficulty": "EASY",
+          "explanation": "2\u00b3 means 2 \u00d7 2 \u00d7 2 = 8",
+          "hints": [
+            "Multiply 2 by itself 3 times"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "In binary 1010, how many bits are there?",
+          "correctAnswer": "4",
+          "difficulty": "EASY",
+          "explanation": "Count the digits: 1-0-1-0 = 4 bits",
+          "hints": [
+            "Count each digit (0 or 1)"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "What is the largest value you can represent with 3 bits?",
+          "correctAnswer": "7",
+          "difficulty": "MEDIUM",
+          "explanation": "3 bits can represent 111 in binary, which equals 4+2+1 = 7 in decimal",
+          "hints": [
+            "All bits set to 1: 111",
+            "Calculate 4 + 2 + 1"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "What is 2\u2074?",
+          "correctAnswer": "16",
+          "difficulty": "EASY",
+          "explanation": "2\u2074 = 2 \u00d7 2 \u00d7 2 \u00d7 2 = 16",
+          "hints": [
+            "Multiply 2 by itself 4 times"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_binary",
+      "title": "Binary Basics Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Binary can only use the digits 0 and 1.",
+          "explanation": "Correct! Binary (base 2) uses only two digits: 0 and 1. Any other digit would make it a different number system.",
+          "correctAnswer": true,
+          "hints": [
+            "Binary is base 2",
+            "How many digits does base 2 have?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "Why do computers use binary?",
+          "explanation": "Computers use electrical circuits that have two states: ON (representing 1) and OFF (representing 0). Binary's two digits perfectly match these two states.",
+          "options": [
+            "It's easier for humans",
+            "Circuits have two states: ON/OFF",
+            "It saves memory",
+            "It's faster to calculate"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Think about electrical signals",
+            "Circuits are either ON or OFF"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "Each binary digit is called a ____.",
+          "explanation": "Binary digits are called 'bits', which is short for 'binary digit'. It's the smallest unit of data in computing.",
+          "correctAnswer": "bit",
+          "acceptableAnswers": [
+            "bit",
+            "bits"
+          ],
+          "hints": [
+            "Short for 'binary digit'",
+            "Rhymes with 'sit'"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is the value of the leftmost position in 4-bit binary?",
+          "explanation": "In a 4-bit binary number, positions from right to left are: 1, 2, 4, 8. So the leftmost position has value 8 (which is 2\u00b3).",
+          "options": [
+            "1",
+            "2",
+            "4",
+            "8"
+          ],
+          "correctAnswerIndex": 3,
+          "hints": [
+            "4 bits means positions: 1, 2, 4, ?",
+            "Each position doubles: 1, 2, 4, 8"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "How many different values can 3 bits represent?",
+          "explanation": "With 3 bits, you can represent 2\u00b3 = 8 different values (from 000 to 111, or 0 to 7 in decimal).",
+          "options": [
+            "3",
+            "6",
+            "8",
+            "9"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Formula: 2^n where n is number of bits",
+            "2\u00b3 = ?"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q6",
+          "questionText": "In binary, each position value is double the position to its right.",
+          "explanation": "True! Binary uses powers of 2, so moving left means multiplying by 2: ...16, 8, 4, 2, 1. Each position is exactly double the one to its right.",
+          "correctAnswer": true,
+          "hints": [
+            "Look at the pattern: 1, 2, 4, 8, 16...",
+            "Each number is 2\u00d7 the previous"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "id": "octal_basics",
+  "title": "Introduction to Octal",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 10,
+  "order": 11,
+  "prerequisites": [
+    "binary_to_decimal"
+  ],
+  "description": "Learn about the octal number system and its historical use in computing.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_octal",
+      "title": "What is Octal?",
+      "content": "Octal is the base-8 number system, using only 8 digits: 0, 1, 2, 3, 4, 5, 6, and 7. Notice that 8 and 9 are NOT used in octal!\n\nWhy is octal useful? Before hexadecimal became popular, octal was commonly used in early computing because it has a clean relationship with binary: each octal digit represents exactly 3 binary bits.\n\n**Place values in octal use powers of 8:**\n\u2022 8\u2070 = 1 (ones place)\n\u2022 8\u00b9 = 8 (eights place)\n\u2022 8\u00b2 = 64 (sixty-fours place)\n\u2022 8\u00b3 = 512 (five-hundred-twelves place)\n\n**Where is octal still used today?**\n\u2022 **Unix/Linux file permissions**: chmod 755 (rwxr-xr-x)\n\u2022 **Legacy systems**: Some older computer systems\n\u2022 **Educational purposes**: Learning number systems\n\n**Binary-to-Octal Relationship:**\nEach octal digit = 3 binary bits\n\u2022 0 = 000\n\u2022 1 = 001\n\u2022 2 = 010\n\u2022 3 = 011\n\u2022 4 = 100\n\u2022 5 = 101\n\u2022 6 = 110\n\u2022 7 = 111\n\n**Example: What is 25 in octal?**\n2 is in the 8s place: 2 \u00d7 8 = 16\n5 is in the 1s place: 5 \u00d7 1 = 5\nTotal: 16 + 5 = 21 in decimal\n\nOctal is less common than hexadecimal today, but understanding it helps you master number systems and is essential for working with Unix permissions!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_octal_valid",
+      "title": "Identifying Valid Octal Numbers",
+      "description": "Let's practice recognizing valid octal numbers.",
+      "exercise": {
+        "id": "ex_valid_octal",
+        "problem": "Which of these is a valid octal number: 158, 247, or 189?",
+        "correctAnswer": "247",
+        "difficulty": "EASY",
+        "explanation": "247 is valid because all digits (2, 4, 7) are 0-7. 158 has 8, and 189 has both 8 and 9, which don't exist in octal!",
+        "hints": [
+          "Octal only uses digits 0-7",
+          "Any number with 8 or 9 cannot be octal"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_octal_basics",
+      "title": "Octal Fundamentals",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "How many unique digits does octal use?",
+          "correctAnswer": "8",
+          "difficulty": "EASY",
+          "explanation": "Octal is base 8, so it uses 8 digits: 0-7",
+          "hints": [
+            "Octal is base 8"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "What is 8\u00b2 (the third place value in octal)?",
+          "correctAnswer": "64",
+          "difficulty": "EASY",
+          "explanation": "8\u00b2 = 8 \u00d7 8 = 64",
+          "hints": [
+            "Multiply 8 \u00d7 8"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "How many binary bits does one octal digit represent?",
+          "correctAnswer": "3",
+          "difficulty": "EASY",
+          "explanation": "Each octal digit represents exactly 3 binary bits",
+          "hints": [
+            "Think about 2\u00b3 = 8"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Is 382 a valid octal number? (yes/no)",
+          "correctAnswer": "no",
+          "difficulty": "EASY",
+          "explanation": "No, because it contains the digit 8, which doesn't exist in octal (only 0-7)",
+          "hints": [
+            "Check if all digits are 0-7"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_octal",
+      "title": "Octal Basics Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Octal uses digits 0 through 7.",
+          "explanation": "True! Octal is base 8, using exactly 8 digits: 0, 1, 2, 3, 4, 5, 6, and 7.",
+          "correctAnswer": true,
+          "hints": [
+            "Base 8 means 8 unique digits",
+            "Count: 0, 1, 2, 3, 4, 5, 6, 7"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is the base of the octal number system?",
+          "explanation": "Octal is base 8, which is why it uses 8 different digits (0-7).",
+          "options": [
+            "2",
+            "8",
+            "10",
+            "16"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "The name 'octal' comes from 'octo' meaning 8",
+            "It uses 8 digits total"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "Each octal digit represents ____ binary bits.",
+          "explanation": "Each octal digit represents exactly 3 binary bits. For example, 7 = 111, 5 = 101, etc.",
+          "correctAnswer": "3",
+          "acceptableAnswers": [
+            "3",
+            "three"
+          ],
+          "hints": [
+            "2\u00b3 = 8 possible values",
+            "7 in octal = 111 in binary (count the bits)"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "Which is a common use of octal today?",
+          "explanation": "Unix/Linux file permissions use octal! For example, 'chmod 755' sets permissions using octal notation.",
+          "options": [
+            "Web colors",
+            "Unix file permissions",
+            "IP addresses",
+            "Phone numbers"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Think about chmod commands",
+            "Used in Unix/Linux systems"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q5",
+          "questionText": "The number 589 is a valid octal number.",
+          "explanation": "False! Octal only uses digits 0-7. The digits 8 and 9 don't exist in octal, so 589 is not valid.",
+          "correctAnswer": false,
+          "hints": [
+            "Check each digit: 5, 8, 9",
+            "Is 8 or 9 allowed in octal?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q6",
+          "questionText": "What is 8\u00b3 (the fourth place value in octal)?",
+          "explanation": "8\u00b3 = 8 \u00d7 8 \u00d7 8 = 512. This is the five-hundred-twelves place in octal.",
+          "options": [
+            "64",
+            "128",
+            "256",
+            "512"
+          ],
+          "correctAnswerIndex": 3,
+          "hints": [
+            "8\u00b3 means multiply 8 by itself 3 times",
+            "8 \u00d7 8 \u00d7 8 = ?"
+          ]
+        }
+      ]
+    }
+  ]
+}

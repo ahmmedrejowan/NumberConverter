@@ -1,0 +1,235 @@
+{
+  "id": "conversion_shortcuts",
+  "title": "Quick Conversion Tricks",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 15,
+  "order": 19,
+  "prerequisites": [
+    "binary_to_hex",
+    "decimal_to_hex",
+    "binary_to_decimal"
+  ],
+  "description": "Learn mental shortcuts and patterns for faster number system conversions.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_shortcuts",
+      "title": "Conversion Shortcuts and Patterns",
+      "content": "After learning all the formal methods, let's discover shortcuts that make conversions lightning-fast!\n\n**Powers of 2 Recognition:**\nMemoriz these common values:\n\u2022 2\u00b9 = 2\n\u2022 2\u00b2 = 4\n\u2022 2\u00b3 = 8\n\u2022 2\u2074 = 16 (also 10 in hex!)\n\u2022 2\u2075 = 32\n\u2022 2\u2076 = 64 (also 40 in hex!)\n\u2022 2\u2077 = 128 (also 80 in hex!)\n\u2022 2\u2078 = 256 (also 100 in hex!)\n\u2022 2\u2079 = 512\n\u2022 2\u00b9\u2070 = 1024 (1K!)\n\n**Common Hex Values:**\n\u2022 FF = 255 (max byte!)\n\u2022 80 = 128 (high bit of byte)\n\u2022 100 = 256\n\u2022 3FF = 1023\n\u2022 FFF = 4095\n\n**Binary Doubling/Halving:**\nShift left = multiply by 2:\n\u2022 1010 << 1 = 10100 (10 becomes 20)\nShift right = divide by 2:\n\u2022 1010 >> 1 = 101 (10 becomes 5)\n\n**Nibble Thinking (4-bit groups):**\nThink in hex chunks:\n\u2022 10101010 = AA (1010=A, 1010=A)\n\u2022 11110000 = F0 (1111=F, 0000=0)\n\n**Quick Binary to Hex:**\nMemoize these 16 patterns:\n0000=0, 0001=1, 0010=2, 0011=3\n0100=4, 0101=5, 0110=6, 0111=7\n1000=8, 1001=9, 1010=A, 1011=B\n1100=C, 1101=D, 1110=E, 1111=F\n\n**Decimal to Hex Shortcuts:**\n\u2022 255 = FF (always!)\n\u2022 Multiples of 16: 16=10, 32=20, 48=30, 64=40\n\u2022 Add: 17 = 16+1 = 10+1 = 11 (hex)\n\n**Pattern Recognition:**\n\u2022 All 1s in binary = power of 2 minus 1\n  - 111 = 7, 1111 = 15, 11111 = 31\n\u2022 Alternating bits: often simple fractions\n  - 101010 = AA (hex) = 170 (decimal)\n\n**Mental Math Tricks:**\n\u2022 To convert small hex to decimal: multiply first digit by 16, add second\n\u2022 2F = 2\u00d716 + 15 = 32 + 15 = 47\n\u2022 For binary, add powers of 2 where bits are 1\n\u2022 1101 = 8+4+1 = 13"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_shortcuts",
+      "title": "Quick Pattern Recognition",
+      "description": "Let's use shortcuts to convert quickly!",
+      "exercise": {
+        "id": "ex_pattern",
+        "problem": "What is hex FF in decimal? (use the shortcut)",
+        "correctAnswer": "255",
+        "difficulty": "EASY",
+        "explanation": "FF is the maximum value for one byte, which is always 255. This is a fundamental value to memorize!",
+        "hints": [
+          "This is the max byte value",
+          "Think: F=15, so 15\u00d716 + 15",
+          "Or just memorize: FF = 255!"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_shortcuts",
+      "title": "Quick Conversion Practice",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "What is 2\u00b9\u2070 in decimal?",
+          "correctAnswer": "1024",
+          "difficulty": "EASY",
+          "explanation": "2\u00b9\u2070 = 1024, also known as 1K. Memorize this!",
+          "hints": [
+            "This is 1 kilobyte (1K)"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Hex 100 in decimal?",
+          "correctAnswer": "256",
+          "difficulty": "EASY",
+          "explanation": "Hex 100 = 16\u00b2 = 256. Power of 16!",
+          "hints": [
+            "16\u00b2 = ?"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Binary 1111 in hex? (quick!)",
+          "correctAnswer": "F",
+          "difficulty": "EASY",
+          "explanation": "1111 = F. All bits on = F!",
+          "hints": [
+            "All 1s in 4 bits = ?"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "What is 16 in hex?",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "16 = 10 in hex (one sixteen, zero ones)",
+          "hints": [
+            "16 is the first 2-digit hex"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Binary 10000000 in hex? (think nibbles)",
+          "correctAnswer": "80",
+          "difficulty": "MEDIUM",
+          "explanation": "Split: 1000 0000 = 8 0 = 80 (hex)",
+          "hints": [
+            "Split into 1000 and 0000"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Quick: hex AA in decimal?",
+          "correctAnswer": "170",
+          "difficulty": "MEDIUM",
+          "explanation": "AA = 10\u00d716 + 10 = 160 + 10 = 170",
+          "hints": [
+            "A = 10, so 10\u00d716 + 10"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "2\u2078 in decimal?",
+          "correctAnswer": "256",
+          "difficulty": "EASY",
+          "explanation": "2\u2078 = 256 (also FF+1 in hex)",
+          "hints": [
+            "Max byte + 1"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Binary 111 in decimal? (fast!)",
+          "correctAnswer": "7",
+          "difficulty": "EASY",
+          "explanation": "111 = 4+2+1 = 7. Or remember: all 1s for 3 bits = 7",
+          "hints": [
+            "All 1s in 3 bits"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_shortcuts",
+      "title": "Quick Conversion Quiz",
+      "questions": [
+        {
+          "type": "FillBlank",
+          "id": "q1",
+          "questionText": "Hex FF always equals ____ in decimal.",
+          "explanation": "FF = 15\u00d716 + 15 = 255. This is the maximum value for one byte and should be memorized!",
+          "correctAnswer": "255",
+          "acceptableAnswers": [
+            "255"
+          ],
+          "hints": [
+            "Maximum value in one byte",
+            "15\u00d716 + 15 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is 2\u00b9\u2070?",
+          "explanation": "2\u00b9\u2070 = 1024, also known as 1K (kilobyte). This is a fundamental computer value.",
+          "options": [
+            "512",
+            "1000",
+            "1024",
+            "2048"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "This is 1 kilobyte",
+            "1K in computer terms"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q3",
+          "questionText": "Shifting binary left by 1 position multiplies the value by 2.",
+          "explanation": "True! Left shift adds a 0 on the right, which doubles the value. Example: 101 (5) << 1 = 1010 (10).",
+          "correctAnswer": true,
+          "hints": [
+            "Think about what happens to place values",
+            "Try it: 101 becomes 1010"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "Quick! What is hex 10 in decimal?",
+          "explanation": "Hex 10 = 1\u00d716 + 0\u00d71 = 16 in decimal.",
+          "options": [
+            "10",
+            "16",
+            "20",
+            "256"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "First 2-digit hex number",
+            "One sixteen, zero ones"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q5",
+          "questionText": "Binary 1111 equals hex ____.",
+          "explanation": "1111 in binary = 15 in decimal = F in hex. All bits on in 4-bit nibble = F!",
+          "correctAnswer": "F",
+          "acceptableAnswers": [
+            "F",
+            "f"
+          ],
+          "hints": [
+            "All 1s in a nibble",
+            "Highest single hex digit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q6",
+          "questionText": "What is 2\u2078 in decimal?",
+          "explanation": "2\u2078 = 256. This is also hex 100, and it's one more than the max byte value (255).",
+          "options": [
+            "128",
+            "200",
+            "256",
+            "512"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Max byte + 1",
+            "Hex 100"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q7",
+          "questionText": "Each hex digit represents exactly 4 binary bits, making binary-hex conversion very fast.",
+          "explanation": "True! This perfect 4-to-1 relationship is why hex is so useful in computing. Just group 4 bits and convert each group.",
+          "correctAnswer": true,
+          "hints": [
+            "Nibble = 4 bits = 1 hex digit",
+            "16 = 2\u2074"
+          ]
+        }
+      ]
+    }
+  ]
+}

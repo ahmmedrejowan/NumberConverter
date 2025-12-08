@@ -1,0 +1,235 @@
+{
+  "id": "binary_to_octal",
+  "title": "Binary to Octal Conversion",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 12,
+  "order": 14,
+  "prerequisites": [
+    "binary_to_decimal",
+    "octal_to_decimal"
+  ],
+  "description": "Learn the quick grouping method to convert binary to octal.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_bin_to_oct",
+      "title": "Binary to Octal: The 3-Bit Grouping Method",
+      "content": "Converting binary to octal is super easy! Each octal digit represents exactly 3 binary bits.\n\n**The 3-Bit Grouping Method:**\n\n1. Start from the RIGHT side of the binary number\n2. Group the bits into sets of 3\n3. If the leftmost group has fewer than 3 bits, add leading zeros\n4. Convert each 3-bit group to its octal digit (0-7)\n5. Combine the octal digits\n\n**Reference Table:**\n000 = 0    010 = 2    100 = 4    110 = 6\n001 = 1    011 = 3    101 = 5    111 = 7\n\n**Example 1: Convert 110101 to octal**\n\nStep 1: Group from right: 110 101\nStep 2: Convert each group:\n  \u2022 110 = 6\n  \u2022 101 = 5\nResult: 65\n\n**Example 2: Convert 11010110 to octal**\n\nStep 1: Group from right: 11 010 110\nStep 2: Pad left group: 011 010 110\nStep 3: Convert:\n  \u2022 011 = 3\n  \u2022 010 = 2\n  \u2022 110 = 6\nResult: 326\n\n**Example 3: Convert 1111111 to octal**\n\nStep 1: Group from right: 1 111 111\nStep 2: Pad left: 001 111 111\nStep 3: Convert:\n  \u2022 001 = 1\n  \u2022 111 = 7\n  \u2022 111 = 7\nResult: 177\n\n**Why This Works:**\nEach octal digit (0-7) represents values 0-7, which is exactly what 3 bits can represent (2\u00b3=8 values)!\n\n**Pro Tips:**\n\u2022 Always group from RIGHT to LEFT\n\u2022 Memorize the 8 conversions (000-111 to 0-7)\n\u2022 Compare to hex: hex uses 4-bit groups, octal uses 3-bit groups\n\u2022 This is MUCH faster than converting to decimal first!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_bin_to_oct",
+      "title": "Grouping Practice",
+      "description": "Let's convert binary 101110 to octal using grouping.",
+      "exercise": {
+        "id": "ex_bin_oct",
+        "problem": "What is binary 101110 in octal?",
+        "correctAnswer": "56",
+        "difficulty": "EASY",
+        "explanation": "Group: 101 110. Convert: 101=5, 110=6. Result: 56",
+        "hints": [
+          "Group into 3 bits: 101 110",
+          "101 = 5, 110 = 6",
+          "Combine: 56"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_bin_to_oct",
+      "title": "Binary to Octal Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert binary 111 to octal",
+          "correctAnswer": "7",
+          "difficulty": "EASY",
+          "explanation": "111 = 7 (single group)",
+          "hints": [
+            "111 is the highest 3-bit value"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert binary 101 to octal",
+          "correctAnswer": "5",
+          "difficulty": "EASY",
+          "explanation": "101 = 5",
+          "hints": [
+            "101 in binary = 5"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert binary 1000 to octal",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "Group: 1 000, pad: 001 000 = 1 0 = 10",
+          "hints": [
+            "Group from right: 001 000"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert binary 111111 to octal",
+          "correctAnswer": "77",
+          "difficulty": "EASY",
+          "explanation": "Group: 111 111 = 7 7 = 77",
+          "hints": [
+            "Both groups are 111 = 7"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert binary 100101 to octal",
+          "correctAnswer": "45",
+          "difficulty": "MEDIUM",
+          "explanation": "Group: 100 101 = 4 5 = 45",
+          "hints": [
+            "Split: 100 101"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert binary 11111111 to octal",
+          "correctAnswer": "377",
+          "difficulty": "MEDIUM",
+          "explanation": "Group: 11 111 111, pad: 011 111 111 = 3 7 7 = 377",
+          "hints": [
+            "Group from right",
+            "This equals 255 in decimal!"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert binary 1010110 to octal",
+          "correctAnswer": "126",
+          "difficulty": "MEDIUM",
+          "explanation": "Group: 1 010 110, pad: 001 010 110 = 1 2 6 = 126",
+          "hints": [
+            "Group into 3s: 001 010 110"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Convert binary 110011 to octal",
+          "correctAnswer": "63",
+          "difficulty": "EASY",
+          "explanation": "Group: 110 011 = 6 3 = 63",
+          "hints": [
+            "Split: 110 011"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_bin_to_oct",
+      "title": "Binary to Octal Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Each octal digit represents exactly 3 binary bits.",
+          "explanation": "True! This is why binary-to-octal conversion is so easy. 3 bits can represent 8 values (0-7), matching the 8 octal digits.",
+          "correctAnswer": true,
+          "hints": [
+            "2\u00b3 = 8 possible values",
+            "Octal has 8 digits (0-7)"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is binary 100 in octal?",
+          "explanation": "100 in binary = 4 in octal (single 3-bit group).",
+          "options": [
+            "2",
+            "4",
+            "6",
+            "8"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "100 is a single 3-bit group",
+            "100 = 4"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "Binary 110 equals ____ in octal.",
+          "explanation": "110 in binary = 4+2 = 6 in octal.",
+          "correctAnswer": "6",
+          "acceptableAnswers": [
+            "6",
+            "six"
+          ],
+          "hints": [
+            "110 = 4 + 2",
+            "Single group conversion"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is binary 1001 in octal?",
+          "explanation": "Group: 1 001, pad: 001 001 = 1 1 = 11 in octal.",
+          "options": [
+            "9",
+            "10",
+            "11",
+            "12"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Group from right: 001 001",
+            "Both groups equal 1"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q5",
+          "questionText": "When grouping binary bits for octal conversion, you start from the left side.",
+          "explanation": "False! Always group from the RIGHT side. This ensures the rightmost bits (least significant) stay aligned correctly.",
+          "correctAnswer": false,
+          "hints": [
+            "Think about place values",
+            "Start from the least significant bit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q6",
+          "questionText": "What is binary 111000 in octal?",
+          "explanation": "Group: 111 000 = 7 0 = 70 in octal.",
+          "options": [
+            "60",
+            "70",
+            "76",
+            "77"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Split: 111 000",
+            "111=7, 000=0"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q7",
+          "questionText": "Binary 11 should be padded to ____ before converting to octal.",
+          "explanation": "Binary 11 should be padded to 011 (3 bits), which equals 3 in octal.",
+          "correctAnswer": "011",
+          "acceptableAnswers": [
+            "011"
+          ],
+          "hints": [
+            "Need 3 bits total",
+            "Add one zero at the front"
+          ]
+        }
+      ]
+    }
+  ]
+}

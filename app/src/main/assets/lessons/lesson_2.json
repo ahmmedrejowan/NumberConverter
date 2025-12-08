@@ -1,0 +1,165 @@
+{
+  "id": "decimal_basics",
+  "title": "Understanding Decimal Numbers",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 8,
+  "order": 2,
+  "prerequisites": [],
+  "description": "Master the decimal system you use every day and understand place values.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_decimal",
+      "title": "The Decimal System",
+      "content": "The decimal system (base 10) is what we use in everyday life. It's called 'base 10' because it uses 10 different digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n\nEach position in a decimal number has a place value that's a power of 10:\n\n\u2022 Ones place (10\u2070 = 1)\n\u2022 Tens place (10\u00b9 = 10)\n\u2022 Hundreds place (10\u00b2 = 100)\n\u2022 Thousands place (10\u00b3 = 1000)\n\u2022 And so on...\n\nFor example, the number 3,425 means:\n3 \u00d7 1000 = 3000\n4 \u00d7 100 = 400\n2 \u00d7 10 = 20\n5 \u00d7 1 = 5\nTotal = 3,425\n\nThis is called 'positional notation' because the position of each digit determines its value. The same digit '2' means 2 in the ones place but 20 in the tens place!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_place_value",
+      "title": "Place Value Practice",
+      "description": "Let's break down a number into its place values.",
+      "exercise": {
+        "id": "ex_place",
+        "problem": "In the number 758, what is the value of the digit 7?",
+        "correctAnswer": "700",
+        "difficulty": "EASY",
+        "explanation": "The digit 7 is in the hundreds place, so its value is 7 \u00d7 100 = 700.",
+        "hints": [
+          "7 is in the hundreds place",
+          "Multiply 7 by 100"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_expanded",
+      "title": "Expanded Form",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "What is 5 \u00d7 10 + 3 \u00d7 1 in standard form?",
+          "correctAnswer": "53",
+          "difficulty": "EASY",
+          "explanation": "5 \u00d7 10 = 50, and 3 \u00d7 1 = 3, so 50 + 3 = 53",
+          "hints": [
+            "Calculate each part then add them"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "What is the value of digit 4 in the number 8,426?",
+          "correctAnswer": "400",
+          "difficulty": "EASY",
+          "explanation": "4 is in the hundreds place, so 4 \u00d7 100 = 400",
+          "hints": [
+            "4 is in the hundreds position"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Write 2,000 + 300 + 40 + 5 in standard form",
+          "correctAnswer": "2345",
+          "difficulty": "EASY",
+          "explanation": "Adding all the values: 2000 + 300 + 40 + 5 = 2345",
+          "hints": [
+            "Just add all the numbers together"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "How many tens are in the number 650?",
+          "correctAnswer": "5",
+          "difficulty": "MEDIUM",
+          "explanation": "The digit in the tens place is 5, representing 5 tens (or 50)",
+          "hints": [
+            "Look at the digit in the tens position"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_decimal",
+      "title": "Decimal System Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is 10\u2074?",
+          "explanation": "10\u2074 means 10 \u00d7 10 \u00d7 10 \u00d7 10 = 10,000. This is the ten-thousands place value.",
+          "options": [
+            "100",
+            "1,000",
+            "10,000",
+            "100,000"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "10\u2074 means multiply 10 by itself 4 times",
+            "Count the zeros: 10\u2074 = 10,000"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "In the number 9,247, the digit 2 is in the ____ place.",
+          "explanation": "Reading from right to left: 7 is ones, 4 is tens, 2 is hundreds, 9 is thousands. So 2 is in the hundreds place.",
+          "correctAnswer": "hundreds",
+          "acceptableAnswers": [
+            "hundreds",
+            "hundred"
+          ],
+          "hints": [
+            "Count from the right: ones, tens, hundreds...",
+            "2 is the third digit from the right"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q3",
+          "questionText": "The decimal system uses exactly 10 unique digits.",
+          "explanation": "True! Decimal (base 10) uses 10 digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.",
+          "correctAnswer": true,
+          "hints": [
+            "Count the digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9",
+            "Base 10 means 10 digits"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is 6 \u00d7 100 + 0 \u00d7 10 + 9 \u00d7 1?",
+          "explanation": "Breaking it down: 6 \u00d7 100 = 600, 0 \u00d7 10 = 0, 9 \u00d7 1 = 9. Adding them: 600 + 0 + 9 = 609.",
+          "options": [
+            "69",
+            "609",
+            "690",
+            "6009"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Calculate each multiplication first",
+            "600 + 0 + 9 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "Which place value is 10\u00b3?",
+          "explanation": "10\u00b3 = 10 \u00d7 10 \u00d7 10 = 1,000, which is the thousands place.",
+          "options": [
+            "Tens",
+            "Hundreds",
+            "Thousands",
+            "Ten-thousands"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "10\u00b3 = 1,000",
+            "1,000 is in the thousands place"
+          ]
+        }
+      ]
+    }
+  ]
+}

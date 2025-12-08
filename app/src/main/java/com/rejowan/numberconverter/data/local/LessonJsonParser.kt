@@ -16,15 +16,27 @@ class LessonJsonParser(private val context: Context) {
 
     suspend fun parseLessons(): List<Lesson> = withContext(Dispatchers.IO) {
         try {
-            val jsonString = context.assets.open("lessons/lessons.json")
-                .bufferedReader()
-                .use { it.readText() }
+            // List all lesson files in the lessons directory
+            val lessonFiles = context.assets.list("lessons")
+                ?.filter { it.startsWith("lesson_") && it.endsWith(".json") }
+                ?.sortedBy { fileName ->
+                    // Extract the number from "lesson_X.json" and sort numerically
+                    fileName.removePrefix("lesson_").removeSuffix(".json").toIntOrNull() ?: 0
+                } ?: emptyList()
 
-            val jsonObject = JSONObject(jsonString)
-            val lessonsArray = jsonObject.getJSONArray("lessons")
+            // Parse each lesson file
+            lessonFiles.mapNotNull { fileName ->
+                try {
+                    val jsonString = context.assets.open("lessons/$fileName")
+                        .bufferedReader()
+                        .use { it.readText() }
 
-            (0 until lessonsArray.length()).map { index ->
-                parseLesson(lessonsArray.getJSONObject(index))
+                    val jsonObject = JSONObject(jsonString)
+                    parseLesson(jsonObject)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    null
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -67,16 +79,9 @@ class LessonJsonParser(private val context: Context) {
                 imageResId = null
             )
             "interactive" -> {
-                val exercise = Exercise(
-                    id = "${sectionId}_exercise",
-                    problem = json.getString("problem"),
-                    correctAnswer = json.getString("answer"),
-                    difficulty = Difficulty.MEDIUM,
-                    fromBase = null,
-                    toBase = null,
-                    explanation = json.optString("explanation", null),
-                    hints = parseStringArray(json.optJSONArray("hints"))
-                )
+                val exerciseJson = json.getJSONObject("exercise")
+                val exercise = parseExercise(exerciseJson)
+
                 LessonSection.Interactive(
                     id = sectionId,
                     title = title,
@@ -117,50 +122,63 @@ class LessonJsonParser(private val context: Context) {
     }
 
     private fun parseExercise(json: JSONObject): Exercise {
+        val difficultyString = json.optString("difficulty", "MEDIUM")
+        val difficulty = try {
+            Difficulty.valueOf(difficultyString)
+        } catch (e: Exception) {
+            Difficulty.MEDIUM
+        }
+
         return Exercise(
-            id = "exercise_${System.currentTimeMillis()}",
+            id = json.optString("id", "exercise_${System.currentTimeMillis()}"),
             problem = json.getString("problem"),
-            correctAnswer = json.getString("answer"),
-            difficulty = Difficulty.MEDIUM,
+            correctAnswer = json.getString("correctAnswer"),
+            difficulty = difficulty,
             fromBase = null,
             toBase = null,
             explanation = json.optString("explanation", null),
-            hints = listOfNotNull(json.optString("hint", null))
+            hints = parseStringArray(json.optJSONArray("hints"))
         )
     }
 
     private fun parseQuestion(json: JSONObject): Question {
-        val questionId = "question_${System.currentTimeMillis()}"
+        val questionId = json.optString("id", "question_${System.currentTimeMillis()}")
+        val hints = parseStringArray(json.optJSONArray("hints"))
+
         return when (json.getString("type")) {
-            "multiple_choice" -> {
+            "MultipleChoice" -> {
                 val options = parseStringArray(json.getJSONArray("options"))
-                val correctAnswer = json.getString("correctAnswer")
-                val correctIndex = options.indexOf(correctAnswer)
+                val correctIndex = json.getInt("correctAnswerIndex")
                 Question.MultipleChoice(
                     id = questionId,
-                    questionText = json.getString("question"),
+                    questionText = json.getString("questionText"),
                     options = options,
                     correctAnswerIndex = correctIndex,
-                    explanation = json.getString("explanation")
+                    explanation = json.getString("explanation"),
+                    hints = hints
                 )
             }
-            "fill_blank" -> Question.FillBlank(
+            "FillBlank" -> Question.FillBlank(
                 id = questionId,
-                questionText = json.getString("question"),
+                questionText = json.getString("questionText"),
                 correctAnswer = json.getString("correctAnswer"),
-                explanation = json.getString("explanation")
+                acceptableAnswers = parseStringArray(json.optJSONArray("acceptableAnswers")),
+                explanation = json.getString("explanation"),
+                hints = hints
             )
-            "true_false" -> Question.TrueFalse(
+            "TrueFalse" -> Question.TrueFalse(
                 id = questionId,
-                questionText = json.getString("question"),
+                questionText = json.getString("questionText"),
                 correctAnswer = json.getBoolean("correctAnswer"),
-                explanation = json.getString("explanation")
+                explanation = json.getString("explanation"),
+                hints = hints
             )
             else -> Question.TrueFalse(
                 id = questionId,
                 questionText = "Unknown question type",
                 correctAnswer = false,
-                explanation = ""
+                explanation = "",
+                hints = emptyList()
             )
         }
     }

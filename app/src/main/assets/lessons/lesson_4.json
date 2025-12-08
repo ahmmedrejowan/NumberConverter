@@ -1,0 +1,231 @@
+{
+  "id": "binary_to_decimal",
+  "title": "Binary to Decimal Conversion",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 15,
+  "order": 4,
+  "prerequisites": [
+    "binary_basics"
+  ],
+  "description": "Master the technique of converting binary numbers to decimal.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_bin_to_dec",
+      "title": "Converting Binary to Decimal",
+      "content": "Converting from binary to decimal is straightforward: multiply each bit by its position value (power of 2), then add them all up!\n\nHere's the step-by-step method:\n\n1. Write down the binary number\n2. Write the position values below each bit (starting from 1 on the right)\n3. Multiply each bit by its position value\n4. Add all the results together\n\nExample: Convert 1011 to decimal\n\nBinary:    1    0    1    1\nPositions: 8    4    2    1\nCalculate: 1\u00d78  0\u00d74  1\u00d72  1\u00d71\nResults:   8 +  0 +  2 +  1 = 11\n\nSo 1011 in binary equals 11 in decimal!\n\nAnother example: 11010\n\nBinary:    1    1    0    1    0\nPositions: 16   8    4    2    1\nCalculate: 1\u00d716 1\u00d78  0\u00d74  1\u00d72  0\u00d71\nResults:   16 + 8 +  0 +  2 +  0 = 26\n\nPro tip: You only need to add position values where there's a 1. Positions with 0 contribute nothing!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_convert",
+      "title": "Step-by-Step Conversion",
+      "description": "Let's convert binary 1101 to decimal together.",
+      "exercise": {
+        "id": "ex_1101",
+        "problem": "What is 1101 in binary converted to decimal?",
+        "correctAnswer": "13",
+        "difficulty": "EASY",
+        "explanation": "1101 = (1\u00d78) + (1\u00d74) + (0\u00d72) + (1\u00d71) = 8 + 4 + 0 + 1 = 13",
+        "hints": [
+          "Position values are: 8, 4, 2, 1",
+          "Add: 8 + 4 + 1",
+          "Only add positions where bit is 1"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_conversions",
+      "title": "Practice Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert binary 10 to decimal",
+          "correctAnswer": "2",
+          "difficulty": "EASY",
+          "explanation": "10 = 1\u00d72 + 0\u00d71 = 2",
+          "hints": [
+            "Position values: 2, 1"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert binary 101 to decimal",
+          "correctAnswer": "5",
+          "difficulty": "EASY",
+          "explanation": "101 = 1\u00d74 + 0\u00d72 + 1\u00d71 = 4 + 1 = 5",
+          "hints": [
+            "Positions: 4, 2, 1"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert binary 1111 to decimal",
+          "correctAnswer": "15",
+          "difficulty": "EASY",
+          "explanation": "1111 = 8 + 4 + 2 + 1 = 15",
+          "hints": [
+            "All bits are 1, so add all position values"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert binary 1010 to decimal",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "1010 = 1\u00d78 + 0\u00d74 + 1\u00d72 + 0\u00d71 = 8 + 2 = 10",
+          "hints": [
+            "Add position values where bit is 1"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert binary 11001 to decimal",
+          "correctAnswer": "25",
+          "difficulty": "MEDIUM",
+          "explanation": "11001 = 16 + 8 + 0 + 0 + 1 = 25",
+          "hints": [
+            "Positions: 16, 8, 4, 2, 1"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert binary 10000 to decimal",
+          "correctAnswer": "16",
+          "difficulty": "EASY",
+          "explanation": "10000 = 1\u00d716 = 16 (only the leftmost bit is 1)",
+          "hints": [
+            "Only one bit is 1, and it's in the 16s position"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert binary 101010 to decimal",
+          "correctAnswer": "42",
+          "difficulty": "MEDIUM",
+          "explanation": "101010 = 32 + 8 + 2 = 42",
+          "hints": [
+            "Positions: 32, 16, 8, 4, 2, 1",
+            "Add: 32 + 8 + 2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_bin_to_dec",
+      "title": "Binary to Decimal Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is binary 100 in decimal?",
+          "explanation": "100 in binary = 1\u00d74 + 0\u00d72 + 0\u00d71 = 4 in decimal.",
+          "options": [
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Only the leftmost bit (value 4) is 1",
+            "Position values: 4, 2, 1"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "Binary 1000 equals ____ in decimal.",
+          "explanation": "1000 in binary has only one 1 in the 8s position, so it equals 8 in decimal.",
+          "correctAnswer": "8",
+          "acceptableAnswers": [
+            "8",
+            "eight"
+          ],
+          "hints": [
+            "Only one bit is set to 1",
+            "It's in the 8s position"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q3",
+          "questionText": "What is binary 1110 in decimal?",
+          "explanation": "1110 = 1\u00d78 + 1\u00d74 + 1\u00d72 + 0\u00d71 = 8 + 4 + 2 = 14.",
+          "options": [
+            "12",
+            "13",
+            "14",
+            "15"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Add position values: 8 + 4 + 2",
+            "Skip the 1s place (it's 0)"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q4",
+          "questionText": "Binary 11 equals 3 in decimal.",
+          "explanation": "True! Binary 11 = 1\u00d72 + 1\u00d71 = 2 + 1 = 3 in decimal.",
+          "correctAnswer": true,
+          "hints": [
+            "Add position values: 2 + 1",
+            "Both bits are 1"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is binary 10101 in decimal?",
+          "explanation": "10101 = 1\u00d716 + 0\u00d78 + 1\u00d74 + 0\u00d72 + 1\u00d71 = 16 + 4 + 1 = 21.",
+          "options": [
+            "19",
+            "20",
+            "21",
+            "22"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Positions: 16, 8, 4, 2, 1",
+            "Add: 16 + 4 + 1"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "The largest value you can represent with 4 bits is ____.",
+          "explanation": "4 bits gives us 1111 in binary, which equals 8+4+2+1 = 15 in decimal.",
+          "correctAnswer": "15",
+          "acceptableAnswers": [
+            "15",
+            "fifteen"
+          ],
+          "hints": [
+            "All 4 bits set to 1: 1111",
+            "Add: 8 + 4 + 2 + 1"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q7",
+          "questionText": "What is binary 11111 in decimal?",
+          "explanation": "11111 = 16 + 8 + 4 + 2 + 1 = 31. This is the largest value with 5 bits.",
+          "options": [
+            "30",
+            "31",
+            "32",
+            "33"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "All 5 bits are 1",
+            "Add all position values: 16+8+4+2+1"
+          ]
+        }
+      ]
+    }
+  ]
+}

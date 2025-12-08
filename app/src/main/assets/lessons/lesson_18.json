@@ -1,0 +1,215 @@
+{
+  "id": "hex_fractions",
+  "title": "Hexadecimal Fractions",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 15,
+  "order": 18,
+  "prerequisites": [
+    "binary_fractions",
+    "hex_to_decimal"
+  ],
+  "description": "Learn to work with hexadecimal numbers that have fractional parts.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_hex_frac",
+      "title": "Hexadecimal Fractions",
+      "content": "Just like binary and decimal, hexadecimal can have fractions using a hex point!\n\n**Fractional Place Values (powers of 16 with negative exponents):**\n\u2022 16\u207b\u00b9 = 1/16 = 0.0625 (sixteenths place)\n\u2022 16\u207b\u00b2 = 1/256 = 0.00390625 (two-hundred-fifty-sixths place)\n\u2022 16\u207b\u00b3 = 1/4096 \u2248 0.000244 (and so on...)\n\n**Example 1: Convert 1.8 (hex) to decimal**\n\nHex:       1   .  8\nPositions: 1   .  1/16\nValues:    1      8 (8 in decimal)\nCalculate: 1\u00d71    8\u00d7(1/16)\nResults:   1  +   0.5 = 1.5\n\nSo 1.8 in hex = 1.5 in decimal!\n\n**Example 2: Convert A.4 (hex) to decimal**\n\nHex:       A   .  4\nValues:    10     4\nPositions: 1      1/16\nCalculate: 10\u00d71   4\u00d70.0625\nResults:   10 +   0.25 = 10.25\n\nSo A.4 in hex = 10.25 in decimal!\n\n**Example 3: Convert 0.C (hex) to decimal**\n\nHex:       0.  C\nValues:     .  12\nCalculate:     12\u00d7(1/16)\nResult:        0.75\n\nSo 0.C in hex = 0.75 in decimal!\n\n**Real-World Use: Color Precision**\nHex fractions aren't commonly used in everyday programming, but understanding them helps with:\n\u2022 Color interpolation\n\u2022 High-precision graphics\n\u2022 Understanding floating-point representation\n\u2022 Academic and theoretical computer science\n\n**Pro Tips:**\n\u2022 Convert letter digits (A-F) to 10-15 first\n\u2022 First fractional position is 1/16 = 0.0625\n\u2022 Hex fractions are more precise than decimal for some values\n\u2022 Each hex digit after point = 4 binary bits after binary point"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_hex_frac",
+      "title": "Hex Fraction Practice",
+      "description": "Let's convert hex 0.8 to decimal.",
+      "exercise": {
+        "id": "ex_hex_frac",
+        "problem": "What is hex 0.8 in decimal?",
+        "correctAnswer": "0.5",
+        "difficulty": "EASY",
+        "explanation": "0.8 (hex) = 8 \u00d7 (1/16) = 8/16 = 0.5 in decimal",
+        "hints": [
+          "8 in the 1/16 position",
+          "8 \u00d7 (1/16) = 8/16 = 1/2",
+          "Simplifies to 0.5"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_hex_frac",
+      "title": "Hex Fraction Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert hex 0.4 to decimal",
+          "correctAnswer": "0.25",
+          "difficulty": "EASY",
+          "explanation": "0.4 (hex) = 4/16 = 0.25",
+          "hints": [
+            "4 \u00d7 (1/16) = 0.25"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert hex 0.C to decimal",
+          "correctAnswer": "0.75",
+          "difficulty": "EASY",
+          "explanation": "0.C (hex) = 12/16 = 0.75 (C=12)",
+          "hints": [
+            "C = 12, then 12/16 = 0.75"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert hex 1.0 to decimal",
+          "correctAnswer": "1.0",
+          "difficulty": "EASY",
+          "explanation": "1.0 (hex) = 1 + 0 = 1.0",
+          "hints": [
+            "No fractional part"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert hex 2.8 to decimal",
+          "correctAnswer": "2.5",
+          "difficulty": "MEDIUM",
+          "explanation": "2.8 = 2 + (8/16) = 2 + 0.5 = 2.5",
+          "hints": [
+            "Whole: 2, Fractional: 0.5"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert hex F.8 to decimal",
+          "correctAnswer": "15.5",
+          "difficulty": "MEDIUM",
+          "explanation": "F.8 = 15 + 0.5 = 15.5 (F=15)",
+          "hints": [
+            "F = 15"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert hex 0.F to decimal",
+          "correctAnswer": "0.9375",
+          "difficulty": "MEDIUM",
+          "explanation": "0.F = 15/16 = 0.9375 (F=15)",
+          "hints": [
+            "F = 15, then 15/16"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_hex_frac",
+      "title": "Hexadecimal Fractions Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is the value of the first position after the hex point?",
+          "explanation": "The first position after the hex point is 16\u207b\u00b9 = 1/16 = 0.0625 in decimal.",
+          "options": [
+            "0.0625",
+            "0.125",
+            "0.25",
+            "0.5"
+          ],
+          "correctAnswerIndex": 0,
+          "hints": [
+            "It's 16\u207b\u00b9",
+            "1 divided by 16 = ?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "Hex 0.8 equals ____ in decimal.",
+          "explanation": "Hex 0.8 = 8/16 = 0.5 in decimal.",
+          "correctAnswer": "0.5",
+          "acceptableAnswers": [
+            "0.5",
+            ".5"
+          ],
+          "hints": [
+            "8 \u00d7 (1/16)",
+            "8/16 simplifies to 1/2"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q3",
+          "questionText": "What is hex 1.4 in decimal?",
+          "explanation": "1.4 (hex) = 1 + (4/16) = 1 + 0.25 = 1.25 in decimal.",
+          "options": [
+            "1.0",
+            "1.25",
+            "1.4",
+            "1.5"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Whole: 1, Fractional: 4/16",
+            "4/16 = 0.25"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q4",
+          "questionText": "Hex C in the fractional position equals 0.75 in decimal.",
+          "explanation": "True! C = 12, and 12/16 = 0.75 in decimal.",
+          "correctAnswer": true,
+          "hints": [
+            "C = 12",
+            "12/16 = 3/4 = 0.75"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is 16\u207b\u00b9 in decimal?",
+          "explanation": "16\u207b\u00b9 = 1/(16\u00b9) = 1/16 = 0.0625. This is the first position after the hex point.",
+          "options": [
+            "0.0625",
+            "0.125",
+            "0.25",
+            "0.5"
+          ],
+          "correctAnswerIndex": 0,
+          "hints": [
+            "16\u207b\u00b9 = 1/16",
+            "1 \u00f7 16 = ?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "Hex 0.F equals ____ in decimal.",
+          "explanation": "0.F = 15/16 = 0.9375 in decimal (F=15).",
+          "correctAnswer": "0.9375",
+          "acceptableAnswers": [
+            "0.9375",
+            ".9375"
+          ],
+          "hints": [
+            "F = 15",
+            "15/16 = ?"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q7",
+          "questionText": "Each hex fractional digit represents exactly 4 binary fractional bits.",
+          "explanation": "True! Just like whole numbers, each hex digit = 4 binary bits. So 0.8 (hex) = 0.1000 (binary).",
+          "correctAnswer": true,
+          "hints": [
+            "Same 4-bit relationship as whole numbers",
+            "Hex and binary have perfect alignment"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "id": "decimal_to_hex",
+  "title": "Decimal to Hexadecimal Conversion",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 15,
+  "order": 8,
+  "prerequisites": [
+    "hex_to_decimal"
+  ],
+  "description": "Master converting decimal numbers into hexadecimal representation.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_dec_to_hex",
+      "title": "Converting Decimal to Hex",
+      "content": "Converting decimal to hexadecimal uses the same principle as decimal to binary, but we divide by 16 instead of 2!\n\n**Division by 16 Method:**\n\n1. Divide the decimal number by 16\n2. Write down the remainder (0-15)\n3. If remainder is 10-15, convert to A-F\n4. Divide the quotient by 16\n5. Repeat until quotient is 0\n6. Read remainders from BOTTOM to TOP\n\n**Example 1: Convert 175 to hex**\n\n175 \u00f7 16 = 10 remainder 15 (F)\n10 \u00f7 16 = 0 remainder 10 (A)\n\nReading bottom to top: AF\nSo 175 in decimal = AF in hex!\n\n**Example 2: Convert 1000 to hex**\n\n1000 \u00f7 16 = 62 remainder 8\n62 \u00f7 16 = 3 remainder 14 (E)\n3 \u00f7 16 = 0 remainder 3\n\nReading bottom to top: 3E8\nSo 1000 in decimal = 3E8 in hex!\n\n**Conversion Table for Remainders:**\n0-9: Stay as digits 0-9\n10: A\n11: B\n12: C\n13: D\n14: E\n15: F\n\n**Useful Values to Know:**\n\u2022 15 = F\n\u2022 16 = 10\n\u2022 255 = FF (max byte value)\n\u2022 256 = 100\n\u2022 4095 = FFF\n\nRemember: When your remainder is 10 or more, convert it to the corresponding letter A-F!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_dec_to_hex",
+      "title": "Division Method Practice",
+      "description": "Let's convert decimal 42 to hex using division.",
+      "exercise": {
+        "id": "ex_42",
+        "problem": "What is 42 in decimal converted to hexadecimal?",
+        "correctAnswer": "2A",
+        "difficulty": "EASY",
+        "explanation": "42\u00f716=2 r10, 2\u00f716=0 r2. Remainders (bottom to top): 2, 10(A). Result: 2A",
+        "hints": [
+          "42 \u00f7 16 = 2 remainder 10",
+          "Remainder 10 = A in hex",
+          "Read bottom to top: 2A"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_dec_to_hex",
+      "title": "Decimal to Hex Practice",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert decimal 10 to hex",
+          "correctAnswer": "A",
+          "difficulty": "EASY",
+          "explanation": "10 in decimal = A in hex (single digit)",
+          "hints": [
+            "10 is a single hex digit: A"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert decimal 15 to hex",
+          "correctAnswer": "F",
+          "difficulty": "EASY",
+          "explanation": "15 in decimal = F in hex (single digit)",
+          "hints": [
+            "15 is the highest single hex digit: F"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert decimal 16 to hex",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "16 = 1\u00d716, so hex is 10",
+          "hints": [
+            "16 is the first two-digit hex number"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert decimal 32 to hex",
+          "correctAnswer": "20",
+          "difficulty": "EASY",
+          "explanation": "32 = 2\u00d716, so hex is 20",
+          "hints": [
+            "32 \u00f7 16 = 2 remainder 0"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert decimal 255 to hex",
+          "correctAnswer": "FF",
+          "difficulty": "MEDIUM",
+          "explanation": "255 = 15\u00d716 + 15 = FF (very common value!)",
+          "hints": [
+            "This is max byte value",
+            "255 \u00f7 16 = 15 r15, both convert to F"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert decimal 100 to hex",
+          "correctAnswer": "64",
+          "difficulty": "MEDIUM",
+          "explanation": "100\u00f716=6 r4, result: 64",
+          "hints": [
+            "100 \u00f7 16 = 6 remainder 4"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert decimal 200 to hex",
+          "correctAnswer": "C8",
+          "difficulty": "MEDIUM",
+          "explanation": "200\u00f716=12 r8, 12=C, result: C8",
+          "hints": [
+            "200 \u00f7 16 = 12 remainder 8",
+            "12 in hex = C"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Convert decimal 31 to hex",
+          "correctAnswer": "1F",
+          "difficulty": "MEDIUM",
+          "explanation": "31\u00f716=1 r15, 15=F, result: 1F",
+          "hints": [
+            "31 \u00f7 16 = 1 remainder 15",
+            "15 = F"
+          ]
+        },
+        {
+          "id": "p9",
+          "problem": "Convert decimal 160 to hex",
+          "correctAnswer": "A0",
+          "difficulty": "MEDIUM",
+          "explanation": "160\u00f716=10 r0, 10=A, result: A0",
+          "hints": [
+            "160 \u00f7 16 = 10 remainder 0",
+            "10 = A in hex"
+          ]
+        },
+        {
+          "id": "p10",
+          "problem": "Convert decimal 256 to hex",
+          "correctAnswer": "100",
+          "difficulty": "MEDIUM",
+          "explanation": "256 = 16\u00b2, so hex is 100",
+          "hints": [
+            "256 is a power of 16: 16\u00b2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_dec_to_hex",
+      "title": "Decimal to Hex Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is decimal 26 in hexadecimal?",
+          "explanation": "26\u00f716=1 r10. Remainder 10=A. Result: 1A.",
+          "options": [
+            "1A",
+            "1B",
+            "20",
+            "26"
+          ],
+          "correctAnswerIndex": 0,
+          "hints": [
+            "26 \u00f7 16 = 1 remainder 10",
+            "10 converts to A"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "When converting decimal to hex, you divide repeatedly by ____.",
+          "explanation": "You divide by 16 because hexadecimal is base 16. Each division gives one hex digit.",
+          "correctAnswer": "16",
+          "acceptableAnswers": [
+            "16",
+            "sixteen"
+          ],
+          "hints": [
+            "Hex is base 16",
+            "Same as the base number"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q3",
+          "questionText": "When converting decimal to hex, a remainder of 13 becomes D.",
+          "explanation": "True! Remainders 10-15 convert to A-F: 10=A, 11=B, 12=C, 13=D, 14=E, 15=F.",
+          "correctAnswer": true,
+          "hints": [
+            "Count: A=10, B=11, C=12, D=13",
+            "13 is the fourth value needing a letter"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is decimal 47 in hexadecimal?",
+          "explanation": "47\u00f716=2 r15. Remainder 15=F. Result: 2F.",
+          "options": [
+            "2E",
+            "2F",
+            "30",
+            "47"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "47 \u00f7 16 = 2 remainder 15",
+            "15 = F"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is decimal 144 in hexadecimal?",
+          "explanation": "144\u00f716=9 r0. Result: 90.",
+          "options": [
+            "80",
+            "90",
+            "A0",
+            "B0"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "144 \u00f7 16 = 9 remainder 0",
+            "Both remainders are digits, no letters needed"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "Decimal 255 in hexadecimal is ____.",
+          "explanation": "255 = FF in hex. This is the maximum value that fits in one byte (8 bits)!",
+          "correctAnswer": "FF",
+          "acceptableAnswers": [
+            "FF",
+            "ff"
+          ],
+          "hints": [
+            "255 \u00f7 16 = 15 r15",
+            "Both 15s convert to F"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q7",
+          "questionText": "When using division method, you read hex digits from top to bottom.",
+          "explanation": "False! Just like binary conversion, you read from BOTTOM to TOP. The last remainder becomes the leftmost digit.",
+          "correctAnswer": false,
+          "hints": [
+            "Same rule as binary conversion",
+            "Last remainder is most significant"
+          ]
+        }
+      ]
+    }
+  ]
+}

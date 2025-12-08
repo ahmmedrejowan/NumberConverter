@@ -1,0 +1,230 @@
+{
+  "id": "decimal_to_binary",
+  "title": "Decimal to Binary Conversion",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 15,
+  "order": 5,
+  "prerequisites": [
+    "binary_to_decimal"
+  ],
+  "description": "Learn how to convert decimal numbers into binary representation.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_dec_to_bin",
+      "title": "Converting Decimal to Binary",
+      "content": "There are two popular methods to convert decimal to binary. Let's learn both!\n\n**Method 1: Division by 2 (Easier for most people)**\n\n1. Divide the decimal number by 2\n2. Write down the remainder (0 or 1)\n3. Divide the quotient by 2 again\n4. Repeat until quotient is 0\n5. Read remainders from BOTTOM to TOP\n\nExample: Convert 13 to binary\n13 \u00f7 2 = 6 remainder 1\n6 \u00f7 2 = 3 remainder 0\n3 \u00f7 2 = 1 remainder 1\n1 \u00f7 2 = 0 remainder 1\n\nReading bottom to top: 1101\nSo 13 in decimal = 1101 in binary!\n\n**Method 2: Subtraction (Faster for small numbers)**\n\n1. Find the largest power of 2 that fits in your number\n2. Subtract it and put a 1 in that position\n3. Repeat for the remainder\n4. Put 0 in positions you skip\n\nExample: Convert 25 to binary\n\u2022 Largest power of 2 \u2264 25 is 16, so: 25 - 16 = 9, put 1 in 16s place\n\u2022 Largest power of 2 \u2264 9 is 8, so: 9 - 8 = 1, put 1 in 8s place\n\u2022 Skip 4 and 2 (too large), put 0s\n\u2022 1 fits exactly, put 1 in 1s place\n\nResult: 11001 (positions: 16 8 4 2 1)\n\nBoth methods work! Choose whichever makes more sense to you."
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_dec_to_bin",
+      "title": "Division Method Practice",
+      "description": "Let's use the division by 2 method to convert 10 to binary.",
+      "exercise": {
+        "id": "ex_10",
+        "problem": "What is 10 in decimal converted to binary?",
+        "correctAnswer": "1010",
+        "difficulty": "EASY",
+        "explanation": "10\u00f72=5 r0, 5\u00f72=2 r1, 2\u00f72=1 r0, 1\u00f72=0 r1. Reading bottom to top: 1010",
+        "hints": [
+          "Divide by 2 repeatedly: 10\u21925\u21922\u21921\u21920",
+          "Remainders from bottom to top",
+          "10 = 8 + 2, so positions 8 and 2 are 1"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_dec_to_bin",
+      "title": "Decimal to Binary Practice",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert decimal 3 to binary",
+          "correctAnswer": "11",
+          "difficulty": "EASY",
+          "explanation": "3 = 2 + 1, so binary is 11",
+          "hints": [
+            "3 fits into 2 and 1"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert decimal 7 to binary",
+          "correctAnswer": "111",
+          "difficulty": "EASY",
+          "explanation": "7 = 4 + 2 + 1, so binary is 111",
+          "hints": [
+            "7 = 4 + 2 + 1, all bits are 1"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert decimal 8 to binary",
+          "correctAnswer": "1000",
+          "difficulty": "EASY",
+          "explanation": "8 is a power of 2, so it's just 1 followed by three 0s",
+          "hints": [
+            "8 is exactly 2\u00b3"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert decimal 15 to binary",
+          "correctAnswer": "1111",
+          "difficulty": "EASY",
+          "explanation": "15 = 8 + 4 + 2 + 1, so all four bits are 1",
+          "hints": [
+            "15 = 8 + 4 + 2 + 1"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert decimal 20 to binary",
+          "correctAnswer": "10100",
+          "difficulty": "MEDIUM",
+          "explanation": "20 = 16 + 4, so binary is 10100",
+          "hints": [
+            "20 = 16 + 4",
+            "Positions 16 and 4 are 1, others are 0"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert decimal 31 to binary",
+          "correctAnswer": "11111",
+          "difficulty": "MEDIUM",
+          "explanation": "31 = 16 + 8 + 4 + 2 + 1, all five bits are 1",
+          "hints": [
+            "31 is one less than 32 (2\u2075)"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert decimal 18 to binary",
+          "correctAnswer": "10010",
+          "difficulty": "MEDIUM",
+          "explanation": "18 = 16 + 2, so binary is 10010",
+          "hints": [
+            "18 = 16 + 2"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_dec_to_bin",
+      "title": "Decimal to Binary Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is decimal 5 in binary?",
+          "explanation": "5 = 4 + 1, so we put 1s in the 4 and 1 positions: 101.",
+          "options": [
+            "11",
+            "100",
+            "101",
+            "110"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "5 = 4 + 1",
+            "Positions: 4, 2, 1"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "Decimal 16 in binary is ________.",
+          "explanation": "16 is 2\u2074, so it's 1 followed by four 0s: 10000.",
+          "correctAnswer": "10000",
+          "acceptableAnswers": [
+            "10000"
+          ],
+          "hints": [
+            "16 is a power of 2 (2\u2074)",
+            "Just one 1 followed by four 0s"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q3",
+          "questionText": "When converting decimal to binary using division, you read the remainders from top to bottom.",
+          "explanation": "False! You read the remainders from BOTTOM to TOP. This is a common mistake - always read from bottom to top!",
+          "correctAnswer": false,
+          "hints": [
+            "Think about which remainder is most significant",
+            "The last remainder is the leftmost bit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is decimal 12 in binary?",
+          "explanation": "12 = 8 + 4, so binary is 1100 (1s in the 8 and 4 positions).",
+          "options": [
+            "1010",
+            "1011",
+            "1100",
+            "1101"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "12 = 8 + 4",
+            "Put 1s in positions 8 and 4"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is decimal 9 in binary?",
+          "explanation": "9 = 8 + 1, so binary is 1001 (1s in the 8 and 1 positions).",
+          "options": [
+            "1000",
+            "1001",
+            "1010",
+            "1011"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "9 = 8 + 1",
+            "Positions 8 and 1 have 1s"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "To convert decimal to binary, you repeatedly divide by ____.",
+          "explanation": "You divide by 2 repeatedly because binary is base 2. Each division gives you one bit (the remainder).",
+          "correctAnswer": "2",
+          "acceptableAnswers": [
+            "2",
+            "two"
+          ],
+          "hints": [
+            "Binary is base 2",
+            "What's the base of binary?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q7",
+          "questionText": "What is decimal 27 in binary?",
+          "explanation": "27 = 16 + 8 + 2 + 1, so binary is 11011.",
+          "options": [
+            "11010",
+            "11011",
+            "11100",
+            "11101"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "27 = 16 + 8 + 2 + 1",
+            "Positions: 16, 8, 4, 2, 1"
+          ]
+        }
+      ]
+    }
+  ]
+}

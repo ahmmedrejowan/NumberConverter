@@ -1,0 +1,234 @@
+{
+  "id": "decimal_fractions_to_binary",
+  "title": "Decimal Fractions to Binary",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 18,
+  "order": 17,
+  "prerequisites": [
+    "binary_fractions"
+  ],
+  "description": "Master converting decimal fractions into binary representation.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_dec_frac_to_bin",
+      "title": "Converting Decimal Fractions to Binary",
+      "content": "Converting decimal fractions to binary uses a different method than whole numbers. We use the **multiply by 2** method!\n\n**Multiply by 2 Method:**\n\n1. Take the fractional part only\n2. Multiply by 2\n3. Write down the integer part (0 or 1)\n4. Keep the fractional remainder\n5. Repeat until remainder is 0 or desired precision\n6. Read the integer parts from TOP to BOTTOM\n\n**Example 1: Convert 0.625 to binary**\n\n0.625 \u00d7 2 = 1.25 \u2192 integer part: **1**, remainder: 0.25\n0.25 \u00d7 2 = 0.5 \u2192 integer part: **0**, remainder: 0.5\n0.5 \u00d7 2 = 1.0 \u2192 integer part: **1**, remainder: 0.0\n\nReading top to bottom: 0.101\nSo 0.625 in decimal = 0.101 in binary!\n\n**Example 2: Convert 0.75 to binary**\n\n0.75 \u00d7 2 = 1.5 \u2192 integer part: **1**, remainder: 0.5\n0.5 \u00d7 2 = 1.0 \u2192 integer part: **1**, remainder: 0.0\n\nResult: 0.11\nSo 0.75 in decimal = 0.11 in binary!\n\n**Example 3: Convert 2.75 to binary**\n\nHandle separately:\nWhole part: 2 = 10 (binary)\nFractional: 0.75 = 0.11 (binary)\nCombined: 10.11\n\n**Example 4: 0.1 (repeating binary)**\n\n0.1 \u00d7 2 = 0.2 \u2192 **0**, remainder: 0.2\n0.2 \u00d7 2 = 0.4 \u2192 **0**, remainder: 0.4\n0.4 \u00d7 2 = 0.8 \u2192 **0**, remainder: 0.8\n0.8 \u00d7 2 = 1.6 \u2192 **1**, remainder: 0.6\n0.6 \u00d7 2 = 1.2 \u2192 **1**, remainder: 0.2 (repeats!)\n\nResult: 0.00011001100... (infinite)\nThis is why 0.1 can't be exact in binary!\n\n**Pro Tips:**\n\u2022 Convert whole and fractional parts separately\n\u2022 Read bits from TOP to BOTTOM (opposite of whole number conversion!)\n\u2022 Stop when remainder is 0 or at desired precision\n\u2022 Some fractions will repeat infinitely"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_dec_frac_to_bin",
+      "title": "Fraction Conversion Practice",
+      "description": "Let's convert decimal 0.5 to binary.",
+      "exercise": {
+        "id": "ex_half",
+        "problem": "What is decimal 0.5 in binary?",
+        "correctAnswer": "0.1",
+        "difficulty": "EASY",
+        "explanation": "0.5 \u00d7 2 = 1.0. Integer part is 1, remainder is 0. Result: 0.1",
+        "hints": [
+          "Multiply 0.5 \u00d7 2",
+          "Result is 1.0, so binary is 0.1",
+          "0.5 is exactly half, first binary position"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_dec_frac_to_bin",
+      "title": "Decimal Fraction to Binary Practice",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert decimal 0.5 to binary",
+          "correctAnswer": "0.1",
+          "difficulty": "EASY",
+          "explanation": "0.5 \u00d7 2 = 1.0, result: 0.1",
+          "hints": [
+            "0.5 is exactly half"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert decimal 0.25 to binary",
+          "correctAnswer": "0.01",
+          "difficulty": "EASY",
+          "explanation": "0.25\u00d72=0.5 (0), 0.5\u00d72=1.0 (1), result: 0.01",
+          "hints": [
+            "Two multiplications needed"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert decimal 0.75 to binary",
+          "correctAnswer": "0.11",
+          "difficulty": "EASY",
+          "explanation": "0.75\u00d72=1.5 (1), 0.5\u00d72=1.0 (1), result: 0.11",
+          "hints": [
+            "0.5 + 0.25 = 0.75"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert decimal 0.125 to binary",
+          "correctAnswer": "0.001",
+          "difficulty": "MEDIUM",
+          "explanation": "0.125\u00d72=0.25 (0), 0.25\u00d72=0.5 (0), 0.5\u00d72=1.0 (1), result: 0.001",
+          "hints": [
+            "Three multiplications: 0, 0, 1"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert decimal 0.875 to binary",
+          "correctAnswer": "0.111",
+          "difficulty": "MEDIUM",
+          "explanation": "0.875\u00d72=1.75 (1), 0.75\u00d72=1.5 (1), 0.5\u00d72=1.0 (1), result: 0.111",
+          "hints": [
+            "0.5 + 0.25 + 0.125 = 0.875"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert decimal 1.5 to binary",
+          "correctAnswer": "1.1",
+          "difficulty": "MEDIUM",
+          "explanation": "Whole: 1=1, Fractional: 0.5=0.1, result: 1.1",
+          "hints": [
+            "Handle whole and fraction separately"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert decimal 3.25 to binary",
+          "correctAnswer": "11.01",
+          "difficulty": "MEDIUM",
+          "explanation": "Whole: 3=11, Fractional: 0.25=0.01, result: 11.01",
+          "hints": [
+            "3 in binary is 11"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Convert decimal 0.375 to binary",
+          "correctAnswer": "0.011",
+          "difficulty": "MEDIUM",
+          "explanation": "0.375\u00d72=0.75 (0), 0.75\u00d72=1.5 (1), 0.5\u00d72=1.0 (1), result: 0.011",
+          "hints": [
+            "0.25 + 0.125 = 0.375"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_dec_frac_to_bin",
+      "title": "Decimal Fraction to Binary Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is decimal 0.5 in binary?",
+          "explanation": "0.5 \u00d7 2 = 1.0, so the binary is 0.1",
+          "options": [
+            "0.0",
+            "0.1",
+            "0.01",
+            "0.11"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Multiply 0.5 by 2",
+            "Result is 1.0, write 1"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "When converting decimal fractions to binary, you multiply by ____.",
+          "explanation": "You multiply by 2 repeatedly, taking the integer part each time as the next binary digit.",
+          "correctAnswer": "2",
+          "acceptableAnswers": [
+            "2",
+            "two"
+          ],
+          "hints": [
+            "Binary is base 2",
+            "Same as the base"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q3",
+          "questionText": "When converting fractions, you read the bits from top to bottom.",
+          "explanation": "True! This is opposite from whole numbers. The first multiplication gives the first bit after the point.",
+          "correctAnswer": true,
+          "hints": [
+            "Opposite of whole number method",
+            "First multiplication = first bit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is decimal 0.25 in binary?",
+          "explanation": "0.25\u00d72=0.5 (0), 0.5\u00d72=1.0 (1). Result: 0.01",
+          "options": [
+            "0.01",
+            "0.10",
+            "0.11",
+            "0.001"
+          ],
+          "correctAnswerIndex": 0,
+          "hints": [
+            "Two multiplications needed",
+            "First gives 0, second gives 1"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "Which decimal fraction CANNOT be exactly represented in binary?",
+          "explanation": "0.1 requires infinite repeating bits in binary (0.000110011...). Powers of 2 fractions (0.5, 0.25, 0.125) convert exactly.",
+          "options": [
+            "0.5",
+            "0.25",
+            "0.1",
+            "0.125"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Try the multiply by 2 method",
+            "Which one repeats infinitely?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "Decimal 0.75 in binary is ____.",
+          "explanation": "0.75\u00d72=1.5 (1), 0.5\u00d72=1.0 (1). Result: 0.11",
+          "correctAnswer": "0.11",
+          "acceptableAnswers": [
+            "0.11",
+            ".11"
+          ],
+          "hints": [
+            "0.75 = 0.5 + 0.25",
+            "Both bits are 1"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q7",
+          "questionText": "All decimal fractions can be perfectly represented in binary with finite digits.",
+          "explanation": "False! Only fractions that are sums of powers of 2 (like 0.5, 0.75, 0.625) can be exact. Others like 0.1 or 0.3 require infinite bits.",
+          "correctAnswer": false,
+          "hints": [
+            "Think about 0.1 in binary",
+            "Does it terminate or repeat?"
+          ]
+        }
+      ]
+    }
+  ]
+}

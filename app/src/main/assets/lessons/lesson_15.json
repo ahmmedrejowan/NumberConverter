@@ -1,0 +1,223 @@
+{
+  "id": "octal_to_binary",
+  "title": "Octal to Binary Conversion",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 12,
+  "order": 15,
+  "prerequisites": [
+    "binary_to_octal"
+  ],
+  "description": "Master the reverse process of converting octal to binary.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_oct_to_bin",
+      "title": "Octal to Binary: Expansion Method",
+      "content": "Converting octal to binary is even easier than binary to octal! Each octal digit simply expands into 3 binary bits.\n\n**The Expansion Method:**\n\n1. Take each octal digit one at a time\n2. Convert each digit to its 3-bit binary equivalent\n3. Combine all the 3-bit groups together\n4. Remove unnecessary leading zeros (optional)\n\n**Quick Reference Table:**\n0 = 000    2 = 010    4 = 100    6 = 110\n1 = 001    3 = 011    5 = 101    7 = 111\n\n**Example 1: Convert 247 (octal) to binary**\n\nStep 1: Convert each digit:\n  \u2022 2 = 010\n  \u2022 4 = 100\n  \u2022 7 = 111\nStep 2: Combine: 010 100 111\nResult: 010100111 (or 10100111 removing leading zero)\n\n**Example 2: Convert 52 (octal) to binary**\n\nStep 1: Convert:\n  \u2022 5 = 101\n  \u2022 2 = 010\nStep 2: Combine: 101 010\nResult: 101010\n\n**Example 3: Convert 777 (octal) to binary**\n\nStep 1: Convert each:\n  \u2022 7 = 111\n  \u2022 7 = 111\n  \u2022 7 = 111\nStep 2: Combine: 111 111 111\nResult: 111111111\n\n**Pro Tips:**\n\u2022 Each octal digit ALWAYS becomes exactly 3 bits\n\u2022 Don't forget leading zeros within each group!\n\u2022 For the leftmost octal digit, you can remove leading zeros from final result\n\u2022 Common values: 7=111, 0=000, 4=100\n\nThis is the fastest number system conversion because it's just direct substitution!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_oct_to_bin",
+      "title": "Expansion Practice",
+      "description": "Let's convert octal 35 to binary.",
+      "exercise": {
+        "id": "ex_oct_bin",
+        "problem": "What is octal 35 in binary?",
+        "correctAnswer": "011101",
+        "difficulty": "EASY",
+        "explanation": "3=011, 5=101. Combine: 011101",
+        "hints": [
+          "3 = 011 in binary",
+          "5 = 101 in binary",
+          "Combine: 011 101"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_oct_to_bin",
+      "title": "Octal to Binary Practice",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert octal 7 to binary",
+          "correctAnswer": "111",
+          "difficulty": "EASY",
+          "explanation": "7 = 111 (all bits on)",
+          "hints": [
+            "7 is the highest single octal digit = 111"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert octal 5 to binary",
+          "correctAnswer": "101",
+          "difficulty": "EASY",
+          "explanation": "5 = 101 in binary",
+          "hints": [
+            "5 = 4+1 = 101"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert octal 4 to binary",
+          "correctAnswer": "100",
+          "difficulty": "EASY",
+          "explanation": "4 = 100 in binary",
+          "hints": [
+            "4 in binary needs 3 bits: 100"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert octal 10 to binary",
+          "correctAnswer": "001000",
+          "difficulty": "EASY",
+          "explanation": "1=001, 0=000, combine: 001000",
+          "hints": [
+            "1=001, 0=000"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert octal 27 to binary",
+          "correctAnswer": "010111",
+          "difficulty": "MEDIUM",
+          "explanation": "2=010, 7=111, combine: 010111",
+          "hints": [
+            "2=010, 7=111"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert octal 64 to binary",
+          "correctAnswer": "110100",
+          "difficulty": "MEDIUM",
+          "explanation": "6=110, 4=100, combine: 110100",
+          "hints": [
+            "6=110, 4=100"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert octal 377 to binary",
+          "correctAnswer": "011111111",
+          "difficulty": "MEDIUM",
+          "explanation": "3=011, 7=111, 7=111, combine: 011111111",
+          "hints": [
+            "3=011, 7=111, 7=111",
+            "This equals 255 in decimal!"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_oct_to_bin",
+      "title": "Octal to Binary Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Each octal digit converts to exactly 3 binary bits.",
+          "explanation": "True! This is the fundamental relationship. One octal digit always equals exactly 3 binary bits, no exceptions.",
+          "correctAnswer": true,
+          "hints": [
+            "Octal has 8 values, 3 bits have 8 combinations",
+            "Always 3 bits per octal digit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is octal 6 in binary?",
+          "explanation": "6 = 4+2 = 110 in binary.",
+          "options": [
+            "100",
+            "101",
+            "110",
+            "111"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "6 = 4 + 2",
+            "Set the 4 and 2 bits"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "Octal 3 in binary is ________.",
+          "explanation": "3 in octal = 011 in binary (2+1).",
+          "correctAnswer": "011",
+          "acceptableAnswers": [
+            "011"
+          ],
+          "hints": [
+            "3 = 2 + 1",
+            "Need 3 bits: 011"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is octal 17 in binary?",
+          "explanation": "1=001, 7=111. Combine: 001111.",
+          "options": [
+            "001110",
+            "001111",
+            "010111",
+            "011111"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "1 = 001",
+            "7 = 111"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is octal 45 in binary?",
+          "explanation": "4=100, 5=101. Combine: 100101.",
+          "options": [
+            "100100",
+            "100101",
+            "101100",
+            "101101"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "4 = 100",
+            "5 = 101"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q6",
+          "questionText": "When converting octal 2 to binary, the result is 10.",
+          "explanation": "False! Octal 2 = 010 in binary (3 bits), not 10. Each octal digit must expand to exactly 3 bits.",
+          "correctAnswer": false,
+          "hints": [
+            "Need 3 bits for each octal digit",
+            "2 = 010, not 10"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q7",
+          "questionText": "Octal 0 in binary is ________.",
+          "explanation": "0 in octal = 000 in binary (all bits off).",
+          "correctAnswer": "000",
+          "acceptableAnswers": [
+            "000"
+          ],
+          "hints": [
+            "0 means all bits are off",
+            "Still need 3 bits: 000"
+          ]
+        }
+      ]
+    }
+  ]
+}

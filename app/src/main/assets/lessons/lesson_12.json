@@ -1,0 +1,231 @@
+{
+  "id": "octal_to_decimal",
+  "title": "Octal to Decimal Conversion",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 12,
+  "order": 12,
+  "prerequisites": [
+    "octal_basics"
+  ],
+  "description": "Learn to convert octal numbers into decimal format.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_oct_to_dec",
+      "title": "Converting Octal to Decimal",
+      "content": "Converting octal to decimal uses the same place value method as binary and hexadecimal, but with powers of 8!\n\n**Step-by-Step Method:**\n\n1. Write down the octal number\n2. Write the position values (powers of 8) below each digit\n3. Multiply each digit by its position value\n4. Add all the results\n\n**Example 1: Convert 157 (octal) to decimal**\n\nOctal:     1    5    7\nPositions: 64   8    1\nCalculate: 1\u00d764 5\u00d78  7\u00d71\nResults:   64 + 40 + 7 = 111\n\nSo 157 in octal = 111 in decimal!\n\n**Example 2: Convert 725 (octal) to decimal**\n\nOctal:     7    2    5\nPositions: 64   8    1\nCalculate: 7\u00d764 2\u00d78  5\u00d71\nResults:   448 + 16 + 5 = 469\n\nSo 725 in octal = 469 in decimal!\n\n**Example 3: Convert 1000 (octal) to decimal**\n\nOctal:     1    0    0    0\nPositions: 512  64   8    1\nCalculate: 1\u00d7512 0\u00d764 0\u00d78 0\u00d71\nResults:   512 + 0 + 0 + 0 = 512\n\nSo 1000 in octal = 512 in decimal!\n\n**Common Place Values to Remember:**\n\u2022 8\u2070 = 1\n\u2022 8\u00b9 = 8\n\u2022 8\u00b2 = 64\n\u2022 8\u00b3 = 512\n\u2022 8\u2074 = 4096\n\n**Pro Tip:** Just like other conversions, multiply each digit by its power of 8 and add them up. Simple!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_oct_to_dec",
+      "title": "Octal to Decimal Practice",
+      "description": "Let's convert octal 23 to decimal step by step.",
+      "exercise": {
+        "id": "ex_23",
+        "problem": "What is 23 in octal converted to decimal?",
+        "correctAnswer": "19",
+        "difficulty": "EASY",
+        "explanation": "23 (octal) = (2\u00d78) + (3\u00d71) = 16 + 3 = 19 in decimal.",
+        "hints": [
+          "Position values: 8, 1",
+          "Calculate: (2\u00d78) + (3\u00d71)",
+          "16 + 3 = ?"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_oct_to_dec",
+      "title": "Octal to Decimal Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert octal 7 to decimal",
+          "correctAnswer": "7",
+          "difficulty": "EASY",
+          "explanation": "7 in octal = 7 in decimal (single digit)",
+          "hints": [
+            "Single digit octal numbers are the same in decimal"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert octal 10 to decimal",
+          "correctAnswer": "8",
+          "difficulty": "EASY",
+          "explanation": "10 (octal) = 1\u00d78 + 0\u00d71 = 8",
+          "hints": [
+            "1 in the 8s place"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert octal 17 to decimal",
+          "correctAnswer": "15",
+          "difficulty": "EASY",
+          "explanation": "17 (octal) = 1\u00d78 + 7\u00d71 = 8 + 7 = 15",
+          "hints": [
+            "(1\u00d78) + (7\u00d71)"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert octal 77 to decimal",
+          "correctAnswer": "63",
+          "difficulty": "MEDIUM",
+          "explanation": "77 (octal) = 7\u00d78 + 7\u00d71 = 56 + 7 = 63",
+          "hints": [
+            "Both digits are 7"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert octal 100 to decimal",
+          "correctAnswer": "64",
+          "difficulty": "EASY",
+          "explanation": "100 (octal) = 1\u00d764 = 64 (it's 8\u00b2)",
+          "hints": [
+            "100 in octal = 8\u00b2"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert octal 52 to decimal",
+          "correctAnswer": "42",
+          "difficulty": "MEDIUM",
+          "explanation": "52 (octal) = 5\u00d78 + 2\u00d71 = 40 + 2 = 42",
+          "hints": [
+            "(5\u00d78) + (2\u00d71)"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert octal 377 to decimal",
+          "correctAnswer": "255",
+          "difficulty": "MEDIUM",
+          "explanation": "377 (octal) = 3\u00d764 + 7\u00d78 + 7\u00d71 = 192 + 56 + 7 = 255",
+          "hints": [
+            "Position values: 64, 8, 1",
+            "This equals FF in hex!"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_oct_to_dec",
+      "title": "Octal to Decimal Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is octal 12 in decimal?",
+          "explanation": "12 (octal) = 1\u00d78 + 2\u00d71 = 8 + 2 = 10 in decimal.",
+          "options": [
+            "8",
+            "10",
+            "12",
+            "14"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Position values: 8, 1",
+            "Calculate: (1\u00d78) + (2\u00d71)"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "Octal 20 equals ____ in decimal.",
+          "explanation": "20 (octal) = 2\u00d78 + 0\u00d71 = 16 in decimal.",
+          "correctAnswer": "16",
+          "acceptableAnswers": [
+            "16",
+            "sixteen"
+          ],
+          "hints": [
+            "2 in the 8s place",
+            "2 \u00d7 8 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q3",
+          "questionText": "What is octal 64 in decimal?",
+          "explanation": "64 (octal) = 6\u00d78 + 4\u00d71 = 48 + 4 = 52 in decimal.",
+          "options": [
+            "48",
+            "52",
+            "56",
+            "64"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Calculate: (6\u00d78) + (4\u00d71)",
+            "48 + 4 = ?"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q4",
+          "questionText": "Octal 100 equals 64 in decimal.",
+          "explanation": "True! 100 (octal) = 1\u00d764 + 0\u00d78 + 0\u00d71 = 64. This is 8\u00b2.",
+          "correctAnswer": true,
+          "hints": [
+            "100 in octal = 1 \u00d7 8\u00b2",
+            "8\u00b2 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is octal 35 in decimal?",
+          "explanation": "35 (octal) = 3\u00d78 + 5\u00d71 = 24 + 5 = 29 in decimal.",
+          "options": [
+            "27",
+            "29",
+            "31",
+            "35"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Position values: 8, 1",
+            "(3\u00d78) + (5\u00d71) = ?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "In octal to decimal conversion, the rightmost position has value ____.",
+          "explanation": "The rightmost position is 8\u2070 = 1, just like in any positional number system.",
+          "correctAnswer": "1",
+          "acceptableAnswers": [
+            "1",
+            "one"
+          ],
+          "hints": [
+            "Any number to the power of 0 equals 1",
+            "8\u2070 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q7",
+          "questionText": "What is octal 777 in decimal?",
+          "explanation": "777 (octal) = 7\u00d764 + 7\u00d78 + 7\u00d71 = 448 + 56 + 7 = 511 in decimal.",
+          "options": [
+            "511",
+            "512",
+            "777",
+            "888"
+          ],
+          "correctAnswerIndex": 0,
+          "hints": [
+            "All digits are 7",
+            "Position values: 64, 8, 1"
+          ]
+        }
+      ]
+    }
+  ]
+}

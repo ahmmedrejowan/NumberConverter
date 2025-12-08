@@ -1,0 +1,151 @@
+{
+  "id": "intro_number_systems",
+  "title": "Introduction to Number Systems",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 10,
+  "order": 1,
+  "prerequisites": [],
+  "description": "Learn the fundamentals of number systems and why different bases exist.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_intro",
+      "title": "What is a Number System?",
+      "content": "A number system is a way of representing numbers using a specific set of symbols or digits. Just like we use different languages to communicate, we use different number systems for different purposes.\n\nThe most common number system we use every day is the decimal system (base 10), which uses digits 0 through 9. But did you know that computers use a completely different system called binary (base 2)?\n\nEach number system has a 'base' which tells us how many unique digits are available:\n\u2022 Decimal (base 10): uses 10 digits (0-9)\n\u2022 Binary (base 2): uses 2 digits (0, 1)\n\u2022 Octal (base 8): uses 8 digits (0-7)\n\u2022 Hexadecimal (base 16): uses 16 digits (0-9, A-F)\n\nWhy do we need different number systems? Computers work with electrical signals that are either ON or OFF, making binary perfect for them. Hexadecimal is great for programmers because it's shorter than binary but still easy to convert."
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_base",
+      "title": "Understanding the Base",
+      "description": "Let's test your understanding of what a 'base' means in a number system.",
+      "exercise": {
+        "id": "ex_base",
+        "problem": "If a number system is base 8, how many unique digits does it use?",
+        "correctAnswer": "8",
+        "difficulty": "EASY",
+        "hints": [
+          "The base tells you how many digits are available",
+          "Base 10 has 10 digits (0-9), so base 8 has..."
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_identify",
+      "title": "Identifying Number Systems",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Which number system uses only 0 and 1?",
+          "correctAnswer": "Binary",
+          "difficulty": "EASY",
+          "hints": [
+            "Think about which system has base 2"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "How many digits does hexadecimal use?",
+          "correctAnswer": "16",
+          "difficulty": "EASY",
+          "hints": [
+            "Hexadecimal is base 16"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "What letters does hexadecimal use after digit 9?",
+          "correctAnswer": "A-F",
+          "difficulty": "MEDIUM",
+          "hints": [
+            "After 9 comes A, B, C..."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_intro",
+      "title": "Number Systems Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is the base of the decimal number system we use every day?",
+          "explanation": "Decimal is base 10, which is why we have 10 digits (0-9). The word 'decimal' comes from the Latin 'decem' meaning ten.",
+          "options": [
+            "2",
+            "8",
+            "10",
+            "16"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "Count how many digits you use: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9",
+            "The word 'decimal' comes from Latin 'decem' meaning ten"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "Which number system is most suitable for computers?",
+          "explanation": "Binary (base 2) is perfect for computers because electrical signals can be either ON (1) or OFF (0), matching the two digits of binary.",
+          "options": [
+            "Decimal",
+            "Binary",
+            "Octal",
+            "Hexadecimal"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Computers use electrical signals that are either ON or OFF",
+            "Think about a system with only 2 digits"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q3",
+          "questionText": "Octal uses digits 0 through 7.",
+          "explanation": "Correct! Octal is base 8, so it uses exactly 8 digits: 0, 1, 2, 3, 4, 5, 6, and 7.",
+          "correctAnswer": true,
+          "hints": [
+            "Octal is base 8",
+            "The base number tells you how many digits are used"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q4",
+          "questionText": "In hexadecimal, the letter 'A' represents the decimal number ____.",
+          "explanation": "In hexadecimal, after 9 comes A=10, B=11, C=12, D=13, E=14, and F=15.",
+          "correctAnswer": "10",
+          "acceptableAnswers": [
+            "10",
+            "ten"
+          ],
+          "hints": [
+            "Hex uses 0-9 then A-F for 16 total digits",
+            "A is the digit right after 9"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "Why do programmers often use hexadecimal?",
+          "explanation": "Hexadecimal is compact (shorter than binary) and easy to convert to/from binary. Each hex digit represents exactly 4 binary bits, making it convenient for representing binary data.",
+          "options": [
+            "It's easier than decimal",
+            "It's shorter than binary and easy to convert",
+            "Computers require it",
+            "It has more digits"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "Think about representation length and conversion ease",
+            "One hex digit = four binary digits"
+          ]
+        }
+      ]
+    }
+  ]
+}

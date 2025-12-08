@@ -1,0 +1,232 @@
+{
+  "id": "hex_to_binary",
+  "title": "Hexadecimal to Binary Conversion",
+  "category": "INTERMEDIATE",
+  "estimatedTimeMinutes": 15,
+  "order": 10,
+  "prerequisites": [
+    "binary_to_hex"
+  ],
+  "description": "Master the reverse process of converting hexadecimal to binary.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_hex_to_bin",
+      "title": "Hex to Binary: Expansion Method",
+      "content": "Converting hexadecimal to binary is even easier than binary to hex! Each hex digit simply expands into 4 binary bits.\n\n**The Expansion Method:**\n\n1. Take each hex digit one at a time\n2. Convert each digit to its 4-bit binary equivalent\n3. Combine all the 4-bit groups together\n4. Remove unnecessary leading zeros (optional)\n\n**Quick Reference Table:**\n0 = 0000    4 = 0100    8 = 1000    C = 1100\n1 = 0001    5 = 0101    9 = 1001    D = 1101\n2 = 0010    6 = 0110    A = 1010    E = 1110\n3 = 0011    7 = 0111    B = 1011    F = 1111\n\n**Example 1: Convert 3A to binary**\n\nStep 1: Convert each digit:\n  \u2022 3 = 0011\n  \u2022 A = 1010\nStep 2: Combine: 0011 1010\nResult: 00111010 (or 111010 if you remove leading zeros)\n\n**Example 2: Convert F5 to binary**\n\nStep 1: Convert:\n  \u2022 F = 1111\n  \u2022 5 = 0101\nStep 2: Combine: 1111 0101\nResult: 11110101\n\n**Example 3: Convert 2B8 to binary**\n\nStep 1: Convert each:\n  \u2022 2 = 0010\n  \u2022 B = 1011\n  \u2022 8 = 1000\nStep 2: Combine: 0010 1011 1000\nResult: 001010111000 (or 10101110 00 with spacing)\n\n**Pro Tips:**\n\u2022 Each hex digit ALWAYS becomes exactly 4 bits\n\u2022 Don't forget leading zeros within each group!\n\u2022 For the leftmost hex digit, you can remove leading zeros from the final result\n\u2022 Common values: F=1111, A=1010, 0=0000\n\nThis is the fastest number system conversion because it's just a direct substitution!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_hex_to_bin",
+      "title": "Expansion Practice",
+      "description": "Let's convert hex 4D to binary.",
+      "exercise": {
+        "id": "ex_hex_bin",
+        "problem": "What is hexadecimal 4D in binary?",
+        "correctAnswer": "01001101",
+        "difficulty": "EASY",
+        "explanation": "4=0100, D=1101. Combine: 01001101",
+        "hints": [
+          "4 = 0100 in binary",
+          "D = 13 = 1101 in binary",
+          "Combine: 0100 1101"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_hex_to_bin",
+      "title": "Hex to Binary Practice",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert hex F to binary",
+          "correctAnswer": "1111",
+          "difficulty": "EASY",
+          "explanation": "F = 1111 (all bits on)",
+          "hints": [
+            "F is the highest single hex digit = 1111"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert hex A to binary",
+          "correctAnswer": "1010",
+          "difficulty": "EASY",
+          "explanation": "A = 10 in decimal = 1010 in binary",
+          "hints": [
+            "A = 10 = 1010"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert hex 7 to binary",
+          "correctAnswer": "0111",
+          "difficulty": "EASY",
+          "explanation": "7 = 0111 in binary",
+          "hints": [
+            "7 in binary needs 4 bits: 0111"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert hex C to binary",
+          "correctAnswer": "1100",
+          "difficulty": "EASY",
+          "explanation": "C = 12 in decimal = 1100 in binary",
+          "hints": [
+            "C = 12 = 8+4 = 1100"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert hex 2F to binary",
+          "correctAnswer": "00101111",
+          "difficulty": "MEDIUM",
+          "explanation": "2=0010, F=1111, combine: 00101111",
+          "hints": [
+            "2=0010, F=1111"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert hex B3 to binary",
+          "correctAnswer": "10110011",
+          "difficulty": "MEDIUM",
+          "explanation": "B=1011, 3=0011, combine: 10110011",
+          "hints": [
+            "B=1011, 3=0011"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert hex FF to binary",
+          "correctAnswer": "11111111",
+          "difficulty": "EASY",
+          "explanation": "F=1111, F=1111, combine: 11111111 (all bits on!)",
+          "hints": [
+            "F=1111, both digits are F"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Convert hex 1A to binary",
+          "correctAnswer": "00011010",
+          "difficulty": "MEDIUM",
+          "explanation": "1=0001, A=1010, combine: 00011010",
+          "hints": [
+            "1=0001, A=1010"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_hex_to_bin",
+      "title": "Hex to Binary Quiz",
+      "questions": [
+        {
+          "type": "TrueFalse",
+          "id": "q1",
+          "questionText": "Each hex digit converts to exactly 4 binary bits.",
+          "explanation": "True! This is the fundamental relationship. One hex digit always equals exactly 4 binary bits, no exceptions.",
+          "correctAnswer": true,
+          "hints": [
+            "Hex has 16 values, 4 bits have 16 combinations",
+            "Always 4 bits per hex digit"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q2",
+          "questionText": "What is hex E in binary?",
+          "explanation": "E = 14 in decimal = 8+4+2 = 1110 in binary.",
+          "options": [
+            "1100",
+            "1101",
+            "1110",
+            "1111"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "E = 14 in decimal",
+            "14 = 8 + 4 + 2"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q3",
+          "questionText": "Hex 8 in binary is ________.",
+          "explanation": "8 in hex = 1000 in binary (only the 8s bit is set).",
+          "correctAnswer": "1000",
+          "acceptableAnswers": [
+            "1000"
+          ],
+          "hints": [
+            "8 is a power of 2",
+            "Only one bit is set: the 8s place"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q4",
+          "questionText": "What is hex 5C in binary?",
+          "explanation": "5=0101, C=1100. Combine: 01011100.",
+          "options": [
+            "01011000",
+            "01011100",
+            "01101100",
+            "10011100"
+          ],
+          "correctAnswerIndex": 1,
+          "hints": [
+            "5 = 0101",
+            "C = 12 = 1100"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is hex A5 in binary?",
+          "explanation": "A=1010, 5=0101. Combine: 10100101.",
+          "options": [
+            "10100101",
+            "10100100",
+            "10010101",
+            "10010100"
+          ],
+          "correctAnswerIndex": 0,
+          "hints": [
+            "A = 10 = 1010",
+            "5 = 0101"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q6",
+          "questionText": "When converting hex D to binary, the result is 1011.",
+          "explanation": "False! D = 13 in decimal = 8+4+1 = 1101 in binary, not 1011. (1011 would be B=11)",
+          "correctAnswer": false,
+          "hints": [
+            "D = 13 in decimal",
+            "13 = 8 + 4 + 1"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q7",
+          "questionText": "Hex 0 in binary is ________.",
+          "explanation": "0 in hex = 0000 in binary (all bits off).",
+          "correctAnswer": "0000",
+          "acceptableAnswers": [
+            "0000"
+          ],
+          "hints": [
+            "0 means all bits are off",
+            "Still need 4 bits: 0000"
+          ]
+        }
+      ]
+    }
+  ]
+}

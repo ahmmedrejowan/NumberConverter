@@ -1,0 +1,242 @@
+{
+  "id": "hex_to_decimal",
+  "title": "Hexadecimal to Decimal Conversion",
+  "category": "BEGINNER",
+  "estimatedTimeMinutes": 15,
+  "order": 7,
+  "prerequisites": [
+    "hexadecimal_basics"
+  ],
+  "description": "Learn to convert hexadecimal numbers into decimal format.",
+  "sections": [
+    {
+      "type": "theory",
+      "id": "theory_hex_to_dec",
+      "title": "Converting Hex to Decimal",
+      "content": "Converting hexadecimal to decimal is similar to converting binary to decimal, but we use powers of 16 instead of powers of 2!\n\n**Step-by-Step Method:**\n\n1. Write down the hex number\n2. Write the position values (powers of 16) below each digit\n3. Convert any letter digits to decimal (A=10, B=11, ... F=15)\n4. Multiply each digit by its position value\n5. Add all the results\n\n**Example 1: Convert 2A to decimal**\n\nHex:       2    A\nPositions: 16   1\nValues:    2    10 (A=10)\nCalculate: 2\u00d716 10\u00d71\nResults:   32 + 10 = 42\n\nSo 2A in hex = 42 in decimal!\n\n**Example 2: Convert 1F3 to decimal**\n\nHex:       1    F    3\nPositions: 256  16   1\nValues:    1    15   3\nCalculate: 1\u00d7256 15\u00d716 3\u00d71\nResults:   256 + 240 + 3 = 499\n\nSo 1F3 in hex = 499 in decimal!\n\n**Common Hex Values to Remember:**\n\u2022 F = 15\n\u2022 FF = 255 (very common in colors!)\n\u2022 100 = 256\n\u2022 FFF = 4095\n\nRemember: Always convert letter digits (A-F) to their decimal values (10-15) before calculating!"
+    },
+    {
+      "type": "interactive",
+      "id": "interactive_hex_convert",
+      "title": "Hex to Decimal Practice",
+      "description": "Let's convert hex 1C to decimal step by step.",
+      "exercise": {
+        "id": "ex_1c",
+        "problem": "What is 1C in hexadecimal converted to decimal?",
+        "correctAnswer": "28",
+        "difficulty": "EASY",
+        "explanation": "1C = (1\u00d716) + (12\u00d71) = 16 + 12 = 28. Remember C=12!",
+        "hints": [
+          "C = 12 in decimal",
+          "Position values: 16, 1",
+          "Calculate: (1\u00d716) + (12\u00d71)"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "id": "practice_hex_to_dec",
+      "title": "Hex to Decimal Conversions",
+      "exercises": [
+        {
+          "id": "p1",
+          "problem": "Convert hex A to decimal",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "A is a single hex digit equal to 10 in decimal",
+          "hints": [
+            "A = 10"
+          ]
+        },
+        {
+          "id": "p2",
+          "problem": "Convert hex F to decimal",
+          "correctAnswer": "15",
+          "difficulty": "EASY",
+          "explanation": "F is the highest single hex digit, equal to 15",
+          "hints": [
+            "F = 15"
+          ]
+        },
+        {
+          "id": "p3",
+          "problem": "Convert hex 10 to decimal",
+          "correctAnswer": "16",
+          "difficulty": "EASY",
+          "explanation": "10 in hex = 1\u00d716 + 0\u00d71 = 16 in decimal",
+          "hints": [
+            "Position values: 16, 1"
+          ]
+        },
+        {
+          "id": "p4",
+          "problem": "Convert hex 20 to decimal",
+          "correctAnswer": "32",
+          "difficulty": "EASY",
+          "explanation": "20 in hex = 2\u00d716 + 0\u00d71 = 32",
+          "hints": [
+            "2 in the 16s place"
+          ]
+        },
+        {
+          "id": "p5",
+          "problem": "Convert hex FF to decimal",
+          "correctAnswer": "255",
+          "difficulty": "MEDIUM",
+          "explanation": "FF = 15\u00d716 + 15\u00d71 = 240 + 15 = 255 (very common!)",
+          "hints": [
+            "F = 15",
+            "Both positions have F (15)"
+          ]
+        },
+        {
+          "id": "p6",
+          "problem": "Convert hex 3D to decimal",
+          "correctAnswer": "61",
+          "difficulty": "MEDIUM",
+          "explanation": "3D = 3\u00d716 + 13\u00d71 = 48 + 13 = 61 (D=13)",
+          "hints": [
+            "D = 13",
+            "Calculate: 3\u00d716 + 13\u00d71"
+          ]
+        },
+        {
+          "id": "p7",
+          "problem": "Convert hex A0 to decimal",
+          "correctAnswer": "160",
+          "difficulty": "MEDIUM",
+          "explanation": "A0 = 10\u00d716 + 0\u00d71 = 160 (A=10)",
+          "hints": [
+            "A = 10, and it's in the 16s place"
+          ]
+        },
+        {
+          "id": "p8",
+          "problem": "Convert hex 100 to decimal",
+          "correctAnswer": "256",
+          "difficulty": "MEDIUM",
+          "explanation": "100 in hex = 1\u00d7256 + 0\u00d716 + 0\u00d71 = 256",
+          "hints": [
+            "Position values: 256, 16, 1"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "id": "quiz_hex_to_dec",
+      "title": "Hex to Decimal Quiz",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "q1",
+          "questionText": "What is hex 1A in decimal?",
+          "explanation": "1A = 1\u00d716 + 10\u00d71 = 16 + 10 = 26 (A=10).",
+          "options": [
+            "16",
+            "20",
+            "26",
+            "32"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "A = 10 in decimal",
+            "Calculate: (1\u00d716) + (10\u00d71)"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q2",
+          "questionText": "Hex B equals ____ in decimal.",
+          "explanation": "B is the 11th hex digit, so it equals 11 in decimal.",
+          "correctAnswer": "11",
+          "acceptableAnswers": [
+            "11",
+            "eleven"
+          ],
+          "hints": [
+            "A=10, B=11",
+            "B is one more than A"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q3",
+          "questionText": "What is hex 2F in decimal?",
+          "explanation": "2F = 2\u00d716 + 15\u00d71 = 32 + 15 = 47 (F=15).",
+          "options": [
+            "42",
+            "45",
+            "47",
+            "50"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "F = 15",
+            "Calculate: (2\u00d716) + (15\u00d71)"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "q4",
+          "questionText": "Hex FF equals 255 in decimal.",
+          "explanation": "True! FF = 15\u00d716 + 15\u00d71 = 240 + 15 = 255. This is the maximum value for one byte!",
+          "correctAnswer": true,
+          "hints": [
+            "F = 15 in both positions",
+            "15\u00d716 + 15\u00d71 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q5",
+          "questionText": "What is hex C8 in decimal?",
+          "explanation": "C8 = 12\u00d716 + 8\u00d71 = 192 + 8 = 200 (C=12).",
+          "options": [
+            "192",
+            "196",
+            "200",
+            "208"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "C = 12",
+            "Calculate: (12\u00d716) + (8\u00d71)"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "q6",
+          "questionText": "In hex to decimal conversion, the rightmost position has value ____.",
+          "explanation": "The rightmost position is 16\u2070 = 1, just like in any positional number system.",
+          "correctAnswer": "1",
+          "acceptableAnswers": [
+            "1",
+            "one"
+          ],
+          "hints": [
+            "Any number to the power of 0 equals 1",
+            "16\u2070 = ?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "q7",
+          "questionText": "What is hex 5E in decimal?",
+          "explanation": "5E = 5\u00d716 + 14\u00d71 = 80 + 14 = 94 (E=14).",
+          "options": [
+            "84",
+            "90",
+            "94",
+            "100"
+          ],
+          "correctAnswerIndex": 2,
+          "hints": [
+            "E = 14",
+            "Calculate: (5\u00d716) + (14\u00d71)"
+          ]
+        }
+      ]
+    }
+  ]
+}
