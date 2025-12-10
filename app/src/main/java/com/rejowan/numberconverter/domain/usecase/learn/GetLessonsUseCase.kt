@@ -22,16 +22,9 @@ class GetLessonsUseCase(
         return progressRepository.getAllProgress().map { progressList ->
             val lessons = lessonRepository.getAllLessons()
             val progressMap = progressList.associateBy { it.lessonId }
-            val completedLessonIds = progressList
-                .filter { it.status == ProgressStatus.COMPLETED }
-                .map { it.lessonId }
-                .toSet()
 
             lessons.groupBy { it.category }.mapValues { (_, categoryLessons) ->
                 categoryLessons.map { lesson ->
-                    val isLocked = lesson.prerequisites.isNotEmpty() &&
-                            !lesson.prerequisites.all { prereqId -> completedLessonIds.contains(prereqId) }
-
                     val progress = progressMap[lesson.id]
                     val progressPercentage = when {
                         progress == null -> 0f
@@ -43,7 +36,7 @@ class GetLessonsUseCase(
 
                     LessonWithProgress(
                         lesson = lesson,
-                        isLocked = isLocked,
+                        isLocked = false,
                         progressPercentage = progressPercentage
                     )
                 }

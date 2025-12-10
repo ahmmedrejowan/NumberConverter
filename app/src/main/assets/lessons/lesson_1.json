@@ -54,8 +54,8 @@
         },
         {
           "id": "p3",
-          "problem": "What letters does hexadecimal use after digit 9?",
-          "correctAnswer": "A-F",
+          "problem": "What letter does hexadecimal use after digit 9?",
+          "correctAnswer": "A",
           "difficulty": "MEDIUM",
           "hints": [
             "After 9 comes A, B, C..."
