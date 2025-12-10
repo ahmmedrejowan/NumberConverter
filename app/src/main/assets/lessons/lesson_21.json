@@ -1,0 +1,202 @@
+{
+  "id": "negative_binary",
+  "title": "Negative Numbers in Binary (Two's Complement)",
+  "category": "ADVANCED",
+  "estimatedTimeMinutes": 20,
+  "order": 21,
+  "prerequisites": ["binary_to_decimal", "decimal_to_binary"],
+  "description": "Master the representation of negative numbers using two's complement notation, the standard method used in computer systems.",
+  "sections": [
+    {
+      "type": "theory",
+      "title": "Understanding Negative Binary Numbers",
+      "content": "In computers, negative numbers are represented using two's complement notation. This elegant system allows both positive and negative numbers to be stored and manipulated using the same circuitry.\n\n**Sign-Magnitude vs Two's Complement:**\n• Sign-magnitude: Uses first bit for sign (0=positive, 1=negative)\n• Two's complement: More efficient, no separate +0 and -0\n\n**Two's Complement Method:**\n1. Write the positive number in binary\n2. Invert all bits (0→1, 1→0)\n3. Add 1 to the result\n\n**Example: -5 in 8-bit binary**\n• Start with +5: 00000101\n• Invert bits: 11111010\n• Add 1: 11111011\n• Result: -5 = 11111011\n\n**Key Properties:**\n• Most significant bit (MSB) indicates sign\n• MSB = 0: positive number\n• MSB = 1: negative number\n• Range for n bits: -2^(n-1) to 2^(n-1)-1\n• 8-bit range: -128 to +127"
+    },
+    {
+      "type": "interactive",
+      "title": "Converting Negative Numbers",
+      "description": "Practice converting negative decimal numbers to binary using two's complement.",
+      "exercise": {
+        "id": "neg_binary_1",
+        "problem": "Convert -12 to 8-bit two's complement binary.",
+        "correctAnswer": "11110100",
+        "difficulty": "MEDIUM",
+        "explanation": "Step 1: +12 in binary = 00001100\nStep 2: Invert bits = 11110011\nStep 3: Add 1 = 11110100\nTherefore, -12 = 11110100 in two's complement.",
+        "hints": [
+          "First convert +12 to binary: 00001100",
+          "Flip all the bits: 0→1 and 1→0",
+          "Add 1 to the inverted result"
+        ]
+      }
+    },
+    {
+      "type": "theory",
+      "title": "Converting Back to Decimal",
+      "content": "To convert a two's complement binary number back to decimal:\n\n**If MSB = 0 (positive):**\nConvert directly to decimal as usual.\n\n**If MSB = 1 (negative):**\n1. Invert all bits\n2. Add 1\n3. Convert to decimal\n4. Add negative sign\n\n**Example: 11111011 to decimal**\n• MSB = 1, so it's negative\n• Invert bits: 00000100\n• Add 1: 00000101\n• Convert: 5\n• Add sign: -5\n\n**Quick Method for Reading:**\nIf MSB = 1, you can also calculate:\n• Find the value if MSB was 0\n• Subtract 2^n (where n = number of bits)\n• Example: 11111011 → 251 - 256 = -5"
+    },
+    {
+      "type": "practice",
+      "title": "Practice Exercises",
+      "exercises": [
+        {
+          "id": "neg_practice_1",
+          "problem": "Convert -8 to 8-bit two's complement binary.",
+          "correctAnswer": "11111000",
+          "difficulty": "EASY",
+          "explanation": "+8 = 00001000, invert = 11110111, add 1 = 11111000",
+          "hints": [
+            "Start with +8: 00001000",
+            "Remember: invert then add 1"
+          ]
+        },
+        {
+          "id": "neg_practice_2",
+          "problem": "Convert 11100110 (8-bit two's complement) to decimal.",
+          "correctAnswer": "-26",
+          "difficulty": "MEDIUM",
+          "explanation": "MSB = 1 (negative). Invert: 00011001, add 1: 00011010 = 26, so answer is -26",
+          "hints": [
+            "The MSB is 1, so this is a negative number",
+            "Reverse the two's complement process"
+          ]
+        },
+        {
+          "id": "neg_practice_3",
+          "problem": "Convert -1 to 8-bit two's complement binary.",
+          "correctAnswer": "11111111",
+          "difficulty": "EASY",
+          "explanation": "+1 = 00000001, invert = 11111110, add 1 = 11111111",
+          "hints": [
+            "-1 in two's complement is all 1s",
+            "This is a special case worth remembering"
+          ]
+        },
+        {
+          "id": "neg_practice_4",
+          "problem": "What is the most negative number in 8-bit two's complement?",
+          "correctAnswer": "-128",
+          "difficulty": "MEDIUM",
+          "explanation": "10000000 = -128. This is the only number that equals its own two's complement.",
+          "hints": [
+            "It's 10000000 in binary",
+            "The range is -2^(n-1) to 2^(n-1)-1"
+          ]
+        },
+        {
+          "id": "neg_practice_5",
+          "problem": "Convert 10110101 (8-bit two's complement) to decimal.",
+          "correctAnswer": "-75",
+          "difficulty": "HARD",
+          "explanation": "MSB = 1 (negative). Invert: 01001010, add 1: 01001011 = 75, so answer is -75",
+          "hints": [
+            "This is negative since MSB = 1",
+            "Invert all bits first"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Knowledge Check",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "neg_q1",
+          "questionText": "What does the MSB (Most Significant Bit) indicate in two's complement?",
+          "options": [
+            "The magnitude of the number",
+            "Whether the number is even or odd",
+            "The sign of the number (0=positive, 1=negative)",
+            "The number of bits used"
+          ],
+          "correctAnswerIndex": 2,
+          "explanation": "In two's complement, the MSB is the sign bit: 0 indicates positive, 1 indicates negative.",
+          "hints": [
+            "Look at the leftmost bit",
+            "It tells you if the number is positive or negative"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "neg_q2",
+          "questionText": "What is the range of 8-bit two's complement numbers?",
+          "options": [
+            "-127 to +127",
+            "-128 to +127",
+            "-255 to +255",
+            "-128 to +128"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "8-bit two's complement ranges from -2^7 to 2^7-1, which is -128 to +127.",
+          "hints": [
+            "The formula is -2^(n-1) to 2^(n-1)-1",
+            "There's one more negative number than positive"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "neg_q3",
+          "questionText": "In two's complement, inverting bits and adding 1 to a negative number gives you back the positive number.",
+          "correctAnswer": true,
+          "explanation": "True. The two's complement operation is reversible - applying it twice returns the original number.",
+          "hints": [
+            "Try it with an example like -5",
+            "The operation is its own inverse"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "neg_q4",
+          "questionText": "What is -16 in 8-bit two's complement binary?",
+          "correctAnswer": "11110000",
+          "acceptableAnswers": ["11110000"],
+          "explanation": "+16 = 00010000, invert = 11101111, add 1 = 11110000",
+          "hints": [
+            "Start with +16: 00010000",
+            "Invert all bits, then add 1"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "neg_q5",
+          "questionText": "Why is two's complement preferred over sign-magnitude representation?",
+          "options": [
+            "It uses fewer bits",
+            "It allows the same addition circuitry for positive and negative numbers",
+            "It's easier for humans to read",
+            "It can represent larger numbers"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "Two's complement allows computers to use the same circuitry for addition/subtraction of both positive and negative numbers, simplifying hardware design.",
+          "hints": [
+            "Think about computer hardware efficiency",
+            "Consider how addition and subtraction work"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "neg_q6",
+          "questionText": "Convert 11010110 (8-bit two's complement) to decimal.",
+          "correctAnswer": "-42",
+          "acceptableAnswers": ["-42"],
+          "explanation": "MSB = 1 (negative). Invert: 00101001, add 1: 00101010 = 42, so answer is -42",
+          "hints": [
+            "The MSB is 1, so this is negative",
+            "Invert bits, add 1, then negate"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "neg_q7",
+          "questionText": "The binary number 11111111 in 8-bit two's complement represents -1.",
+          "correctAnswer": true,
+          "explanation": "True. All 1s in two's complement always represents -1, regardless of the number of bits.",
+          "hints": [
+            "Try the conversion: invert to get 00000000, add 1 to get 00000001",
+            "This is a pattern worth memorizing"
+          ]
+        }
+      ]
+    }
+  ]
+}

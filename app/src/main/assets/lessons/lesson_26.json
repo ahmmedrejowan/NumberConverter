@@ -1,0 +1,204 @@
+{
+  "id": "bit_shifting",
+  "title": "Bit Shifting Operations",
+  "category": "ADVANCED",
+  "estimatedTimeMinutes": 15,
+  "order": 26,
+  "prerequisites": ["binary_to_decimal", "decimal_to_binary"],
+  "description": "Learn how to shift bits left and right, and understand why these operations are useful.",
+  "sections": [
+    {
+      "type": "theory",
+      "title": "What is Bit Shifting?",
+      "content": "Bit shifting moves all bits in a binary number left or right by a specified number of positions.\n\n**Left Shift (<<)**\nShifts bits to the left, fills with 0s on the right.\n\n**Example: 0101 << 1**\n```\n0101  (5 in decimal)\n↓ shift left by 1\n1010  (10 in decimal)\n```\n\n**Right Shift (>>)**\nShifts bits to the right, bits fall off the end.\n\n**Example: 1010 >> 1**\n```\n1010  (10 in decimal)\n↓ shift right by 1\n0101  (5 in decimal)\n```\n\n**Key Point:**\n• Left shift by 1 = multiply by 2\n• Right shift by 1 = divide by 2\n• Left shift by n = multiply by 2ⁿ\n• Right shift by n = divide by 2ⁿ"
+    },
+    {
+      "type": "interactive",
+      "title": "Practice Left Shift",
+      "description": "Shift a binary number to the left.",
+      "exercise": {
+        "id": "shift_left_1",
+        "problem": "Calculate: 0011 << 2 (shift left by 2 positions)",
+        "correctAnswer": "1100",
+        "difficulty": "EASY",
+        "explanation": "0011 → shift left once → 0110 → shift left again → 1100\nOr: 3 × 2² = 3 × 4 = 12 (1100 in binary)",
+        "hints": [
+          "Each left shift adds a 0 on the right",
+          "Shift twice means multiply by 4",
+          "3 × 4 = 12"
+        ]
+      }
+    },
+    {
+      "type": "theory",
+      "title": "Practical Uses of Bit Shifting",
+      "content": "Bit shifting is extremely useful in programming:\n\n**1. Fast Multiplication/Division by Powers of 2**\n• n << 3 is faster than n × 8\n• n >> 2 is faster than n ÷ 4\n\n**2. Working with Bit Flags**\n```\nPermissions example:\n1 << 0 = 0001 (READ permission)\n1 << 1 = 0010 (WRITE permission)\n1 << 2 = 0100 (EXECUTE permission)\n1 << 3 = 1000 (DELETE permission)\n```\n\n**3. Extracting Parts of Numbers**\n• Get high byte: value >> 8\n• Get low byte: value & 0xFF\n\n**4. Color Manipulation**\nRGB color #FF5733:\n• Red: 0xFF5733 >> 16 = 0xFF\n• Green: (0xFF5733 >> 8) & 0xFF = 0x57\n• Blue: 0xFF5733 & 0xFF = 0x33"
+    },
+    {
+      "type": "practice",
+      "title": "Practice Exercises",
+      "exercises": [
+        {
+          "id": "shift_practice_1",
+          "problem": "Calculate: 0001 << 3 (shift left by 3)",
+          "correctAnswer": "1000",
+          "difficulty": "EASY",
+          "explanation": "0001 → 0010 → 0100 → 1000. Or: 1 × 2³ = 8. Result: 1000",
+          "hints": [
+            "Each shift multiplies by 2",
+            "3 shifts means multiply by 8",
+            "1 × 8 = 8"
+          ]
+        },
+        {
+          "id": "shift_practice_2",
+          "problem": "Calculate: 1100 >> 2 (shift right by 2)",
+          "correctAnswer": "0011",
+          "difficulty": "EASY",
+          "explanation": "1100 → 0110 → 0011. Or: 12 ÷ 4 = 3. Result: 0011",
+          "hints": [
+            "Each shift divides by 2",
+            "2 shifts means divide by 4",
+            "12 ÷ 4 = 3"
+          ]
+        },
+        {
+          "id": "shift_practice_3",
+          "problem": "What is 5 << 1 in decimal?",
+          "correctAnswer": "10",
+          "difficulty": "EASY",
+          "explanation": "5 in binary is 0101. Shift left: 1010 = 10. Or simply: 5 × 2 = 10",
+          "hints": [
+            "Left shift by 1 multiplies by 2",
+            "5 × 2 = ?"
+          ]
+        },
+        {
+          "id": "shift_practice_4",
+          "problem": "What is 16 >> 2 in decimal?",
+          "correctAnswer": "4",
+          "difficulty": "EASY",
+          "explanation": "16 ÷ 2² = 16 ÷ 4 = 4",
+          "hints": [
+            "Right shift by 2 divides by 4",
+            "16 ÷ 4 = ?"
+          ]
+        },
+        {
+          "id": "shift_practice_5",
+          "problem": "Calculate: 00001111 << 4",
+          "correctAnswer": "11110000",
+          "difficulty": "MEDIUM",
+          "explanation": "Shift left by 4 positions. The 4 ones move to the left half: 11110000",
+          "hints": [
+            "Move all bits 4 positions to the left",
+            "Fill right side with 0s"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Knowledge Check",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "shift_q1",
+          "questionText": "What happens when you left shift a binary number by 1?",
+          "options": [
+            "It's divided by 2",
+            "It's multiplied by 2",
+            "It stays the same",
+            "It becomes negative"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "Left shifting by 1 position multiplies the number by 2.",
+          "hints": [
+            "Think about place values doubling",
+            "Try with a simple example like 4 << 1"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "shift_q2",
+          "questionText": "Calculate: 0110 << 1",
+          "correctAnswer": "1100",
+          "acceptableAnswers": ["1100"],
+          "explanation": "Shift all bits left by one position: 0110 → 1100. Or: 6 × 2 = 12",
+          "hints": [
+            "Move each bit one position to the left",
+            "Add a 0 on the right"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "shift_q3",
+          "questionText": "Right shifting by n positions divides the number by 2^n.",
+          "correctAnswer": true,
+          "explanation": "True. Right shift by n is equivalent to dividing by 2ⁿ (integer division).",
+          "hints": [
+            "Try an example: 8 >> 2 = 2",
+            "8 ÷ 4 = 2"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "shift_q4",
+          "questionText": "Why are bit shifts faster than multiplication and division?",
+          "options": [
+            "They use less memory",
+            "They're hardware operations that move bits directly",
+            "They're more accurate",
+            "They work with larger numbers"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "Bit shifts are implemented directly in hardware as simple bit movements, making them faster than arithmetic operations.",
+          "hints": [
+            "Think about what's happening at the hardware level",
+            "Moving bits vs. calculating"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "shift_q5",
+          "questionText": "What is 32 >> 3 in decimal?",
+          "correctAnswer": "4",
+          "acceptableAnswers": ["4"],
+          "explanation": "32 >> 3 = 32 ÷ 2³ = 32 ÷ 8 = 4",
+          "hints": [
+            "Right shift by 3 means divide by 8",
+            "32 ÷ 8 = ?"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "shift_q6",
+          "questionText": "Shifting 0001 left by 4 positions gives 10000.",
+          "correctAnswer": true,
+          "explanation": "True. 0001 << 4 = 10000. This is like 1 × 2⁴ = 16.",
+          "hints": [
+            "Count the positions carefully",
+            "1 × 16 = 16"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "shift_q7",
+          "questionText": "In which scenario would you use bit shifting in real programming?",
+          "options": [
+            "To make code look complicated",
+            "To quickly multiply/divide by powers of 2 or manipulate individual bits",
+            "To slow down the program",
+            "Only in assembly language"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "Bit shifting is used for efficient multiplication/division by powers of 2, setting flags, extracting bit fields, and low-level optimizations.",
+          "hints": [
+            "Think about performance and bit manipulation",
+            "Common in graphics, networking, and embedded systems"
+          ]
+        }
+      ]
+    }
+  ]
+}

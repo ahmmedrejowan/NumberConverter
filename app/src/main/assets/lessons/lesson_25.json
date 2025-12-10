@@ -1,0 +1,201 @@
+{
+  "id": "bitwise_basics",
+  "title": "Introduction to Bitwise Operations",
+  "category": "ADVANCED",
+  "estimatedTimeMinutes": 15,
+  "order": 25,
+  "prerequisites": ["binary_to_decimal", "decimal_to_binary"],
+  "description": "Learn the basics of AND, OR, and XOR operations that work directly on binary bits.",
+  "sections": [
+    {
+      "type": "theory",
+      "title": "What are Bitwise Operations?",
+      "content": "Bitwise operations work directly on individual bits of binary numbers. They're fast and useful in programming.\n\n**The Three Basic Operations:**\n\n**1. AND (&)** - Both bits must be 1\n• 0 AND 0 = 0\n• 0 AND 1 = 0\n• 1 AND 0 = 0\n• 1 AND 1 = 1\n\n**2. OR (|)** - At least one bit must be 1\n• 0 OR 0 = 0\n• 0 OR 1 = 1\n• 1 OR 0 = 1\n• 1 OR 1 = 1\n\n**3. XOR (^)** - Bits must be different\n• 0 XOR 0 = 0\n• 0 XOR 1 = 1\n• 1 XOR 0 = 1\n• 1 XOR 1 = 0\n\n**Think of it like switches:**\n• AND: Both switches must be ON\n• OR: At least one switch must be ON\n• XOR: Exactly one switch must be ON"
+    },
+    {
+      "type": "theory",
+      "title": "Applying Operations to Binary Numbers",
+      "content": "Bitwise operations are applied to each bit position independently.\n\n**Example: AND Operation**\n```\n  1010  (10 in decimal)\n& 1100  (12 in decimal)\n------\n  1000  (8 in decimal)\n```\nBit by bit:\n• 1 AND 1 = 1\n• 0 AND 1 = 0\n• 1 AND 0 = 0\n• 0 AND 0 = 0\n\n**Example: OR Operation**\n```\n  1010  (10)\n| 1100  (12)\n------\n  1110  (14)\n```\n\n**Example: XOR Operation**\n```\n  1010  (10)\n^ 1100  (12)\n------\n  0110  (6)\n```\n\n**Common Uses:**\n• AND: Check if specific bits are set\n• OR: Set specific bits to 1\n• XOR: Toggle bits, find differences"
+    },
+    {
+      "type": "interactive",
+      "title": "Practice Bitwise AND",
+      "description": "Apply the AND operation to two binary numbers.",
+      "exercise": {
+        "id": "bitwise_and_1",
+        "problem": "Calculate: 1111 AND 1010",
+        "correctAnswer": "1010",
+        "difficulty": "EASY",
+        "explanation": "Bit by bit:\n1 AND 1 = 1\n1 AND 0 = 0\n1 AND 1 = 1\n1 AND 0 = 0\nResult: 1010",
+        "hints": [
+          "AND gives 1 only when both bits are 1",
+          "Go through each position: 1&1, 1&0, 1&1, 1&0"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "title": "Practice Exercises",
+      "exercises": [
+        {
+          "id": "bitwise_practice_1",
+          "problem": "Calculate: 1100 OR 0011",
+          "correctAnswer": "1111",
+          "difficulty": "EASY",
+          "explanation": "1|0=1, 1|0=1, 0|1=1, 0|1=1. Result: 1111",
+          "hints": [
+            "OR gives 1 if at least one bit is 1",
+            "Check each position"
+          ]
+        },
+        {
+          "id": "bitwise_practice_2",
+          "problem": "Calculate: 1010 XOR 1010",
+          "correctAnswer": "0000",
+          "difficulty": "EASY",
+          "explanation": "Any number XOR itself equals 0. 1^1=0, 0^0=0, 1^1=0, 0^0=0. Result: 0000",
+          "hints": [
+            "XOR gives 1 only when bits are different",
+            "Same bits XOR to 0"
+          ]
+        },
+        {
+          "id": "bitwise_practice_3",
+          "problem": "Calculate: 11110000 AND 10101010",
+          "correctAnswer": "10100000",
+          "difficulty": "MEDIUM",
+          "explanation": "AND each bit: 1&1=1, 1&0=0, 1&1=1, 1&0=0, 0&1=0, 0&0=0, 0&1=0, 0&0=0. Result: 10100000",
+          "hints": [
+            "Remember: both bits must be 1 for result to be 1",
+            "Work through each position carefully"
+          ]
+        },
+        {
+          "id": "bitwise_practice_4",
+          "problem": "Calculate: 0101 XOR 0011",
+          "correctAnswer": "0110",
+          "difficulty": "MEDIUM",
+          "explanation": "0^0=0, 1^0=1, 0^1=1, 1^1=0. Result: 0110",
+          "hints": [
+            "XOR: different bits give 1, same bits give 0",
+            "Check each position"
+          ]
+        },
+        {
+          "id": "bitwise_practice_5",
+          "problem": "Calculate: 11111111 AND 00001111",
+          "correctAnswer": "00001111",
+          "difficulty": "EASY",
+          "explanation": "ANDing with 1s keeps the bits, ANDing with 0s clears them. Result: 00001111",
+          "hints": [
+            "AND with 1 keeps the bit unchanged",
+            "AND with 0 always gives 0"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Knowledge Check",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "bitwise_q1",
+          "questionText": "What does the AND operation return when both bits are 0?",
+          "options": [
+            "1",
+            "0",
+            "Depends on previous bit",
+            "Error"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "AND returns 1 only when both bits are 1. When both are 0, the result is 0.",
+          "hints": [
+            "Think: both must be true (1)",
+            "0 AND 0 = ?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "bitwise_q2",
+          "questionText": "Calculate: 1001 OR 0110",
+          "correctAnswer": "1111",
+          "acceptableAnswers": ["1111"],
+          "explanation": "1|0=1, 0|1=1, 0|1=1, 1|0=1. Result: 1111",
+          "hints": [
+            "OR gives 1 if at least one bit is 1",
+            "Check each position"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "bitwise_q3",
+          "questionText": "XOR returns 1 when both bits are the same.",
+          "correctAnswer": false,
+          "explanation": "False. XOR returns 1 when bits are different, and 0 when they're the same.",
+          "hints": [
+            "XOR means 'exclusive OR'",
+            "It's true when bits differ"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "bitwise_q4",
+          "questionText": "What is the result of any number AND 0?",
+          "options": [
+            "The original number",
+            "Always 0",
+            "Always 1",
+            "Depends on the number"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "ANDing with 0 always gives 0, because 0 AND anything = 0.",
+          "hints": [
+            "Try with any bit: 1 AND 0 = ?, 0 AND 0 = ?",
+            "Both give 0"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "bitwise_q5",
+          "questionText": "Calculate: 1111 XOR 0000",
+          "correctAnswer": "1111",
+          "acceptableAnswers": ["1111"],
+          "explanation": "1^0=1, 1^0=1, 1^0=1, 1^0=1. XOR with 0 keeps the bit unchanged. Result: 1111",
+          "hints": [
+            "XOR with 0 leaves the bit unchanged",
+            "Try each bit: 1^0, 1^0, 1^0, 1^0"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "bitwise_q6",
+          "questionText": "Bitwise operations are faster than regular arithmetic operations in computers.",
+          "correctAnswer": true,
+          "explanation": "True. Bitwise operations work directly on bits and are among the fastest operations a CPU can perform.",
+          "hints": [
+            "Think about how computers work at the hardware level",
+            "Bits are the native language of computers"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "bitwise_q7",
+          "questionText": "Which operation can be used to toggle (flip) specific bits?",
+          "options": [
+            "AND",
+            "OR",
+            "XOR",
+            "NOT"
+          ],
+          "correctAnswerIndex": 2,
+          "explanation": "XOR with 1 flips a bit (0→1, 1→0), while XOR with 0 keeps it unchanged. This makes XOR perfect for toggling bits.",
+          "hints": [
+            "Think about which operation gives opposite results",
+            "1 XOR 1 = 0, 0 XOR 1 = 1"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "id": "bcd_basics",
+  "title": "Binary-Coded Decimal (BCD)",
+  "category": "ADVANCED",
+  "estimatedTimeMinutes": 15,
+  "order": 27,
+  "prerequisites": ["binary_to_decimal", "decimal_to_binary"],
+  "description": "Learn about BCD, a simple way to represent decimal digits in binary that's used in calculators and digital displays.",
+  "sections": [
+    {
+      "type": "theory",
+      "title": "What is BCD?",
+      "content": "Binary-Coded Decimal (BCD) represents each decimal digit separately in 4-bit binary.\n\n**Each decimal digit → 4 binary bits**\n\n**BCD Table:**\n```\nDecimal  BCD\n   0     0000\n   1     0001\n   2     0010\n   3     0011\n   4     0100\n   5     0101\n   6     0110\n   7     0111\n   8     1000\n   9     1001\n```\n\n**Example: 25 in BCD**\n• Digit 2 → 0010\n• Digit 5 → 0101\n• Result: 0010 0101\n\n**Comparison:**\n• Normal binary: 25 = 11001\n• BCD: 25 = 0010 0101\n\n**Why use BCD?**\n• Easy to display on digital screens\n• Simple conversion to/from decimal\n• Used in calculators, digital clocks, meters"
+    },
+    {
+      "type": "interactive",
+      "title": "Convert to BCD",
+      "description": "Convert a decimal number to BCD format.",
+      "exercise": {
+        "id": "bcd_convert_1",
+        "problem": "Convert 47 to BCD (write as 8 bits with space between digits).",
+        "correctAnswer": "01000111",
+        "difficulty": "EASY",
+        "explanation": "4 → 0100\n7 → 0111\nResult: 0100 0111 (or 01000111 without space)",
+        "hints": [
+          "Convert each decimal digit separately",
+          "4 = 0100, 7 = 0111",
+          "Put them together"
+        ]
+      }
+    },
+    {
+      "type": "theory",
+      "title": "Reading BCD Numbers",
+      "content": "To read BCD, split the binary number into 4-bit groups and convert each group.\n\n**Example: 10010011 in BCD**\n• Split: 1001 0011\n• 1001 = 9\n• 0011 = 3\n• Result: 93\n\n**Example: 01010110 in BCD**\n• Split: 0101 0110\n• 0101 = 5\n• 0110 = 6\n• Result: 56\n\n**Note:** BCD only uses codes 0000-1001. Codes 1010-1111 are invalid in BCD.\n\n**Common Applications:**\n• 7-segment displays\n• Digital voltmeters\n• Electronic calculators\n• Microwave oven displays\n• Credit card numbers"
+    },
+    {
+      "type": "practice",
+      "title": "Practice Exercises",
+      "exercises": [
+        {
+          "id": "bcd_practice_1",
+          "problem": "Convert 8 to BCD (4 bits).",
+          "correctAnswer": "1000",
+          "difficulty": "EASY",
+          "explanation": "8 = 1000 in binary (and BCD)",
+          "hints": [
+            "Just convert 8 to 4-bit binary",
+            "8 = 1000"
+          ]
+        },
+        {
+          "id": "bcd_practice_2",
+          "problem": "Convert 00110110 (BCD) to decimal.",
+          "correctAnswer": "36",
+          "difficulty": "EASY",
+          "explanation": "Split: 0011 0110 → 3 and 6 → 36",
+          "hints": [
+            "Split into two 4-bit groups",
+            "0011 = 3, 0110 = 6"
+          ]
+        },
+        {
+          "id": "bcd_practice_3",
+          "problem": "Convert 99 to BCD (8 bits).",
+          "correctAnswer": "10011001",
+          "difficulty": "EASY",
+          "explanation": "9 → 1001, 9 → 1001. Result: 10011001",
+          "hints": [
+            "Both digits are 9",
+            "9 = 1001"
+          ]
+        },
+        {
+          "id": "bcd_practice_4",
+          "problem": "Convert 100010000101 (BCD) to decimal.",
+          "correctAnswer": "845",
+          "difficulty": "MEDIUM",
+          "explanation": "Split: 1000 0100 0101 → 8, 4, 5 → 845",
+          "hints": [
+            "Split into 4-bit groups from right to left",
+            "1000=8, 0100=4, 0101=5"
+          ]
+        },
+        {
+          "id": "bcd_practice_5",
+          "problem": "Convert 123 to BCD (12 bits).",
+          "correctAnswer": "000100100011",
+          "difficulty": "MEDIUM",
+          "explanation": "1 → 0001, 2 → 0010, 3 → 0011. Result: 000100100011",
+          "hints": [
+            "Convert each digit: 1, 2, 3",
+            "1=0001, 2=0010, 3=0011"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Knowledge Check",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "bcd_q1",
+          "questionText": "How many bits does BCD use to represent one decimal digit?",
+          "options": [
+            "2 bits",
+            "4 bits",
+            "8 bits",
+            "16 bits"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "BCD uses 4 bits for each decimal digit (0-9).",
+          "hints": [
+            "Enough to represent 0-9",
+            "Think about 2^4 = 16 possibilities"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "bcd_q2",
+          "questionText": "Convert 5 to BCD (4 bits).",
+          "correctAnswer": "0101",
+          "acceptableAnswers": ["0101"],
+          "explanation": "5 in BCD is 0101 (same as normal binary for single digits).",
+          "hints": [
+            "5 in binary is 101",
+            "Use 4 bits: 0101"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "bcd_q3",
+          "questionText": "BCD uses more bits than regular binary to represent the same number.",
+          "correctAnswer": true,
+          "explanation": "True. For example, 99 needs 7 bits in binary but 8 bits in BCD. BCD trades efficiency for ease of decimal conversion.",
+          "hints": [
+            "Compare 25: binary (11001) vs BCD (0010 0101)",
+            "BCD uses 4 bits per digit"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "bcd_q4",
+          "questionText": "Convert 10000010 (BCD) to decimal.",
+          "correctAnswer": "82",
+          "acceptableAnswers": ["82"],
+          "explanation": "Split: 1000 0010 → 8 and 2 → 82",
+          "hints": [
+            "Split into two 4-bit groups",
+            "1000 = 8, 0010 = 2"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "bcd_q5",
+          "questionText": "Where is BCD commonly used?",
+          "options": [
+            "In text documents",
+            "In digital displays and calculators",
+            "In image files",
+            "In audio processing"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "BCD is commonly used in digital displays, calculators, and measurement devices because it's easy to convert to decimal for display.",
+          "hints": [
+            "Think about devices that show numbers",
+            "Calculators, clocks, meters"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "bcd_q6",
+          "questionText": "In BCD, the bit pattern 1010 represents the decimal digit 10.",
+          "correctAnswer": false,
+          "explanation": "False. In BCD, only patterns 0000-1001 (0-9) are valid. 1010 and above are invalid BCD codes.",
+          "hints": [
+            "BCD represents single digits only",
+            "What's the highest single digit?"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "bcd_q7",
+          "questionText": "Convert 30 to BCD (8 bits).",
+          "correctAnswer": "00110000",
+          "acceptableAnswers": ["00110000"],
+          "explanation": "3 → 0011, 0 → 0000. Result: 00110000",
+          "hints": [
+            "3 = 0011",
+            "0 = 0000"
+          ]
+        }
+      ]
+    }
+  ]
+}

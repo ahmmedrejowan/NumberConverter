@@ -1,0 +1,202 @@
+{
+  "id": "gray_code",
+  "title": "Introduction to Gray Code",
+  "category": "ADVANCED",
+  "estimatedTimeMinutes": 15,
+  "order": 28,
+  "prerequisites": ["binary_to_decimal", "decimal_to_binary"],
+  "description": "Learn about Gray Code, a special binary code where consecutive numbers differ by only one bit.",
+  "sections": [
+    {
+      "type": "theory",
+      "title": "What is Gray Code?",
+      "content": "Gray Code is a binary code where consecutive numbers differ by exactly one bit. This makes it useful for reducing errors.\n\n**Regular Binary vs Gray Code:**\n```\nDecimal  Binary  Gray\n   0     0000    0000\n   1     0001    0001\n   2     0010    0011\n   3     0011    0010\n   4     0100    0110\n   5     0101    0111\n   6     0110    0101\n   7     0111    0100\n```\n\n**Key Property:**\nEach number differs from the next by only 1 bit.\n\n**Why is this useful?**\n• Reduces errors in mechanical encoders\n• Used in rotary encoders and sensors\n• Prevents wrong readings during transitions\n• Used in Karnaugh maps (digital logic)\n• Error correction in digital communications"
+    },
+    {
+      "type": "theory",
+      "title": "Converting Binary to Gray Code",
+      "content": "Simple algorithm to convert binary to Gray Code:\n\n**Rule:**\n1. Keep the leftmost bit (MSB) the same\n2. For each other bit: XOR it with the bit to its left\n\n**Example: Binary 1011 to Gray**\n```\nBinary: 1  0  1  1\n         ↓  ⊕  ⊕  ⊕\nGray:   1  1  1  0\n```\n\nStep by step:\n• First bit: 1 (copy as-is)\n• Second: 1 XOR 0 = 1\n• Third: 0 XOR 1 = 1\n• Fourth: 1 XOR 1 = 0\n• Result: 1110\n\n**Another Example: Binary 0101 to Gray**\n• First: 0\n• Second: 0 XOR 1 = 1\n• Third: 1 XOR 0 = 1\n• Fourth: 0 XOR 1 = 1\n• Result: 0111"
+    },
+    {
+      "type": "interactive",
+      "title": "Binary to Gray Conversion",
+      "description": "Convert a binary number to Gray Code.",
+      "exercise": {
+        "id": "gray_convert_1",
+        "problem": "Convert binary 1100 to Gray Code.",
+        "correctAnswer": "1010",
+        "difficulty": "MEDIUM",
+        "explanation": "First bit: 1\n1 XOR 1 = 0\n1 XOR 0 = 1\n0 XOR 0 = 0\nResult: 1010",
+        "hints": [
+          "Keep the first bit: 1",
+          "XOR each bit with the previous one",
+          "1⊕1=0, 1⊕0=1, 0⊕0=0"
+        ]
+      }
+    },
+    {
+      "type": "practice",
+      "title": "Practice Exercises",
+      "exercises": [
+        {
+          "id": "gray_practice_1",
+          "problem": "Convert binary 0001 to Gray Code.",
+          "correctAnswer": "0001",
+          "difficulty": "EASY",
+          "explanation": "First: 0, 0⊕0=0, 0⊕0=0, 0⊕1=1. Result: 0001",
+          "hints": [
+            "Apply the XOR rule",
+            "First bit stays 0"
+          ]
+        },
+        {
+          "id": "gray_practice_2",
+          "problem": "What comes after 0001 in Gray Code? (The Gray Code for decimal 2)",
+          "correctAnswer": "0011",
+          "difficulty": "EASY",
+          "explanation": "Decimal 2 in binary is 0010. Convert: 0, 0⊕0=0, 0⊕1=1, 1⊕0=1. Gray: 0011",
+          "hints": [
+            "First convert 2 to binary: 0010",
+            "Then convert to Gray Code"
+          ]
+        },
+        {
+          "id": "gray_practice_3",
+          "problem": "Convert binary 1111 to Gray Code.",
+          "correctAnswer": "1000",
+          "difficulty": "MEDIUM",
+          "explanation": "First: 1, 1⊕1=0, 1⊕1=0, 1⊕1=0. Result: 1000",
+          "hints": [
+            "All bits are 1",
+            "1 XOR 1 = 0"
+          ]
+        },
+        {
+          "id": "gray_practice_4",
+          "problem": "Convert binary 0110 to Gray Code.",
+          "correctAnswer": "0101",
+          "difficulty": "MEDIUM",
+          "explanation": "First: 0, 0⊕1=1, 1⊕1=0, 1⊕0=1. Result: 0101",
+          "hints": [
+            "Go bit by bit with XOR",
+            "0, then 0⊕1, then 1⊕1, then 1⊕0"
+          ]
+        },
+        {
+          "id": "gray_practice_5",
+          "problem": "In the Gray Code sequence, how many bits change when going from 7 (0100) to 8?",
+          "correctAnswer": "1",
+          "difficulty": "EASY",
+          "explanation": "That's the whole point of Gray Code - only one bit changes between consecutive numbers!",
+          "hints": [
+            "This is the key property of Gray Code",
+            "Consecutive numbers differ by 1 bit"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "quiz",
+      "title": "Knowledge Check",
+      "questions": [
+        {
+          "type": "MultipleChoice",
+          "id": "gray_q1",
+          "questionText": "What is the main advantage of Gray Code over regular binary?",
+          "options": [
+            "It uses fewer bits",
+            "It's easier to read",
+            "Only one bit changes between consecutive numbers",
+            "It represents larger numbers"
+          ],
+          "correctAnswerIndex": 2,
+          "explanation": "Gray Code's key advantage is that only one bit changes at a time, reducing errors during transitions.",
+          "hints": [
+            "Think about what makes Gray Code special",
+            "Look at the transition between consecutive numbers"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "gray_q2",
+          "questionText": "Convert binary 1000 to Gray Code.",
+          "correctAnswer": "1100",
+          "acceptableAnswers": ["1100"],
+          "explanation": "First: 1, 1⊕0=1, 0⊕0=0, 0⊕0=0. Result: 1100",
+          "hints": [
+            "Keep first bit: 1",
+            "1⊕0=1, 0⊕0=0, 0⊕0=0"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "gray_q3",
+          "questionText": "Gray Code is commonly used in rotary encoders to reduce reading errors.",
+          "correctAnswer": true,
+          "explanation": "True. Rotary encoders use Gray Code because only one bit changes at a time, preventing misreads during rotation.",
+          "hints": [
+            "Think about mechanical sensors",
+            "Why would single-bit changes be useful?"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "gray_q4",
+          "questionText": "When converting binary to Gray Code, what do you do with the leftmost bit?",
+          "options": [
+            "Flip it",
+            "Keep it the same",
+            "XOR it with 1",
+            "Set it to 0"
+          ],
+          "correctAnswerIndex": 1,
+          "explanation": "The leftmost bit (MSB) is kept the same. Only the remaining bits are XORed with their left neighbors.",
+          "hints": [
+            "It's the simplest step",
+            "Just copy it"
+          ]
+        },
+        {
+          "type": "FillBlank",
+          "id": "gray_q5",
+          "questionText": "Convert binary 0011 to Gray Code.",
+          "correctAnswer": "0010",
+          "acceptableAnswers": ["0010"],
+          "explanation": "First: 0, 0⊕0=0, 0⊕1=1, 1⊕1=0. Result: 0010",
+          "hints": [
+            "Start with 0",
+            "Then XOR each pair: 0⊕0, 0⊕1, 1⊕1"
+          ]
+        },
+        {
+          "type": "TrueFalse",
+          "id": "gray_q6",
+          "questionText": "Gray Code can represent the same range of numbers as regular binary with the same number of bits.",
+          "correctAnswer": true,
+          "explanation": "True. 4-bit Gray Code can represent 0-15, just like 4-bit binary. It's just a different encoding.",
+          "hints": [
+            "Both use the same number of bits",
+            "Just different arrangements"
+          ]
+        },
+        {
+          "type": "MultipleChoice",
+          "id": "gray_q7",
+          "questionText": "Which field commonly uses Gray Code?",
+          "options": [
+            "Text editing",
+            "Audio compression",
+            "Position sensors and digital logic",
+            "Image processing"
+          ],
+          "correctAnswerIndex": 2,
+          "explanation": "Gray Code is used in position sensors (encoders), digital logic design (Karnaugh maps), and error-reducing applications.",
+          "hints": [
+            "Think about mechanical systems",
+            "Where would single-bit changes be important?"
+          ]
+        }
+      ]
+    }
+  ]
+}
