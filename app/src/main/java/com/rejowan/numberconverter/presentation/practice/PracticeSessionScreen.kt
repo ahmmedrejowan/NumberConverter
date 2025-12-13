@@ -41,6 +41,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -117,6 +118,7 @@ fun PracticeSessionScreen(
                     onQuestionCountChanged = viewModel::updateQuestionCount,
                     onMcqSubTypeChanged = viewModel::updateMcqSubType,
                     onExamTimeChanged = viewModel::updateExamTime,
+                    onExamHintsChanged = viewModel::updateExamHints,
                     onStartPractice = viewModel::startPractice
                 )
                 is PracticeUiState.Loading -> LoadingContent()
@@ -144,6 +146,7 @@ private fun SetupContent(
     onQuestionCountChanged: (Int) -> Unit,
     onMcqSubTypeChanged: (McqSubType) -> Unit,
     onExamTimeChanged: (Int) -> Unit,
+    onExamHintsChanged: (Boolean) -> Unit,
     onStartPractice: () -> Unit
 ) {
     val showMcqSubType = state.practiceType == PracticeType.MCQ || state.practiceType == PracticeType.EXAM
@@ -309,7 +312,7 @@ private fun SetupContent(
                             )
                             Spacer(modifier = Modifier.width(spacing.small))
                             Text(
-                                text = "Time Limit",
+                                text = "Time Limit (Minutes)",
                                 style = MaterialTheme.typography.titleSmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -321,15 +324,54 @@ private fun SetupContent(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.spacedBy(spacing.small)
                         ) {
-                            listOf(3, 5, 10, 15).forEach { minutes ->
+                            listOf(3, 5, 10, 15, 30).forEach { minutes ->
                                 FilterChip(
                                     selected = state.examTimeMinutes == minutes,
                                     onClick = { onExamTimeChanged(minutes) },
-                                    label = { Text("${minutes}m") },
+                                    label = { Text("$minutes") },
                                     modifier = Modifier.weight(1f)
                                 )
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        // Hints Toggle (for Exam mode only)
+        if (isExamMode) {
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.medium),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(spacing.medium),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Show Hints",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = if (state.examHintsEnabled) "Hints available during exam" else "No hints during exam",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Switch(
+                            checked = state.examHintsEnabled,
+                            onCheckedChange = onExamHintsChanged
+                        )
                     }
                 }
             }
@@ -726,8 +768,52 @@ private fun QuizContent(
                 verticalArrangement = Arrangement.spacedBy(spacing.small)
             ) {
                 val isMcq = state.currentExercise.options.isNotEmpty()
+                val showHintButton = !state.isExamMode || state.examHintsEnabled
 
-                if (state.answerResult == null) {
+                if (state.isExamMode) {
+                    // Exam mode - no result feedback, just next/submit
+                    if (showHintButton) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(spacing.small)
+                        ) {
+                            OutlinedButton(
+                                onClick = onToggleHints,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(Icons.Default.Lightbulb, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(spacing.extraSmall))
+                                Text(if (state.showHints) "Hide" else "Hint")
+                            }
+
+                            Button(
+                                onClick = onSubmitAnswer,
+                                modifier = Modifier.weight(1f),
+                                enabled = state.userAnswer.isNotBlank()
+                            ) {
+                                Text(
+                                    if (state.currentQuestionIndex + 1 < state.totalQuestions)
+                                        "Next"
+                                    else
+                                        "Finish"
+                                )
+                            }
+                        }
+                    } else {
+                        Button(
+                            onClick = onSubmitAnswer,
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = state.userAnswer.isNotBlank()
+                        ) {
+                            Text(
+                                if (state.currentQuestionIndex + 1 < state.totalQuestions)
+                                    "Next"
+                                else
+                                    "Finish"
+                            )
+                        }
+                    }
+                } else if (state.answerResult == null) {
                     if (isMcq) {
                         // MCQ mode - just show hint and submit buttons
                         Row(
@@ -917,6 +1003,102 @@ private fun CompleteContent(
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold
                         )
+                    }
+                }
+            }
+        }
+
+        // Exam Answers Review (for Exam mode)
+        if (state.isExamMode && state.examAnswers.isNotEmpty()) {
+            item {
+                SectionHeader(title = "Answer Review")
+            }
+
+            state.examAnswers.forEachIndexed { index, answer ->
+                item {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = spacing.medium),
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (answer.isCorrect)
+                                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f)
+                            else
+                                MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f)
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(spacing.medium)
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "Q${index + 1}",
+                                    style = MaterialTheme.typography.labelMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = if (answer.isCorrect)
+                                        MaterialTheme.colorScheme.primary
+                                    else
+                                        MaterialTheme.colorScheme.error
+                                )
+                                Spacer(modifier = Modifier.width(spacing.small))
+                                Icon(
+                                    imageVector = if (answer.isCorrect) Icons.Default.CheckCircle else Icons.Default.Close,
+                                    contentDescription = null,
+                                    modifier = Modifier.size(16.dp),
+                                    tint = if (answer.isCorrect)
+                                        MaterialTheme.colorScheme.primary
+                                    else
+                                        MaterialTheme.colorScheme.error
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(spacing.extraSmall))
+
+                            Text(
+                                text = answer.exercise.problem,
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Medium
+                            )
+
+                            Spacer(modifier = Modifier.height(spacing.extraSmall))
+
+                            Row {
+                                Text(
+                                    text = "Your answer: ",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = answer.userAnswer.ifBlank { "(no answer)" },
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Medium,
+                                    color = if (answer.isCorrect)
+                                        MaterialTheme.colorScheme.primary
+                                    else
+                                        MaterialTheme.colorScheme.error
+                                )
+                            }
+
+                            if (!answer.isCorrect) {
+                                Row {
+                                    Text(
+                                        text = "Correct answer: ",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                    Text(
+                                        text = answer.exercise.correctAnswer,
+                                        style = MaterialTheme.typography.bodySmall,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }

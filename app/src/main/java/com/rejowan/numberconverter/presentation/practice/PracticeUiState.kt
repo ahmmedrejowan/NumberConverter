@@ -18,6 +18,13 @@ enum class McqSubType(val displayName: String) {
     MIX("Mixed")
 }
 
+data class ExamAnswer(
+    val questionIndex: Int,
+    val exercise: Exercise,
+    val userAnswer: String,
+    val isCorrect: Boolean
+)
+
 sealed class PracticeUiState {
     data object SelectType : PracticeUiState()
 
@@ -26,7 +33,8 @@ sealed class PracticeUiState {
         val selectedDifficulty: Difficulty = Difficulty.MEDIUM,
         val selectedQuestionCount: Int = 10,
         val mcqSubType: McqSubType = McqSubType.MIX,
-        val examTimeMinutes: Int = 5
+        val examTimeMinutes: Int = 5,
+        val examHintsEnabled: Boolean = true
     ) : PracticeUiState()
 
     data object Loading : PracticeUiState()
@@ -47,7 +55,9 @@ sealed class PracticeUiState {
         val mcqSubType: McqSubType? = null,
         val isExamMode: Boolean = false,
         val examTimeMillis: Long = 0L,
-        val remainingTimeMillis: Long = 0L
+        val remainingTimeMillis: Long = 0L,
+        val examHintsEnabled: Boolean = true,
+        val examAnswers: List<ExamAnswer> = emptyList()
     ) : PracticeUiState()
 
     data class Complete(
@@ -59,6 +69,7 @@ sealed class PracticeUiState {
         val points: Int,
         val difficulty: Difficulty,
         val isExamMode: Boolean = false,
-        val timeTakenSeconds: Int = 0
+        val timeTakenSeconds: Int = 0,
+        val examAnswers: List<ExamAnswer> = emptyList()
     ) : PracticeUiState()
 }

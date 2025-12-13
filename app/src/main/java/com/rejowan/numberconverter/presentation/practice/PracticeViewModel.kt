@@ -61,6 +61,13 @@ class PracticeViewModel(
         }
     }
 
+    fun updateExamHints(enabled: Boolean) {
+        val currentState = _uiState.value
+        if (currentState is PracticeUiState.Setup) {
+            _uiState.value = currentState.copy(examHintsEnabled = enabled)
+        }
+    }
+
     fun startPractice() {
         val currentState = _uiState.value
         if (currentState is PracticeUiState.Setup) {
@@ -112,7 +119,8 @@ class PracticeViewModel(
                         mcqSubType = currentState.mcqSubType,
                         isExamMode = isExam,
                         examTimeMillis = examTimeMillis,
-                        remainingTimeMillis = examTimeMillis
+                        remainingTimeMillis = examTimeMillis,
+                        examHintsEnabled = currentState.examHintsEnabled
                     )
                 }
             }
@@ -147,11 +155,14 @@ class PracticeViewModel(
         if (currentState is PracticeUiState.Quiz) {
             val timeTaken = ((System.currentTimeMillis() - examStartTimeMillis) / 1000).toInt()
 
+            // For exam mode, calculate correct answers from examAnswers
+            val correctCount = currentState.examAnswers.count { it.isCorrect }
+
             val score = calculateScoreUseCase(
-                correctAnswers = currentState.correctAnswers,
+                correctAnswers = correctCount,
                 totalQuestions = currentState.totalQuestions,
-                currentStreak = currentState.currentStreak,
-                longestStreak = currentState.longestStreak
+                currentStreak = 0,
+                longestStreak = 0
             )
 
             _uiState.value = PracticeUiState.Complete(
@@ -159,11 +170,12 @@ class PracticeViewModel(
                 correctAnswers = score.correctAnswers,
                 totalQuestions = score.totalQuestions,
                 percentage = score.percentage,
-                longestStreak = score.streak,
+                longestStreak = 0,
                 points = score.points,
                 difficulty = currentState.difficulty,
                 isExamMode = true,
-                timeTakenSeconds = timeTaken
+                timeTakenSeconds = timeTaken,
+                examAnswers = currentState.examAnswers
             )
         }
     }
@@ -178,28 +190,87 @@ class PracticeViewModel(
     fun submitAnswer() {
         val currentState = _uiState.value
         if (currentState is PracticeUiState.Quiz && currentState.answerResult == null) {
-            val result = checkAnswerUseCase(currentState.currentExercise, currentState.userAnswer)
+            // For exam mode, don't check immediately - just record the answer
+            if (currentState.isExamMode) {
+                val isCorrect = currentState.userAnswer.equals(
+                    currentState.currentExercise.correctAnswer,
+                    ignoreCase = true
+                )
+                val examAnswer = ExamAnswer(
+                    questionIndex = currentState.currentQuestionIndex,
+                    exercise = currentState.currentExercise,
+                    userAnswer = currentState.userAnswer,
+                    isCorrect = isCorrect
+                )
+                val updatedAnswers = currentState.examAnswers + examAnswer
 
-            val newCorrectAnswers = if (result.isCorrect) {
-                currentState.correctAnswers + 1
+                // Move to next question directly
+                val nextIndex = currentState.currentQuestionIndex + 1
+                if (nextIndex < problems.size) {
+                    _uiState.value = PracticeUiState.Quiz(
+                        practiceType = currentState.practiceType,
+                        currentExercise = problems[nextIndex],
+                        currentQuestionIndex = nextIndex,
+                        totalQuestions = problems.size,
+                        difficulty = currentState.difficulty,
+                        mcqSubType = currentState.mcqSubType,
+                        isExamMode = true,
+                        examTimeMillis = currentState.examTimeMillis,
+                        remainingTimeMillis = currentState.remainingTimeMillis,
+                        examHintsEnabled = currentState.examHintsEnabled,
+                        examAnswers = updatedAnswers
+                    )
+                } else {
+                    // Finish exam - all questions answered
+                    timerJob?.cancel()
+                    val timeTaken = ((System.currentTimeMillis() - examStartTimeMillis) / 1000).toInt()
+                    val correctCount = updatedAnswers.count { it.isCorrect }
+
+                    val score = calculateScoreUseCase(
+                        correctAnswers = correctCount,
+                        totalQuestions = currentState.totalQuestions,
+                        currentStreak = 0,
+                        longestStreak = 0
+                    )
+
+                    _uiState.value = PracticeUiState.Complete(
+                        practiceType = currentState.practiceType,
+                        correctAnswers = score.correctAnswers,
+                        totalQuestions = score.totalQuestions,
+                        percentage = score.percentage,
+                        longestStreak = 0,
+                        points = score.points,
+                        difficulty = currentState.difficulty,
+                        isExamMode = true,
+                        timeTakenSeconds = timeTaken,
+                        examAnswers = updatedAnswers
+                    )
+                }
             } else {
-                currentState.correctAnswers
+                // Normal mode - check answer immediately
+                val result = checkAnswerUseCase(currentState.currentExercise, currentState.userAnswer)
+
+                val newCorrectAnswers = if (result.isCorrect) {
+                    currentState.correctAnswers + 1
+                } else {
+                    currentState.correctAnswers
+                }
+
+                val newStreak = if (result.isCorrect) {
+                    currentState.currentStreak + 1
+                } else {
+                    0
+                }
+
+                val newLongestStreak = maxOf(currentState.longestStreak, newStreak)
+
+                _uiState.value = currentState.copy(
+                    answerResult = result,
+                    correctAnswers = newCorrectAnswers,
+                    currentStreak = newStreak,
+                    longestStreak = newLongestStreak
+                )
             }
-
-            val newStreak = if (result.isCorrect) {
-                currentState.currentStreak + 1
-            } else {
-                0
-            }
-
-            val newLongestStreak = maxOf(currentState.longestStreak, newStreak)
-
-            _uiState.value = currentState.copy(
-                answerResult = result,
-                correctAnswers = newCorrectAnswers,
-                currentStreak = newStreak,
-                longestStreak = newLongestStreak
-            )
         }
     }
 
@@ -221,7 +292,9 @@ class PracticeViewModel(
                     mcqSubType = currentState.mcqSubType,
                     isExamMode = currentState.isExamMode,
                     examTimeMillis = currentState.examTimeMillis,
-                    remainingTimeMillis = currentState.remainingTimeMillis
+                    remainingTimeMillis = currentState.remainingTimeMillis,
+                    examHintsEnabled = currentState.examHintsEnabled,
+                    examAnswers = currentState.examAnswers
                 )
             } else {
                 timerJob?.cancel()
@@ -245,7 +318,8 @@ class PracticeViewModel(
                     points = score.points,
                     difficulty = currentState.difficulty,
                     isExamMode = currentState.isExamMode,
-                    timeTakenSeconds = timeTaken
+                    timeTakenSeconds = timeTaken,
+                    examAnswers = currentState.examAnswers
                 )
             }
         }
