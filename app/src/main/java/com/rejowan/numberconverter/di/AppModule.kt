@@ -11,6 +11,7 @@ import com.rejowan.numberconverter.domain.repository.ConverterRepository
 import com.rejowan.numberconverter.domain.repository.HistoryRepository
 import com.rejowan.numberconverter.domain.repository.LessonRepository
 import com.rejowan.numberconverter.domain.repository.ProgressRepository
+import com.rejowan.numberconverter.domain.usecase.calculator.CalculateUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.ConvertNumberUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.FormatOutputUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.ValidateInputUseCase
@@ -26,6 +27,7 @@ import com.rejowan.numberconverter.domain.usecase.practice.CheckAnswerUseCase
 import com.rejowan.numberconverter.domain.usecase.practice.GeneratePracticeProblemsUseCase
 import com.rejowan.numberconverter.domain.usecase.settings.GetSettingsUseCase
 import com.rejowan.numberconverter.domain.usecase.settings.UpdateSettingUseCase
+import com.rejowan.numberconverter.presentation.calculator.CalculatorViewModel
 import com.rejowan.numberconverter.presentation.converter.ConverterViewModel
 import com.rejowan.numberconverter.presentation.home.HomeViewModel
 import com.rejowan.numberconverter.presentation.learn.LearnViewModel
@@ -59,6 +61,9 @@ val appModule = module {
     factory { ValidateInputUseCase() }
     factory { FormatOutputUseCase() }
 
+    // Use Cases - Calculator
+    factory { CalculateUseCase() }
+
     // Use Cases - History
     factory { SaveConversionUseCase(get()) }
     factory { GetHistoryUseCase(get()) }
@@ -83,6 +88,7 @@ val appModule = module {
 
     // ViewModels
     viewModel { ConverterViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { CalculatorViewModel(get(), get(), get()) }
     viewModel { HomeViewModel() }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { LearnViewModel(get(), get()) }

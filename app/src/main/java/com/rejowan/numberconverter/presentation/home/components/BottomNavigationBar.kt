@@ -4,9 +4,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.Functions
 import androidx.compose.material.icons.filled.Quiz
+import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.outlined.Calculate
+import androidx.compose.material.icons.outlined.Functions
 import androidx.compose.material.icons.outlined.Quiz
+import androidx.compose.material.icons.outlined.SwapHoriz
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -37,9 +41,16 @@ fun BottomNavigationBar(
         BottomNavItem(
             route = Screen.Converter.route,
             title = stringResource(R.string.title_converter),
+            selectedIcon = Icons.Filled.SwapHoriz,
+            unselectedIcon = Icons.Outlined.SwapHoriz,
+            contentDescription = stringResource(R.string.title_converter)
+        ),
+        BottomNavItem(
+            route = Screen.Calculator.route,
+            title = stringResource(R.string.title_calculator),
             selectedIcon = Icons.Filled.Calculate,
             unselectedIcon = Icons.Outlined.Calculate,
-            contentDescription = stringResource(R.string.title_converter)
+            contentDescription = stringResource(R.string.title_calculator)
         ),
         BottomNavItem(
             route = Screen.Learn.route,

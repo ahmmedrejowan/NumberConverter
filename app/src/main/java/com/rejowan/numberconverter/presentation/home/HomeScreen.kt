@@ -39,6 +39,8 @@ fun HomeScreen(
     val title = when {
         currentDestination?.hierarchy?.any { it.route == Screen.Converter.route } == true ->
             stringResource(R.string.title_converter)
+        currentDestination?.hierarchy?.any { it.route == Screen.Calculator.route } == true ->
+            stringResource(R.string.title_calculator)
         currentDestination?.hierarchy?.any { it.route == Screen.Learn.route } == true ->
             stringResource(R.string.title_learn)
         currentDestination?.hierarchy?.any { it.route == Screen.Practice.route } == true ->

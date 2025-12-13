@@ -10,6 +10,7 @@ sealed class Screen(val route: String) {
 
     // Home Navigation Screens (Bottom Nav)
     data object Converter : Screen("converter")
+    data object Calculator : Screen("calculator")
     data object Learn : Screen("learn")
     data object Practice : Screen("practice")
 }

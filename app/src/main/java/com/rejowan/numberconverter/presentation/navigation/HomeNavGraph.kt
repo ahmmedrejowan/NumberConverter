@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rejowan.numberconverter.domain.model.Difficulty
+import com.rejowan.numberconverter.presentation.calculator.CalculatorScreen
 import com.rejowan.numberconverter.presentation.converter.ConverterScreen
 import com.rejowan.numberconverter.presentation.learn.LearnScreen
 import com.rejowan.numberconverter.presentation.practice.PracticeScreen
@@ -29,6 +30,10 @@ fun HomeNavGraph(
                     showHistory = showHistory,
                     onHistoryDismissed = onHistoryDismissed
                 )
+            }
+
+            composable(route = Screen.Calculator.route) {
+                CalculatorScreen()
             }
 
             composable(route = Screen.Learn.route) {
