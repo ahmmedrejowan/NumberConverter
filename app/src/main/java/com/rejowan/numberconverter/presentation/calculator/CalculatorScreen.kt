@@ -86,6 +86,7 @@ fun CalculatorScreen(
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(2.dp))
 
                 CompactBaseSelector(
                     selectedBase = uiState.input1Base,
@@ -99,11 +100,9 @@ fun CalculatorScreen(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(uiState.input1Base.displayName) },
                     placeholder = { Text("Enter value") },
-                    supportingText = {
-                        if (uiState.validation1Error != null) {
-                            Text(uiState.validation1Error!!)
-                        }
-                    },
+                    supportingText = if (uiState.validation1Error != null) {
+                        { Text(uiState.validation1Error!!) }
+                    } else null,
                     isError = uiState.validation1Error != null,
                     singleLine = true,
                     textStyle = MaterialTheme.typography.titleMedium,
@@ -112,23 +111,35 @@ fun CalculatorScreen(
                     )
                 )
 
-                Spacer(Modifier.height(8.dp))
 
-                // Operation Selector
-                Text(
-                    text = "Operation",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+                // Operation Selector with Swap Button
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    OperationSelector(
+                        selectedOperation = uiState.operation,
+                        onOperationSelected = { viewModel.onOperationChanged(it) }
+                    )
 
-                OperationSelector(
-                    selectedOperation = uiState.operation,
-                    onOperationSelected = { viewModel.onOperationChanged(it) },
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
-                )
+                    Spacer(Modifier.width(12.dp))
 
-                Spacer(Modifier.height(8.dp))
+                    IconButton(
+                        onClick = { viewModel.swapInputs() },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .clip(RoundedCornerShape(50))
+                            .background(MaterialTheme.colorScheme.primaryContainer)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.SwapVert,
+                            contentDescription = "Swap inputs",
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
 
                 // Input 2 Section
                 Text(
@@ -136,6 +147,7 @@ fun CalculatorScreen(
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(2.dp))
 
                 CompactBaseSelector(
                     selectedBase = uiState.input2Base,
@@ -149,11 +161,9 @@ fun CalculatorScreen(
                     modifier = Modifier.fillMaxWidth(),
                     label = { Text(uiState.input2Base.displayName) },
                     placeholder = { Text("Enter value") },
-                    supportingText = {
-                        if (uiState.validation2Error != null) {
-                            Text(uiState.validation2Error!!)
-                        }
-                    },
+                    supportingText = if (uiState.validation2Error != null) {
+                        { Text(uiState.validation2Error!!) }
+                    } else null,
                     isError = uiState.validation2Error != null,
                     singleLine = true,
                     textStyle = MaterialTheme.typography.titleMedium,
@@ -161,23 +171,6 @@ fun CalculatorScreen(
                         keyboardType = getKeyboardTypeForBase(uiState.input2Base)
                     )
                 )
-
-                // Swap button
-                IconButton(
-                    onClick = { viewModel.swapInputs() },
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .size(32.dp)
-                        .clip(RoundedCornerShape(50))
-                        .background(MaterialTheme.colorScheme.primaryContainer)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.SwapVert,
-                        contentDescription = "Swap inputs",
-                        tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
 
                 Spacer(Modifier.height(12.dp))
 
@@ -187,6 +180,7 @@ fun CalculatorScreen(
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
+                Spacer(modifier = Modifier.height(2.dp))
 
                 CompactBaseSelector(
                     selectedBase = uiState.outputBase,
