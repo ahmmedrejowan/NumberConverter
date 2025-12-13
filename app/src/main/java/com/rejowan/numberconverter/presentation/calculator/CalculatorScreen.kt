@@ -21,15 +21,19 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FilterChip
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -38,6 +42,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,8 +52,11 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.rejowan.numberconverter.domain.model.CalculatorExplanation
+import com.rejowan.numberconverter.domain.model.ExplanationPart
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.model.Operation
 import com.rejowan.numberconverter.presentation.common.theme.spacing
@@ -61,6 +71,7 @@ fun CalculatorScreen(
     val focusManager = LocalFocusManager.current
     val clipboardManager = LocalClipboardManager.current
     val context = LocalContext.current
+    var showExplanation by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -261,6 +272,33 @@ fun CalculatorScreen(
             }
         }
 
+        // Show Steps Button
+        if (uiState.output.isNotEmpty() && uiState.explanation != null) {
+            OutlinedButton(
+                onClick = {
+                    focusManager.clearFocus()
+                    showExplanation = !showExplanation
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    Icons.Default.Lightbulb,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(modifier = Modifier.width(spacing.small))
+                Text(if (showExplanation) "Hide Steps" else "Show Steps")
+            }
+        }
+
+        // Explanation Section
+        if (showExplanation && uiState.explanation != null) {
+            CalculatorExplanationCard(
+                explanation = uiState.explanation!!,
+                onDismiss = { showExplanation = false }
+            )
+        }
+
         // Error message
         if (uiState.errorMessage != null) {
             Card(
@@ -276,6 +314,144 @@ fun CalculatorScreen(
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun CalculatorExplanationCard(
+    explanation: CalculatorExplanation,
+    onDismiss: () -> Unit
+) {
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(spacing.small)
+        ) {
+            // Summary
+            Text(
+                text = explanation.summary,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            // Input 1 Conversion (if not decimal)
+            explanation.input1Conversion?.let { part ->
+                Spacer(modifier = Modifier.height(spacing.small))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.height(spacing.small))
+                ExplanationPartSection(part)
+            }
+
+            // Input 2 Conversion (if not decimal)
+            explanation.input2Conversion?.let { part ->
+                Spacer(modifier = Modifier.height(spacing.small))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.height(spacing.small))
+                ExplanationPartSection(part)
+            }
+
+            // Operation
+            Spacer(modifier = Modifier.height(spacing.small))
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(spacing.small))
+
+            Text(
+                text = explanation.operation.title,
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = Modifier.height(spacing.extraSmall))
+            Text(
+                text = explanation.operation.description,
+                style = MaterialTheme.typography.bodySmall
+            )
+
+            // Output Conversion (if not decimal)
+            explanation.outputConversion?.let { part ->
+                Spacer(modifier = Modifier.height(spacing.small))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.height(spacing.small))
+                ExplanationPartSection(part)
+            }
+
+            // Final Result
+            Spacer(modifier = Modifier.height(spacing.small))
+            HorizontalDivider()
+            Spacer(modifier = Modifier.height(spacing.small))
+
+            ElevatedCard(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(spacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+                ) {
+                    Text(
+                        text = "Final Result",
+                        style = MaterialTheme.typography.labelMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                    Text(
+                        text = explanation.summary,
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ExplanationPartSection(part: ExplanationPart) {
+    Text(
+        text = part.title,
+        style = MaterialTheme.typography.labelMedium,
+        color = MaterialTheme.colorScheme.primary
+    )
+
+    Spacer(modifier = Modifier.height(spacing.extraSmall))
+
+    part.steps.forEachIndexed { index, step ->
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(spacing.small)
+        ) {
+            Text(
+                text = "${index + 1}.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            Text(
+                text = step.description,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.weight(1f)
+            )
+        }
+    }
+
+    Spacer(modifier = Modifier.height(spacing.small))
+
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(
+            modifier = Modifier.padding(spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(spacing.extraSmall)
+        ) {
+            Text(
+                text = "Result",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.primary
+            )
+            Text(
+                text = part.result,
+                style = MaterialTheme.typography.bodySmall,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }

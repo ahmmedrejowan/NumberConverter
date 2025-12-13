@@ -3,6 +3,7 @@ package com.rejowan.numberconverter.presentation.calculator
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rejowan.numberconverter.data.converter.BaseConverter
+import com.rejowan.numberconverter.data.converter.CalculatorExplanationGenerator
 import com.rejowan.numberconverter.data.local.datastore.PreferencesManager
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.model.Operation
@@ -44,33 +45,33 @@ class CalculatorViewModel(
 
     fun onInput1Changed(input: String) {
         val filtered = filterInputForBase(input, _uiState.value.input1Base)
-        _uiState.update { it.copy(input1 = filtered, validation1Error = null) }
+        _uiState.update { it.copy(input1 = filtered, validation1Error = null, explanation = null) }
         triggerCalculation()
     }
 
     fun onInput2Changed(input: String) {
         val filtered = filterInputForBase(input, _uiState.value.input2Base)
-        _uiState.update { it.copy(input2 = filtered, validation2Error = null) }
+        _uiState.update { it.copy(input2 = filtered, validation2Error = null, explanation = null) }
         triggerCalculation()
     }
 
     fun onInput1BaseChanged(base: NumberBase) {
-        _uiState.update { it.copy(input1Base = base, validation1Error = null) }
+        _uiState.update { it.copy(input1Base = base, validation1Error = null, explanation = null) }
         triggerCalculation()
     }
 
     fun onInput2BaseChanged(base: NumberBase) {
-        _uiState.update { it.copy(input2Base = base, validation2Error = null) }
+        _uiState.update { it.copy(input2Base = base, validation2Error = null, explanation = null) }
         triggerCalculation()
     }
 
     fun onOutputBaseChanged(base: NumberBase) {
-        _uiState.update { it.copy(outputBase = base) }
+        _uiState.update { it.copy(outputBase = base, explanation = null) }
         triggerCalculation()
     }
 
     fun onOperationChanged(operation: Operation) {
-        _uiState.update { it.copy(operation = operation) }
+        _uiState.update { it.copy(operation = operation, explanation = null) }
         triggerCalculation()
     }
 
@@ -143,11 +144,27 @@ class CalculatorViewModel(
                 decimalPlaces = decimalPlaces
             ).fold(
                 onSuccess = { result ->
+                    // Generate explanation
+                    val explanation = try {
+                        CalculatorExplanationGenerator.generate(
+                            input1 = currentState.input1,
+                            input1Base = currentState.input1Base,
+                            input2 = currentState.input2,
+                            input2Base = currentState.input2Base,
+                            operation = currentState.operation,
+                            outputBase = currentState.outputBase,
+                            result = result
+                        )
+                    } catch (e: Exception) {
+                        null
+                    }
+
                     _uiState.update {
                         it.copy(
                             output = result,
                             isLoading = false,
-                            errorMessage = null
+                            errorMessage = null,
+                            explanation = explanation
                         )
                     }
                 },
@@ -156,7 +173,8 @@ class CalculatorViewModel(
                         it.copy(
                             output = "",
                             isLoading = false,
-                            errorMessage = error.message ?: "Calculation failed"
+                            errorMessage = error.message ?: "Calculation failed",
+                            explanation = null
                         )
                     }
                 }
