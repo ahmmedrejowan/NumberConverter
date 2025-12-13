@@ -93,17 +93,24 @@ class ProblemGenerator {
 
     // ==================== MCQ Problems ====================
 
-    fun generateMcqProblem(difficulty: Difficulty): Exercise {
-        // Randomly choose between conversion and calculation MCQ
-        return if (Random.nextBoolean()) {
-            generateConversionMcq(difficulty)
-        } else {
-            generateCalculationMcq(difficulty)
+    enum class McqType {
+        CONVERSION, CALCULATION, MIX
+    }
+
+    fun generateMcqProblem(difficulty: Difficulty, mcqType: McqType = McqType.MIX): Exercise {
+        return when (mcqType) {
+            McqType.CONVERSION -> generateConversionMcq(difficulty)
+            McqType.CALCULATION -> generateCalculationMcq(difficulty)
+            McqType.MIX -> if (Random.nextBoolean()) {
+                generateConversionMcq(difficulty)
+            } else {
+                generateCalculationMcq(difficulty)
+            }
         }
     }
 
-    fun generateMcqBatch(count: Int, difficulty: Difficulty): List<Exercise> {
-        return (1..count).map { generateMcqProblem(difficulty) }
+    fun generateMcqBatch(count: Int, difficulty: Difficulty, mcqType: McqType = McqType.MIX): List<Exercise> {
+        return (1..count).map { generateMcqProblem(difficulty, mcqType) }
     }
 
     private fun generateConversionMcq(difficulty: Difficulty): Exercise {

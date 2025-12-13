@@ -7,6 +7,8 @@ import com.rejowan.numberconverter.domain.model.Exercise
 import com.rejowan.numberconverter.domain.generator.ProblemGenerator
 import com.rejowan.numberconverter.domain.usecase.practice.CalculateScoreUseCase
 import com.rejowan.numberconverter.domain.usecase.practice.CheckAnswerUseCase
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +25,8 @@ class PracticeViewModel(
 
     private var problems: List<Exercise> = emptyList()
     private var currentPracticeType: PracticeType = PracticeType.CONVERSION
+    private var timerJob: Job? = null
+    private var examStartTimeMillis: Long = 0L
 
     fun selectPracticeType(type: PracticeType) {
         currentPracticeType = type
@@ -43,11 +47,31 @@ class PracticeViewModel(
         }
     }
 
+    fun updateMcqSubType(subType: McqSubType) {
+        val currentState = _uiState.value
+        if (currentState is PracticeUiState.Setup) {
+            _uiState.value = currentState.copy(mcqSubType = subType)
+        }
+    }
+
+    fun updateExamTime(minutes: Int) {
+        val currentState = _uiState.value
+        if (currentState is PracticeUiState.Setup) {
+            _uiState.value = currentState.copy(examTimeMinutes = minutes)
+        }
+    }
+
     fun startPractice() {
         val currentState = _uiState.value
         if (currentState is PracticeUiState.Setup) {
             viewModelScope.launch {
                 _uiState.value = PracticeUiState.Loading
+
+                val mcqType = when (currentState.mcqSubType) {
+                    McqSubType.CONVERSION -> ProblemGenerator.McqType.CONVERSION
+                    McqSubType.CALCULATION -> ProblemGenerator.McqType.CALCULATION
+                    McqSubType.MIX -> ProblemGenerator.McqType.MIX
+                }
 
                 problems = when (currentState.practiceType) {
                     PracticeType.CONVERSION -> problemGenerator.generateConversionBatch(
@@ -60,20 +84,87 @@ class PracticeViewModel(
                     )
                     PracticeType.MCQ -> problemGenerator.generateMcqBatch(
                         count = currentState.selectedQuestionCount,
-                        difficulty = currentState.selectedDifficulty
+                        difficulty = currentState.selectedDifficulty,
+                        mcqType = mcqType
+                    )
+                    PracticeType.EXAM -> problemGenerator.generateMcqBatch(
+                        count = currentState.selectedQuestionCount,
+                        difficulty = currentState.selectedDifficulty,
+                        mcqType = mcqType
                     )
                 }
 
                 if (problems.isNotEmpty()) {
+                    val isExam = currentState.practiceType == PracticeType.EXAM
+                    val examTimeMillis = if (isExam) currentState.examTimeMinutes * 60 * 1000L else 0L
+
+                    if (isExam) {
+                        examStartTimeMillis = System.currentTimeMillis()
+                        startExamTimer(examTimeMillis)
+                    }
+
                     _uiState.value = PracticeUiState.Quiz(
                         practiceType = currentState.practiceType,
                         currentExercise = problems[0],
                         currentQuestionIndex = 0,
                         totalQuestions = problems.size,
-                        difficulty = currentState.selectedDifficulty
+                        difficulty = currentState.selectedDifficulty,
+                        mcqSubType = currentState.mcqSubType,
+                        isExamMode = isExam,
+                        examTimeMillis = examTimeMillis,
+                        remainingTimeMillis = examTimeMillis
                     )
                 }
             }
+        }
+    }
+
+    private fun startExamTimer(totalTimeMillis: Long) {
+        timerJob?.cancel()
+        timerJob = viewModelScope.launch {
+            var remainingTime = totalTimeMillis
+            while (remainingTime > 0) {
+                delay(1000L)
+                remainingTime -= 1000L
+
+                val currentState = _uiState.value
+                if (currentState is PracticeUiState.Quiz && currentState.isExamMode) {
+                    _uiState.value = currentState.copy(remainingTimeMillis = remainingTime)
+
+                    if (remainingTime <= 0) {
+                        finishExam()
+                    }
+                } else {
+                    break
+                }
+            }
+        }
+    }
+
+    private fun finishExam() {
+        timerJob?.cancel()
+        val currentState = _uiState.value
+        if (currentState is PracticeUiState.Quiz) {
+            val timeTaken = ((System.currentTimeMillis() - examStartTimeMillis) / 1000).toInt()
+
+            val score = calculateScoreUseCase(
+                correctAnswers = currentState.correctAnswers,
+                totalQuestions = currentState.totalQuestions,
+                currentStreak = currentState.currentStreak,
+                longestStreak = currentState.longestStreak
+            )
+
+            _uiState.value = PracticeUiState.Complete(
+                practiceType = currentState.practiceType,
+                correctAnswers = score.correctAnswers,
+                totalQuestions = score.totalQuestions,
+                percentage = score.percentage,
+                longestStreak = score.streak,
+                points = score.points,
+                difficulty = currentState.difficulty,
+                isExamMode = true,
+                timeTakenSeconds = timeTaken
+            )
         }
     }
 
@@ -126,9 +217,18 @@ class PracticeViewModel(
                     correctAnswers = currentState.correctAnswers,
                     currentStreak = currentState.currentStreak,
                     longestStreak = currentState.longestStreak,
-                    difficulty = currentState.difficulty
+                    difficulty = currentState.difficulty,
+                    mcqSubType = currentState.mcqSubType,
+                    isExamMode = currentState.isExamMode,
+                    examTimeMillis = currentState.examTimeMillis,
+                    remainingTimeMillis = currentState.remainingTimeMillis
                 )
             } else {
+                timerJob?.cancel()
+                val timeTaken = if (currentState.isExamMode) {
+                    ((System.currentTimeMillis() - examStartTimeMillis) / 1000).toInt()
+                } else 0
+
                 val score = calculateScoreUseCase(
                     correctAnswers = currentState.correctAnswers,
                     totalQuestions = currentState.totalQuestions,
@@ -143,7 +243,9 @@ class PracticeViewModel(
                     percentage = score.percentage,
                     longestStreak = score.streak,
                     points = score.points,
-                    difficulty = currentState.difficulty
+                    difficulty = currentState.difficulty,
+                    isExamMode = currentState.isExamMode,
+                    timeTakenSeconds = timeTaken
                 )
             }
         }
@@ -160,15 +262,18 @@ class PracticeViewModel(
     }
 
     fun goBackToSetup() {
+        timerJob?.cancel()
         _uiState.value = PracticeUiState.Setup(practiceType = currentPracticeType)
     }
 
     fun goBackToTypeSelection() {
+        timerJob?.cancel()
         _uiState.value = PracticeUiState.SelectType
         problems = emptyList()
     }
 
     fun restartPractice() {
+        timerJob?.cancel()
         val currentState = _uiState.value
         val practiceType = when (currentState) {
             is PracticeUiState.Complete -> currentState.practiceType
@@ -185,5 +290,10 @@ class PracticeViewModel(
             practiceType = practiceType,
             selectedDifficulty = difficulty
         )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        timerJob?.cancel()
     }
 }

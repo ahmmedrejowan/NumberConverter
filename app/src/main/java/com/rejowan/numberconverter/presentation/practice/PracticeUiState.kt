@@ -8,7 +8,14 @@ import com.rejowan.numberconverter.domain.usecase.practice.AnswerResult
 enum class PracticeType(val displayName: String) {
     CONVERSION("Conversion"),
     CALCULATION("Calculation"),
-    MCQ("Multiple Choice")
+    MCQ("Multiple Choice"),
+    EXAM("Exam")
+}
+
+enum class McqSubType(val displayName: String) {
+    CONVERSION("Conversion Only"),
+    CALCULATION("Calculation Only"),
+    MIX("Mixed")
 }
 
 sealed class PracticeUiState {
@@ -17,7 +24,9 @@ sealed class PracticeUiState {
     data class Setup(
         val practiceType: PracticeType,
         val selectedDifficulty: Difficulty = Difficulty.MEDIUM,
-        val selectedQuestionCount: Int = 10
+        val selectedQuestionCount: Int = 10,
+        val mcqSubType: McqSubType = McqSubType.MIX,
+        val examTimeMinutes: Int = 5
     ) : PracticeUiState()
 
     data object Loading : PracticeUiState()
@@ -34,7 +43,11 @@ sealed class PracticeUiState {
         val currentStreak: Int = 0,
         val longestStreak: Int = 0,
         val difficulty: Difficulty,
-        val answerResult: AnswerResult? = null
+        val answerResult: AnswerResult? = null,
+        val mcqSubType: McqSubType? = null,
+        val isExamMode: Boolean = false,
+        val examTimeMillis: Long = 0L,
+        val remainingTimeMillis: Long = 0L
     ) : PracticeUiState()
 
     data class Complete(
@@ -44,6 +57,8 @@ sealed class PracticeUiState {
         val percentage: Float,
         val longestStreak: Int,
         val points: Int,
-        val difficulty: Difficulty
+        val difficulty: Difficulty,
+        val isExamMode: Boolean = false,
+        val timeTakenSeconds: Int = 0
     ) : PracticeUiState()
 }

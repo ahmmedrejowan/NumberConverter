@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.Quiz
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.SwapHoriz
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -73,6 +74,16 @@ fun PracticeScreen(
                 description = "Test your knowledge with multiple choice questions on conversions and calculations",
                 icon = Icons.Default.Quiz,
                 onClick = { onNavigateToPracticeSession("mcq") },
+                modifier = Modifier.padding(horizontal = spacing.medium)
+            )
+        }
+
+        item {
+            PracticeTypeCard(
+                title = "Timed Exam",
+                description = "Challenge yourself with a timed exam - complete as many questions as you can",
+                icon = Icons.Default.Timer,
+                onClick = { onNavigateToPracticeSession("exam") },
                 modifier = Modifier.padding(horizontal = spacing.medium)
             )
         }

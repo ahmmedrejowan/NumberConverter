@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -72,6 +73,7 @@ fun PracticeSessionScreen(
             "conversion" -> PracticeType.CONVERSION
             "calculation" -> PracticeType.CALCULATION
             "mcq" -> PracticeType.MCQ
+            "exam" -> PracticeType.EXAM
             else -> PracticeType.CONVERSION
         }
         viewModel.selectPracticeType(type)
@@ -113,6 +115,8 @@ fun PracticeSessionScreen(
                     state = state,
                     onDifficultyChanged = viewModel::updateDifficulty,
                     onQuestionCountChanged = viewModel::updateQuestionCount,
+                    onMcqSubTypeChanged = viewModel::updateMcqSubType,
+                    onExamTimeChanged = viewModel::updateExamTime,
                     onStartPractice = viewModel::startPractice
                 )
                 is PracticeUiState.Loading -> LoadingContent()
@@ -138,8 +142,13 @@ private fun SetupContent(
     state: PracticeUiState.Setup,
     onDifficultyChanged: (Difficulty) -> Unit,
     onQuestionCountChanged: (Int) -> Unit,
+    onMcqSubTypeChanged: (McqSubType) -> Unit,
+    onExamTimeChanged: (Int) -> Unit,
     onStartPractice: () -> Unit
 ) {
+    val showMcqSubType = state.practiceType == PracticeType.MCQ || state.practiceType == PracticeType.EXAM
+    val isExamMode = state.practiceType == PracticeType.EXAM
+
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(vertical = spacing.medium),
@@ -147,6 +156,51 @@ private fun SetupContent(
     ) {
         item {
             SectionHeader(title = "Settings")
+        }
+
+        // MCQ Sub-Type Selection (for MCQ and Exam modes)
+        if (showMcqSubType) {
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.medium),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(spacing.medium)) {
+                        Text(
+                            text = "Question Type",
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+
+                        Spacer(modifier = Modifier.height(spacing.small))
+
+                        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                            McqSubType.entries.forEachIndexed { index, subType ->
+                                SegmentedButton(
+                                    selected = state.mcqSubType == subType,
+                                    onClick = { onMcqSubTypeChanged(subType) },
+                                    shape = SegmentedButtonDefaults.itemShape(
+                                        index = index,
+                                        count = McqSubType.entries.size
+                                    )
+                                ) {
+                                    Text(
+                                        text = when (subType) {
+                                            McqSubType.CONVERSION -> "Conv"
+                                            McqSubType.CALCULATION -> "Calc"
+                                            McqSubType.MIX -> "Mix"
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // Difficulty Selection
@@ -234,6 +288,53 @@ private fun SetupContent(
             }
         }
 
+        // Exam Time Selection (for Exam mode only)
+        if (isExamMode) {
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.medium),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(spacing.medium)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Timer,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.width(spacing.small))
+                            Text(
+                                text = "Time Limit",
+                                style = MaterialTheme.typography.titleSmall,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(spacing.small))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(spacing.small)
+                        ) {
+                            listOf(3, 5, 10, 15).forEach { minutes ->
+                                FilterChip(
+                                    selected = state.examTimeMinutes == minutes,
+                                    onClick = { onExamTimeChanged(minutes) },
+                                    label = { Text("${minutes}m") },
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         // Summary Card
         item {
             Card(
@@ -251,7 +352,7 @@ private fun SetupContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = Icons.Default.PlayArrow,
+                        imageVector = if (isExamMode) Icons.Default.Timer else Icons.Default.PlayArrow,
                         contentDescription = null,
                         modifier = Modifier.size(32.dp),
                         tint = MaterialTheme.colorScheme.onPrimaryContainer
@@ -261,12 +362,17 @@ private fun SetupContent(
 
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = "Ready to Practice",
+                            text = if (isExamMode) "Ready for Exam" else "Ready to Practice",
                             style = MaterialTheme.typography.titleSmall,
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Text(
-                            text = "${state.selectedQuestionCount} ${state.selectedDifficulty.displayName} questions",
+                            text = buildString {
+                                append("${state.selectedQuestionCount} ${state.selectedDifficulty.displayName} questions")
+                                if (isExamMode) {
+                                    append(" • ${state.examTimeMinutes} min")
+                                }
+                            },
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
                         )
@@ -287,9 +393,12 @@ private fun SetupContent(
                     .fillMaxWidth()
                     .padding(horizontal = spacing.medium)
             ) {
-                Icon(Icons.Default.PlayArrow, contentDescription = null)
+                Icon(
+                    if (isExamMode) Icons.Default.Timer else Icons.Default.PlayArrow,
+                    contentDescription = null
+                )
                 Spacer(modifier = Modifier.width(spacing.small))
-                Text("Start Practice")
+                Text(if (isExamMode) "Start Exam" else "Start Practice")
             }
         }
     }
@@ -326,9 +435,55 @@ private fun QuizContent(
         contentPadding = PaddingValues(vertical = spacing.medium),
         verticalArrangement = Arrangement.spacedBy(spacing.small)
     ) {
-        // Progress Header
+        // Progress Header with Timer for Exam Mode
         item {
             Column(modifier = Modifier.padding(horizontal = spacing.medium)) {
+                // Timer display for exam mode
+                if (state.isExamMode) {
+                    val minutes = (state.remainingTimeMillis / 60000).toInt()
+                    val seconds = ((state.remainingTimeMillis % 60000) / 1000).toInt()
+                    val isLowTime = state.remainingTimeMillis < 60000 // Less than 1 minute
+
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = if (isLowTime)
+                                MaterialTheme.colorScheme.errorContainer
+                            else
+                                MaterialTheme.colorScheme.tertiaryContainer
+                        )
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = spacing.medium, vertical = spacing.small),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Timer,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp),
+                                tint = if (isLowTime)
+                                    MaterialTheme.colorScheme.error
+                                else
+                                    MaterialTheme.colorScheme.tertiary
+                            )
+                            Spacer(modifier = Modifier.width(spacing.small))
+                            Text(
+                                text = String.format("%02d:%02d", minutes, seconds),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = if (isLowTime)
+                                    MaterialTheme.colorScheme.error
+                                else
+                                    MaterialTheme.colorScheme.onTertiaryContainer
+                            )
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(spacing.small))
+                }
+
                 LinearProgressIndicator(
                     progress = { (state.currentQuestionIndex + 1).toFloat() / state.totalQuestions.toFloat() },
                     modifier = Modifier.fillMaxWidth()
@@ -727,6 +882,43 @@ private fun CompleteContent(
                     icon = Icons.Default.Star,
                     modifier = Modifier.weight(1f)
                 )
+            }
+        }
+
+        // Time Taken (for Exam mode)
+        if (state.isExamMode) {
+            item {
+                val minutes = state.timeTakenSeconds / 60
+                val seconds = state.timeTakenSeconds % 60
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.medium),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(spacing.medium),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Timer,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp),
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.width(spacing.small))
+                        Text(
+                            text = "Time: ${minutes}m ${seconds}s",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
             }
         }
 
