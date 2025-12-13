@@ -8,7 +8,8 @@ data class Exercise(
     val fromBase: NumberBase? = null,
     val toBase: NumberBase? = null,
     val explanation: String? = null,
-    val hints: List<String> = emptyList()
+    val hints: List<String> = emptyList(),
+    val options: List<String> = emptyList() // For MCQ mode
 )
 
 enum class Difficulty(val displayName: String, val multiplier: Float) {

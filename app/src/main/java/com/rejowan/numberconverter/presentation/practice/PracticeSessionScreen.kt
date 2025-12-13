@@ -71,6 +71,7 @@ fun PracticeSessionScreen(
         val type = when (practiceType) {
             "conversion" -> PracticeType.CONVERSION
             "calculation" -> PracticeType.CALCULATION
+            "mcq" -> PracticeType.MCQ
             else -> PracticeType.CONVERSION
         }
         viewModel.selectPracticeType(type)
@@ -389,18 +390,88 @@ private fun QuizContent(
             }
         }
 
-        // Answer Input
-        item {
-            OutlinedTextField(
-                value = state.userAnswer,
-                onValueChange = onAnswerChanged,
-                label = { Text("Your Answer") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = spacing.medium),
-                enabled = state.answerResult == null,
-                singleLine = true
-            )
+        // Answer Input - MCQ options or text field
+        if (state.currentExercise.options.isNotEmpty()) {
+            // MCQ Options
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.medium),
+                    verticalArrangement = Arrangement.spacedBy(spacing.small)
+                ) {
+                    state.currentExercise.options.forEachIndexed { index, option ->
+                        val optionLabel = ('A' + index).toString()
+                        val isSelected = state.userAnswer == option
+                        val isAnswered = state.answerResult != null
+                        val isCorrect = option == state.currentExercise.correctAnswer
+
+                        val containerColor = when {
+                            isAnswered && isCorrect -> MaterialTheme.colorScheme.primaryContainer
+                            isAnswered && isSelected && !isCorrect -> MaterialTheme.colorScheme.errorContainer
+                            isSelected -> MaterialTheme.colorScheme.secondaryContainer
+                            else -> MaterialTheme.colorScheme.surfaceVariant
+                        }
+
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = {
+                                if (!isAnswered) {
+                                    onAnswerChanged(option)
+                                }
+                            },
+                            colors = CardDefaults.cardColors(containerColor = containerColor)
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(spacing.medium),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "$optionLabel.",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Spacer(modifier = Modifier.width(spacing.medium))
+                                Text(
+                                    text = option,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    modifier = Modifier.weight(1f)
+                                )
+                                if (isAnswered && isCorrect) {
+                                    Icon(
+                                        imageVector = Icons.Default.CheckCircle,
+                                        contentDescription = "Correct",
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                } else if (isAnswered && isSelected && !isCorrect) {
+                                    Icon(
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = "Incorrect",
+                                        tint = MaterialTheme.colorScheme.error
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            // Text Input for non-MCQ
+            item {
+                OutlinedTextField(
+                    value = state.userAnswer,
+                    onValueChange = onAnswerChanged,
+                    label = { Text("Your Answer") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.medium),
+                    enabled = state.answerResult == null,
+                    singleLine = true
+                )
+            }
         }
 
         // Hints
@@ -499,26 +570,54 @@ private fun QuizContent(
                 modifier = Modifier.padding(horizontal = spacing.medium),
                 verticalArrangement = Arrangement.spacedBy(spacing.small)
             ) {
-                if (state.answerResult == null) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(spacing.small)
-                    ) {
-                        OutlinedButton(
-                            onClick = onToggleHints,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Icon(Icons.Default.Lightbulb, contentDescription = null, modifier = Modifier.size(18.dp))
-                            Spacer(modifier = Modifier.width(spacing.extraSmall))
-                            Text(if (state.showHints) "Hide" else "Hint")
-                        }
+                val isMcq = state.currentExercise.options.isNotEmpty()
 
-                        Button(
-                            onClick = onSubmitAnswer,
-                            modifier = Modifier.weight(1f),
-                            enabled = state.userAnswer.isNotBlank()
+                if (state.answerResult == null) {
+                    if (isMcq) {
+                        // MCQ mode - just show hint and submit buttons
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(spacing.small)
                         ) {
-                            Text("Submit")
+                            OutlinedButton(
+                                onClick = onToggleHints,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(Icons.Default.Lightbulb, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(spacing.extraSmall))
+                                Text(if (state.showHints) "Hide" else "Hint")
+                            }
+
+                            Button(
+                                onClick = onSubmitAnswer,
+                                modifier = Modifier.weight(1f),
+                                enabled = state.userAnswer.isNotBlank()
+                            ) {
+                                Text("Confirm")
+                            }
+                        }
+                    } else {
+                        // Text input mode
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(spacing.small)
+                        ) {
+                            OutlinedButton(
+                                onClick = onToggleHints,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Icon(Icons.Default.Lightbulb, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Spacer(modifier = Modifier.width(spacing.extraSmall))
+                                Text(if (state.showHints) "Hide" else "Hint")
+                            }
+
+                            Button(
+                                onClick = onSubmitAnswer,
+                                modifier = Modifier.weight(1f),
+                                enabled = state.userAnswer.isNotBlank()
+                            ) {
+                                Text("Submit")
+                            }
                         }
                     }
                 } else {

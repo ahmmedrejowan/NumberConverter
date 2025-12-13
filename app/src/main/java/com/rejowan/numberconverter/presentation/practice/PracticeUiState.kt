@@ -7,7 +7,8 @@ import com.rejowan.numberconverter.domain.usecase.practice.AnswerResult
 
 enum class PracticeType(val displayName: String) {
     CONVERSION("Conversion"),
-    CALCULATION("Calculation")
+    CALCULATION("Calculation"),
+    MCQ("Multiple Choice")
 }
 
 sealed class PracticeUiState {

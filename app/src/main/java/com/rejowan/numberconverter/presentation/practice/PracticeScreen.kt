@@ -17,6 +17,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.Quiz
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material3.Card
@@ -62,6 +63,16 @@ fun PracticeScreen(
                 description = "Perform arithmetic operations with numbers in different bases",
                 icon = Icons.Default.Calculate,
                 onClick = { onNavigateToPracticeSession("calculation") },
+                modifier = Modifier.padding(horizontal = spacing.medium)
+            )
+        }
+
+        item {
+            PracticeTypeCard(
+                title = "Multiple Choice Quiz",
+                description = "Test your knowledge with multiple choice questions on conversions and calculations",
+                icon = Icons.Default.Quiz,
+                onClick = { onNavigateToPracticeSession("mcq") },
                 modifier = Modifier.padding(horizontal = spacing.medium)
             )
         }

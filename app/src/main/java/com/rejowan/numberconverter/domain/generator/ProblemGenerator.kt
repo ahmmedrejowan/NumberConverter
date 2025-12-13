@@ -91,6 +91,160 @@ class ProblemGenerator {
         return (1..count).map { generateCalculationProblem(difficulty) }
     }
 
+    // ==================== MCQ Problems ====================
+
+    fun generateMcqProblem(difficulty: Difficulty): Exercise {
+        // Randomly choose between conversion and calculation MCQ
+        return if (Random.nextBoolean()) {
+            generateConversionMcq(difficulty)
+        } else {
+            generateCalculationMcq(difficulty)
+        }
+    }
+
+    fun generateMcqBatch(count: Int, difficulty: Difficulty): List<Exercise> {
+        return (1..count).map { generateMcqProblem(difficulty) }
+    }
+
+    private fun generateConversionMcq(difficulty: Difficulty): Exercise {
+        val fromBase = getRandomBase()
+        val toBase = getRandomBase(exclude = fromBase)
+
+        val number = generateNumber(difficulty, fromBase)
+        val problem = "Convert $number (${fromBase.displayName}) to ${toBase.displayName}"
+        val correctAnswer = convertNumber(number, fromBase, toBase)
+
+        val options = generateMcqOptions(correctAnswer, toBase, difficulty)
+        val hints = generateConversionHints(number, fromBase, toBase, difficulty)
+        val explanation = generateConversionExplanation(number, fromBase, toBase, correctAnswer)
+
+        return Exercise(
+            id = "mcq_conv_${System.currentTimeMillis()}_${Random.nextInt()}",
+            problem = problem,
+            correctAnswer = correctAnswer,
+            difficulty = difficulty,
+            fromBase = fromBase,
+            toBase = toBase,
+            explanation = explanation,
+            hints = hints,
+            options = options
+        )
+    }
+
+    private fun generateCalculationMcq(difficulty: Difficulty): Exercise {
+        val input1Base = getRandomBase()
+        val input2Base = getRandomBase()
+        val outputBase = getRandomBase()
+        val operation = Operation.entries.random()
+
+        val (num1Decimal, num2Decimal) = generateCalculationNumbers(difficulty, operation)
+
+        val num1 = convertFromDecimal(num1Decimal, input1Base)
+        val num2 = convertFromDecimal(num2Decimal, input2Base)
+
+        val resultDecimal = when (operation) {
+            Operation.ADD -> num1Decimal + num2Decimal
+            Operation.SUBTRACT -> num1Decimal - num2Decimal
+            Operation.MULTIPLY -> num1Decimal * num2Decimal
+            Operation.DIVIDE -> num1Decimal / num2Decimal
+        }
+
+        val correctAnswer = convertFromDecimal(resultDecimal, outputBase)
+        val problem = "$num1 (${input1Base.displayName}) ${operation.symbol} $num2 (${input2Base.displayName}) = ? (${outputBase.displayName})"
+
+        val options = generateMcqOptionsFromDecimal(resultDecimal, outputBase, difficulty)
+        val hints = generateCalculationHints(num1, input1Base, num2, input2Base, operation, difficulty)
+        val explanation = generateCalculationExplanation(
+            num1, input1Base, num2, input2Base, operation, outputBase, resultDecimal, correctAnswer
+        )
+
+        return Exercise(
+            id = "mcq_calc_${System.currentTimeMillis()}_${Random.nextInt()}",
+            problem = problem,
+            correctAnswer = correctAnswer,
+            difficulty = difficulty,
+            fromBase = input1Base,
+            toBase = outputBase,
+            explanation = explanation,
+            hints = hints,
+            options = options
+        )
+    }
+
+    private fun generateMcqOptions(correctAnswer: String, base: NumberBase, difficulty: Difficulty): List<String> {
+        val options = mutableSetOf(correctAnswer)
+        val correctDecimal = correctAnswer.toLongOrNull(base.value) ?: correctAnswer.uppercase().toLong(base.value)
+
+        // Generate wrong options by slightly modifying the correct answer
+        val offsets = when (difficulty) {
+            Difficulty.EASY -> listOf(-2, -1, 1, 2, 3)
+            Difficulty.MEDIUM -> listOf(-5, -3, -1, 1, 3, 5)
+            Difficulty.HARD -> listOf(-10, -5, -2, 2, 5, 10)
+        }
+
+        for (offset in offsets.shuffled()) {
+            if (options.size >= 4) break
+            val wrongDecimal = correctDecimal + offset
+            if (wrongDecimal > 0) {
+                val wrongAnswer = when (base) {
+                    NumberBase.BINARY -> wrongDecimal.toString(2)
+                    NumberBase.OCTAL -> wrongDecimal.toString(8)
+                    NumberBase.DECIMAL -> wrongDecimal.toString(10)
+                    NumberBase.HEXADECIMAL -> wrongDecimal.toString(16).uppercase()
+                }
+                options.add(wrongAnswer)
+            }
+        }
+
+        // Ensure we have exactly 4 options
+        while (options.size < 4) {
+            val randomOffset = Random.nextInt(1, 20)
+            val wrongDecimal = correctDecimal + randomOffset
+            if (wrongDecimal > 0) {
+                val wrongAnswer = when (base) {
+                    NumberBase.BINARY -> wrongDecimal.toString(2)
+                    NumberBase.OCTAL -> wrongDecimal.toString(8)
+                    NumberBase.DECIMAL -> wrongDecimal.toString(10)
+                    NumberBase.HEXADECIMAL -> wrongDecimal.toString(16).uppercase()
+                }
+                options.add(wrongAnswer)
+            }
+        }
+
+        return options.toList().shuffled()
+    }
+
+    private fun generateMcqOptionsFromDecimal(correctDecimal: Long, base: NumberBase, difficulty: Difficulty): List<String> {
+        val correctAnswer = convertFromDecimal(correctDecimal, base)
+        val options = mutableSetOf(correctAnswer)
+
+        val offsets = when (difficulty) {
+            Difficulty.EASY -> listOf(-2, -1, 1, 2, 3)
+            Difficulty.MEDIUM -> listOf(-5, -3, -1, 1, 3, 5)
+            Difficulty.HARD -> listOf(-10, -5, -2, 2, 5, 10)
+        }
+
+        for (offset in offsets.shuffled()) {
+            if (options.size >= 4) break
+            val wrongDecimal = correctDecimal + offset
+            val wrongAnswer = convertFromDecimal(wrongDecimal, base)
+            if (wrongAnswer != correctAnswer) {
+                options.add(wrongAnswer)
+            }
+        }
+
+        while (options.size < 4) {
+            val randomOffset = Random.nextInt(1, 20) * (if (Random.nextBoolean()) 1 else -1)
+            val wrongDecimal = correctDecimal + randomOffset
+            val wrongAnswer = convertFromDecimal(wrongDecimal, base)
+            if (wrongAnswer != correctAnswer) {
+                options.add(wrongAnswer)
+            }
+        }
+
+        return options.toList().shuffled()
+    }
+
     private fun generateCalculationNumbers(difficulty: Difficulty, operation: Operation): Pair<Long, Long> {
         return when (difficulty) {
             Difficulty.EASY -> {

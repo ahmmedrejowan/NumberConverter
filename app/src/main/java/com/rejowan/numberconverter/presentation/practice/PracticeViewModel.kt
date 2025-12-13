@@ -58,6 +58,10 @@ class PracticeViewModel(
                         count = currentState.selectedQuestionCount,
                         difficulty = currentState.selectedDifficulty
                     )
+                    PracticeType.MCQ -> problemGenerator.generateMcqBatch(
+                        count = currentState.selectedQuestionCount,
+                        difficulty = currentState.selectedDifficulty
+                    )
                 }
 
                 if (problems.isNotEmpty()) {
