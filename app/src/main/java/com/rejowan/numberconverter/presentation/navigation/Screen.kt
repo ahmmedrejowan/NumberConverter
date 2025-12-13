@@ -7,6 +7,9 @@ sealed class Screen(val route: String) {
     data class LessonDetail(val lessonId: String = "{lessonId}") : Screen("lesson/{lessonId}") {
         fun createRoute(lessonId: String) = "lesson/$lessonId"
     }
+    data class PracticeSession(val practiceType: String = "{practiceType}") : Screen("practice-session/{practiceType}") {
+        fun createRoute(practiceType: String) = "practice-session/$practiceType"
+    }
 
     // Home Navigation Screens (Bottom Nav)
     data object Converter : Screen("converter")

@@ -29,7 +29,8 @@ import com.rejowan.numberconverter.presentation.navigation.Screen
 @Composable
 fun HomeScreen(
     onNavigateToSettings: () -> Unit,
-    onNavigateToLesson: (String) -> Unit
+    onNavigateToLesson: (String) -> Unit,
+    onNavigateToPracticeSession: (String) -> Unit
 ) {
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
@@ -82,6 +83,7 @@ fun HomeScreen(
         HomeNavGraph(
             navController = homeNavController,
             onNavigateToLesson = onNavigateToLesson,
+            onNavigateToPracticeSession = onNavigateToPracticeSession,
             showHistory = showHistorySheet,
             onHistoryDismissed = { showHistorySheet = false },
             modifier = Modifier.padding(paddingValues)

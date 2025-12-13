@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.rejowan.numberconverter.domain.model.Difficulty
 import com.rejowan.numberconverter.presentation.calculator.CalculatorScreen
 import com.rejowan.numberconverter.presentation.converter.ConverterScreen
 import com.rejowan.numberconverter.presentation.learn.LearnScreen
@@ -16,6 +15,7 @@ import com.rejowan.numberconverter.presentation.practice.PracticeScreen
 fun HomeNavGraph(
     navController: NavHostController,
     onNavigateToLesson: (String) -> Unit,
+    onNavigateToPracticeSession: (String) -> Unit,
     showHistory: Boolean = false,
     onHistoryDismissed: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -44,8 +44,7 @@ fun HomeNavGraph(
 
             composable(route = Screen.Practice.route) {
                 PracticeScreen(
-                    difficulty = Difficulty.MEDIUM,
-                    onNavigateBack = { navController.navigateUp() }
+                    onNavigateToPracticeSession = onNavigateToPracticeSession
                 )
             }
         }

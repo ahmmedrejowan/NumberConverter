@@ -5,11 +5,24 @@ import com.rejowan.numberconverter.domain.model.Exercise
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.usecase.practice.AnswerResult
 
-sealed class PracticeUiState {
-    object Initial : PracticeUiState()
-    object Loading : PracticeUiState()
+enum class PracticeType(val displayName: String) {
+    CONVERSION("Conversion"),
+    CALCULATION("Calculation")
+}
 
-    data class PracticeSession(
+sealed class PracticeUiState {
+    data object SelectType : PracticeUiState()
+
+    data class Setup(
+        val practiceType: PracticeType,
+        val selectedDifficulty: Difficulty = Difficulty.MEDIUM,
+        val selectedQuestionCount: Int = 10
+    ) : PracticeUiState()
+
+    data object Loading : PracticeUiState()
+
+    data class Quiz(
+        val practiceType: PracticeType,
         val currentExercise: Exercise,
         val currentQuestionIndex: Int,
         val totalQuestions: Int,
@@ -20,13 +33,11 @@ sealed class PracticeUiState {
         val currentStreak: Int = 0,
         val longestStreak: Int = 0,
         val difficulty: Difficulty,
-        val fromBase: NumberBase? = null,
-        val toBase: NumberBase? = null,
-        val answerResult: AnswerResult? = null,
-        val showExplanation: Boolean = false
+        val answerResult: AnswerResult? = null
     ) : PracticeUiState()
 
-    data class SessionComplete(
+    data class Complete(
+        val practiceType: PracticeType,
         val correctAnswers: Int,
         val totalQuestions: Int,
         val percentage: Float,
