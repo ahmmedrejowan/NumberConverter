@@ -55,6 +55,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import com.rejowan.numberconverter.domain.model.CalculatorExplanation
 import com.rejowan.numberconverter.domain.model.ExplanationPart
 import com.rejowan.numberconverter.domain.model.NumberBase
@@ -139,15 +141,18 @@ fun CalculatorScreen(
                     IconButton(
                         onClick = { viewModel.swapInputs() },
                         modifier = Modifier
-                            .size(36.dp)
+                            .size(48.dp)
                             .clip(RoundedCornerShape(50))
                             .background(MaterialTheme.colorScheme.primaryContainer)
+                            .semantics {
+                                contentDescription = "Swap first and second numbers"
+                            }
                     ) {
                         Icon(
                             imageVector = Icons.Default.SwapVert,
-                            contentDescription = "Swap inputs",
+                            contentDescription = null,
                             tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(24.dp)
                         )
                     }
                 }
@@ -223,23 +228,23 @@ fun CalculatorScreen(
                                 onClick = {
                                     clipboardManager.setText(AnnotatedString(uiState.output))
                                 },
-                                modifier = Modifier.size(28.dp)
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Icon(
                                     Icons.Default.ContentCopy,
-                                    contentDescription = "Copy",
-                                    modifier = Modifier.size(20.dp)
+                                    contentDescription = "Copy result to clipboard",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
 
                             IconButton(
                                 onClick = { viewModel.clearAll() },
-                                modifier = Modifier.size(28.dp)
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Icon(
                                     Icons.Default.Delete,
-                                    contentDescription = "Clear",
-                                    modifier = Modifier.size(20.dp)
+                                    contentDescription = "Clear all inputs",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
 
@@ -258,12 +263,12 @@ fun CalculatorScreen(
                                     }
                                     context.startActivity(Intent.createChooser(intent, "Share calculation"))
                                 },
-                                modifier = Modifier.size(28.dp)
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Icon(
                                     Icons.Default.Share,
-                                    contentDescription = "Share",
-                                    modifier = Modifier.size(20.dp)
+                                    contentDescription = "Share calculation result",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
                         }

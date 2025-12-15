@@ -60,14 +60,14 @@ fun HomeScreen(
                         IconButton(onClick = { showHistorySheet = true }) {
                             Icon(
                                 imageVector = Icons.Default.History,
-                                contentDescription = "History"
+                                contentDescription = "View conversion history"
                             )
                         }
                     }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = stringResource(R.string.settings)
+                            contentDescription = "Open settings"
                         )
                     }
                 }

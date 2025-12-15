@@ -57,6 +57,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import android.content.Intent
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.presentation.common.theme.spacing
 import org.koin.androidx.compose.koinViewModel
@@ -129,15 +132,18 @@ fun ConverterScreen(
                     onClick = { viewModel.swapBases() },
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .size(32.dp)
+                        .size(48.dp)
                         .clip(RoundedCornerShape(50))
                         .background(MaterialTheme.colorScheme.primaryContainer)
+                        .semantics {
+                            contentDescription = "Swap input and output bases. Currently converting from ${uiState.fromBase.displayName} to ${uiState.toBase.displayName}"
+                        }
                 ) {
                     Icon(
                         imageVector = Icons.Default.SwapVert,
-                        contentDescription = "Swap bases",
+                        contentDescription = null,
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                 }
 
@@ -175,23 +181,23 @@ fun ConverterScreen(
                                 onClick = {
                                     clipboardManager.setText(AnnotatedString(uiState.output))
                                 },
-                                modifier = Modifier.size(28.dp)
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Icon(
                                     Icons.Default.ContentCopy,
-                                    contentDescription = "Copy",
-                                    modifier = Modifier.size(20.dp)
+                                    contentDescription = "Copy result to clipboard",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
 
                             IconButton(
                                 onClick = { viewModel.clearInput() },
-                                modifier = Modifier.size(28.dp)
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Icon(
                                     Icons.Default.Delete,
-                                    contentDescription = "Clear",
-                                    modifier = Modifier.size(20.dp)
+                                    contentDescription = "Clear input",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
 
@@ -204,12 +210,12 @@ fun ConverterScreen(
                                     }
                                     context.startActivity(Intent.createChooser(intent, "Share conversion"))
                                 },
-                                modifier = Modifier.size(28.dp)
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Icon(
                                     Icons.Default.Share,
-                                    contentDescription = "Share",
-                                    modifier = Modifier.size(20.dp)
+                                    contentDescription = "Share conversion result",
+                                    modifier = Modifier.size(24.dp)
                                 )
                             }
                         }

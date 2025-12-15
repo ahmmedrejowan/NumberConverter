@@ -5,17 +5,41 @@
  <p align="center"> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/issues"><img src="https://img.shields.io/github/issues/ahmmedrejowan/Number-Converter-Compose" alt="GitHub issues"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/network"><img src="https://img.shields.io/github/forks/ahmmedrejowan/Number-Converter-Compose" alt="GitHub forks"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/stargazers"><img src="https://img.shields.io/github/stars/ahmmedrejowan/Number-Converter-Compose" alt="GitHub stars"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/graphs/contributors"> <img src="https://img.shields.io/github/contributors/ahmmedrejowan/Number-Converter-Compose" alt="GitHub contributors"></a>   </p>
 <hr>
 
-## Idea and Motivation
-**Number System Converter** was my first project in Java and Android. Later I recreated this project twice in kotlin and now I have done it in Jetpack Compose.
+## About
+**Number Converter** is a comprehensive educational app for mastering number systems. It combines a powerful converter with interactive lessons and practice exercises to help you understand Binary, Octal, Decimal, and Hexadecimal number systems.
 
 
 ## Features
-- Conversion
-  - Between Binary, Octal, Decimal, and Hexadecimal with Decimal Point
-- Explanation
-  - Real-time explanation of the conversion process.
 
-The app not only converts the number but also explains the conversion process. This feature is very helpful for students who are learning number systems.
+### 🔄 Converter
+- Convert between Binary, Octal, Decimal, and Hexadecimal
+- Support for both integers and fractional numbers
+- Step-by-step conversion explanations
+- Copy, share, and save conversions
+- Conversion history with bookmarks
+
+### 🧮 Calculator
+- Perform arithmetic operations (+, -, ×, ÷) across different bases
+- Multi-base input support
+- Detailed calculation breakdowns
+
+### 📚 Learn (30 Lessons)
+- **Beginner (1-10)**: Number system basics, binary, hex, octal fundamentals
+- **Intermediate (11-20)**: Fractional conversions, quick techniques, relationships
+- **Advanced (21-30)**: Two's complement, binary arithmetic, bitwise operations, BCD, Gray Code
+
+### 📝 Practice
+- **Conversion Mode**: Practice number conversions
+- **Calculation Mode**: Practice arithmetic in different bases
+- **MCQ Mode**: Multiple choice questions
+- **Timed Exam Mode**: Test yourself with a timer
+
+### ⚙️ Settings
+- Light/Dark/System themes
+- Dynamic colors (Material You)
+- Adjustable font sizes
+- Customizable decimal places
+- Auto-save history toggle
 
 ## Screenshots
 
@@ -38,21 +62,35 @@ The app is not available on the Play Store yet. You can download the latest vers
 Check out the [releases](https://github.com/ahmmedrejowan/Number-Converter-Compose/releases) section for more details
 
 ## Tech Stack
-- [Jetpack Compose](https://developer.android.com/jetpack/compose)
-- [Kotlin](https://kotlinlang.org/)
-- [Material 3](https://m3.material.io/)
-- [Splash Screen](https://developer.android.com/about/versions/12/features/splash-screen)
-- [Material Theme Builder](https://material-foundation.github.io/material-theme-builder)
-- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+- [Kotlin](https://kotlinlang.org/) - Primary language
+- [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern UI toolkit
+- [Material 3](https://m3.material.io/) - Design system
+- [Koin](https://insert-koin.io/) - Dependency injection
+- [Room](https://developer.android.com/training/data-storage/room) - Local database
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Preferences
+- [Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html) - Async programming
+- [Navigation Compose](https://developer.android.com/jetpack/compose/navigation) - Navigation
 
+## Architecture
+The app follows Clean Architecture with MVVM pattern:
+- **Presentation Layer**: Compose UI, ViewModels, State management
+- **Domain Layer**: Use cases, Repository interfaces, Models
+- **Data Layer**: Repository implementations, Room database, DataStore
+
+## Testing
+- 167+ unit tests covering:
+  - Conversion logic (BaseConverter)
+  - Use cases (Validation, Formatting, Conversion)
+  - ViewModels (Converter, Calculator)
+  - Repository implementations
 
 ## Releases
-- [Version 0.1](https://github.com/ahmmedrejowan/Number-Converter-Compose/releases/tag/0.1)
-  - Initial release
-
-## Notes
-- This is the first version of the app. There may be some bugs. Please report them in the issues section.
-- There are some boilerplate codes in the project in the explanation section. I will remove them in the next version.
+- **Version 1.0.0** (Coming Soon)
+  - Complete rebuild with 30 lessons
+  - Calculator feature
+  - Practice modes (Conversion, Calculation, MCQ, Exam)
+  - Improved UI/UX with animations
+  - Full test coverage
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
