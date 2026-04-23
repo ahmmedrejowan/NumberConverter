@@ -20,7 +20,7 @@ class GetSettingsUseCase(
     private val preferencesManager: PreferencesManager
 ) {
     operator fun invoke(): Flow<AppSettings> {
-        return combine(
+        val flows: List<Flow<Any>> = listOf(
             preferencesManager.theme,
             preferencesManager.dynamicColors,
             preferencesManager.fontSize,
@@ -30,7 +30,8 @@ class GetSettingsUseCase(
             preferencesManager.inputValidation,
             preferencesManager.autoAdvanceLessons,
             preferencesManager.dailyReminders
-        ) { values: Array<*> ->
+        )
+        return combine(flows) { values ->
             AppSettings(
                 theme = values[0] as String,
                 dynamicColors = values[1] as Boolean,
