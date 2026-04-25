@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -95,6 +96,9 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // Kotlin Serialization (for type-safe navigation)
+    implementation(libs.kotlinx.serialization.json)
 
     // Koin DI
     implementation(libs.koin.android)

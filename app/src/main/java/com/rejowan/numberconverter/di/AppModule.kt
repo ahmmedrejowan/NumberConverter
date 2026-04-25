@@ -18,7 +18,6 @@ import com.rejowan.numberconverter.domain.usecase.settings.GetSettingsUseCase
 import com.rejowan.numberconverter.domain.usecase.settings.UpdateSettingUseCase
 import com.rejowan.numberconverter.presentation.calculator.CalculatorViewModel
 import com.rejowan.numberconverter.presentation.converter.ConverterViewModel
-import com.rejowan.numberconverter.presentation.home.HomeViewModel
 import com.rejowan.numberconverter.presentation.onboarding.OnboardingViewModel
 import com.rejowan.numberconverter.presentation.settings.SettingsViewModel
 import org.koin.android.ext.koin.androidContext
@@ -58,7 +57,6 @@ val appModule = module {
     // ViewModels
     viewModel { ConverterViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { CalculatorViewModel(get(), get(), get()) }
-    viewModel { HomeViewModel() }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { OnboardingViewModel(get()) }
 }
