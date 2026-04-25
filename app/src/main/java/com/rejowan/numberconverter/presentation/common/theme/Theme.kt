@@ -22,6 +22,34 @@ import androidx.core.view.WindowCompat
  */
 val LocalIsDarkTheme = staticCompositionLocalOf { false }
 
+/**
+ * Theme-aware soft accent palette — pulls light or dark variants based on the
+ * active `LocalIsDarkTheme`. Use these for icon containers, accent chips, and
+ * other "meaningful color" decorations in light/dark-aware screens.
+ */
+object SoftAccents {
+    val Blue: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Blue else SoftAccentsLight.Blue
+
+    val Purple: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Purple else SoftAccentsLight.Purple
+
+    val Pink: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Pink else SoftAccentsLight.Pink
+
+    val Teal: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Teal else SoftAccentsLight.Teal
+
+    val Amber: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Amber else SoftAccentsLight.Amber
+
+    val Green: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Green else SoftAccentsLight.Green
+
+    val Red: androidx.compose.ui.graphics.Color
+        @Composable get() = if (LocalIsDarkTheme.current) SoftAccentsDark.Red else SoftAccentsLight.Red
+}
+
 // ============================================================================
 // DARK COLOR SCHEME
 // ============================================================================

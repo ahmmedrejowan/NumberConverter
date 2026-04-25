@@ -69,28 +69,34 @@ fun HomeScreen() {
         NavItem.SETTINGS -> stringResource(R.string.title_settings)
     }
 
+    // Settings owns its own large header — hide the TopAppBar there to avoid a
+    // redundant "Settings" title above the screen's own headline.
+    val showTopBar = current != NavItem.SETTINGS
+
     Box(modifier = Modifier.fillMaxSize()) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = {
-                TopAppBar(
-                    title = { Text(text = title) },
-                    actions = {
-                        if (current == NavItem.CONVERTER) {
-                            IconButton(onClick = { showHistorySheet = true }) {
-                                Icon(
-                                    imageVector = Icons.Default.History,
-                                    contentDescription = "View conversion history",
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
+                if (showTopBar) {
+                    TopAppBar(
+                        title = { Text(text = title) },
+                        actions = {
+                            if (current == NavItem.CONVERTER) {
+                                IconButton(onClick = { showHistorySheet = true }) {
+                                    Icon(
+                                        imageVector = Icons.Default.History,
+                                        contentDescription = "View conversion history",
+                                        tint = MaterialTheme.colorScheme.primary
+                                    )
+                                }
                             }
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.surface,
-                        titleContentColor = MaterialTheme.colorScheme.onSurface
+                        },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.surface,
+                            titleContentColor = MaterialTheme.colorScheme.onSurface
+                        )
                     )
-                )
+                }
             },
             // Keep status-bar inset; let content bleed behind the bottom nav.
             contentWindowInsets = WindowInsets.statusBars

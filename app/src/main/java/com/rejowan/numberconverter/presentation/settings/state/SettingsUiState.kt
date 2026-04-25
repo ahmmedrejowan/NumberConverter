@@ -12,9 +12,6 @@ data class SettingsUiState(
     val showExplanations: Boolean = true,
     val inputValidation: String = "strict",
 
-    // UI state
-    val isLoading: Boolean = false,
-    val showThemeDialog: Boolean = false,
-    val showFontSizeDialog: Boolean = false,
-    val showDecimalPlacesDialog: Boolean = false
+    // Loading
+    val isLoading: Boolean = false
 )

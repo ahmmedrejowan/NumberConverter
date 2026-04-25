@@ -113,3 +113,29 @@ object OnboardingColors {
     val Page2 = Color(0xFF26A69A)  // Teal — Calculator
     val Page3 = Color(0xFFEF6C00)  // Burnt Amber — History
 }
+
+// ============================================================================
+// SOFT ACCENT COLORS — used for icon containers, chips, and section accents
+// throughout the UI. Theme-aware (dark/light variants) — resolved at composition
+// time via the `SoftAccents` getter in Theme.kt.
+// ============================================================================
+
+object SoftAccentsDark {
+    val Blue = Color(0xFF64B5F6)
+    val Purple = Color(0xFF9575CD)
+    val Pink = Color(0xFFF06292)
+    val Teal = Color(0xFF4DB6AC)
+    val Amber = Color(0xFFFFB74D)
+    val Green = Color(0xFF81C784)
+    val Red = Color(0xFFE57373)
+}
+
+object SoftAccentsLight {
+    val Blue = Color(0xFF1976D2)
+    val Purple = Color(0xFF7E57C2)
+    val Pink = Color(0xFFD81B60)
+    val Teal = Color(0xFF00897B)
+    val Amber = Color(0xFFF57C00)
+    val Green = Color(0xFF2E7D32)
+    val Red = Color(0xFFC62828)
+}

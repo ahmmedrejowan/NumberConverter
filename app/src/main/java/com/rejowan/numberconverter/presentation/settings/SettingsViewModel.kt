@@ -68,10 +68,6 @@ class SettingsViewModel(
         viewModelScope.launch { updateSettingUseCase.updateShowExplanations(enabled) }
     }
 
-    fun updateInputValidation(mode: String) {
-        viewModelScope.launch { updateSettingUseCase.updateInputValidation(mode) }
-    }
-
     fun clearHistory() {
         viewModelScope.launch { deleteHistoryUseCase.deleteAll() }
     }
@@ -79,11 +75,4 @@ class SettingsViewModel(
     fun resetSettings() {
         viewModelScope.launch { updateSettingUseCase.resetAllSettings() }
     }
-
-    fun showThemeDialog() { _uiState.update { it.copy(showThemeDialog = true) } }
-    fun hideThemeDialog() { _uiState.update { it.copy(showThemeDialog = false) } }
-    fun showFontSizeDialog() { _uiState.update { it.copy(showFontSizeDialog = true) } }
-    fun hideFontSizeDialog() { _uiState.update { it.copy(showFontSizeDialog = false) } }
-    fun showDecimalPlacesDialog() { _uiState.update { it.copy(showDecimalPlacesDialog = true) } }
-    fun hideDecimalPlacesDialog() { _uiState.update { it.copy(showDecimalPlacesDialog = false) } }
 }
