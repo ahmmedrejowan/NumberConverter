@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -83,9 +84,10 @@ fun ConverterScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
+            .imePadding() // lift content above the keyboard
             .padding(horizontal = 16.dp)
             .padding(top = 8.dp, bottom = 120.dp), // bottom padding for floating bottom nav
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         // Hero conversion card — the headline content of the screen.
         ElevatedCard(
@@ -99,11 +101,9 @@ fun ConverterScreen(
             shape = RoundedCornerShape(20.dp)
         ) {
             Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                // FROM
-                SectionLabel(text = "FROM")
                 BaseSelectorRow(
                     selected = uiState.fromBase,
                     onSelect = { viewModel.onFromBaseChanged(it) }
@@ -131,8 +131,8 @@ fun ConverterScreen(
                     )
                 )
 
-                // Swap divider — visually separates FROM/TO
-                SwapDivider(
+                // Compact swap button between the FROM and TO halves
+                SwapButton(
                     onSwap = {
                         focusManager.clearFocus()
                         viewModel.swapBases()
@@ -141,8 +141,6 @@ fun ConverterScreen(
                     toBase = uiState.toBase
                 )
 
-                // TO
-                SectionLabel(text = "TO")
                 BaseSelectorRow(
                     selected = uiState.toBase,
                     onSelect = { viewModel.onToBaseChanged(it) }
@@ -266,35 +264,19 @@ fun ConverterScreen(
 // ============================================================================
 
 @Composable
-private fun SectionLabel(text: String) {
-    Text(
-        text = text,
-        style = MaterialTheme.typography.labelMedium.copy(
-            fontWeight = FontWeight.SemiBold,
-            letterSpacing = MaterialTheme.typography.labelMedium.letterSpacing * 1.5f
-        ),
-        color = MaterialTheme.colorScheme.primary
-    )
-}
-
-@Composable
-private fun SwapDivider(
+private fun SwapButton(
     onSwap: () -> Unit,
     fromBase: NumberBase,
     toBase: NumberBase
 ) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
     ) {
-        DividerLine(modifier = Modifier.weight(1f))
-        Spacer(modifier = Modifier.width(12.dp))
         IconButton(
             onClick = onSwap,
             modifier = Modifier
-                .size(48.dp)
+                .size(36.dp)
                 .clip(CircleShape)
                 .background(MaterialTheme.colorScheme.primary)
         ) {
@@ -302,21 +284,10 @@ private fun SwapDivider(
                 imageVector = Icons.Default.SwapVert,
                 contentDescription = "Swap ${fromBase.displayName} and ${toBase.displayName}",
                 tint = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.size(22.dp)
+                modifier = Modifier.size(18.dp)
             )
         }
-        Spacer(modifier = Modifier.width(12.dp))
-        DividerLine(modifier = Modifier.weight(1f))
     }
-}
-
-@Composable
-private fun DividerLine(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .height(1.dp)
-            .background(MaterialTheme.colorScheme.outlineVariant)
-    )
 }
 
 @Composable

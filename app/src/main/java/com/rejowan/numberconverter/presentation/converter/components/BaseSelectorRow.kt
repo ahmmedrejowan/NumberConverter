@@ -74,16 +74,16 @@ private fun BasePill(
 
     Surface(
         modifier = modifier
-            .height(40.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .height(32.dp)
+            .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(12.dp),
+        shape = RoundedCornerShape(10.dp),
         color = containerColor
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(
                 text = label,
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = contentColor
             )
