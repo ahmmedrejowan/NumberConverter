@@ -1,20 +1,65 @@
 package com.rejowan.numberconverter.presentation.converter.components
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.automirrored.rounded.ArrowForward
+import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material.icons.rounded.Clear
+import androidx.compose.material.icons.rounded.DeleteSweep
+import androidx.compose.material.icons.rounded.History
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.Star
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.PrimaryTabRow
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Tab
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.rejowan.numberconverter.domain.model.HistoryItem
-import com.rejowan.numberconverter.presentation.common.theme.spacing
+import com.rejowan.numberconverter.domain.model.NumberBase
+import com.rejowan.numberconverter.presentation.common.components.EmptyBookmarksState
+import com.rejowan.numberconverter.presentation.common.components.EmptyHistoryState
+import com.rejowan.numberconverter.presentation.common.components.EmptySearchState
+import com.rejowan.numberconverter.presentation.settings.components.ConfirmationSheet
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+
+private const val TAB_RECENT = 0
+private const val TAB_BOOKMARKED = 1
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,121 +74,138 @@ fun HistoryBottomSheet(
     modifier: Modifier = Modifier
 ) {
     var searchQuery by remember { mutableStateOf("") }
-    var selectedTab by remember { mutableStateOf(0) }
-    var showClearDialog by remember { mutableStateOf(false) }
+    var selectedTab by remember { mutableIntStateOf(TAB_RECENT) }
+    var showClearConfirm by remember { mutableStateOf(false) }
 
-    // Filter items based on search query
-    val filteredItems = remember(historyItems, searchQuery, selectedTab) {
-        val items = if (selectedTab == 0) historyItems else bookmarkedItems
-        if (searchQuery.isEmpty()) {
-            items
-        } else {
-            items.filter {
-                it.input.contains(searchQuery, ignoreCase = true) ||
-                        it.output.contains(searchQuery, ignoreCase = true) ||
-                        it.fromBase.displayName.contains(searchQuery, ignoreCase = true) ||
-                        it.toBase.displayName.contains(searchQuery, ignoreCase = true)
-            }
+    val filteredItems = remember(historyItems, bookmarkedItems, searchQuery, selectedTab) {
+        val items = if (selectedTab == TAB_RECENT) historyItems else bookmarkedItems
+        if (searchQuery.isEmpty()) items
+        else items.filter {
+            it.input.contains(searchQuery, ignoreCase = true) ||
+                it.output.contains(searchQuery, ignoreCase = true) ||
+                it.fromBase.displayName.contains(searchQuery, ignoreCase = true) ||
+                it.toBase.displayName.contains(searchQuery, ignoreCase = true)
         }
     }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
-        modifier = modifier
+        modifier = modifier,
+        shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.85f)
-                .padding(horizontal = spacing.medium)
+                .padding(horizontal = 20.dp)
+                .padding(bottom = 20.dp)
         ) {
             // Header
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = spacing.medium),
+                    .padding(bottom = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Conversion History",
-                    style = MaterialTheme.typography.headlineSmall,
+                    text = "History",
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
-
-                Row(horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)) {
-                    if (historyItems.isNotEmpty()) {
-                        IconButton(onClick = { showClearDialog = true }) {
-                            Icon(
-                                imageVector = Icons.Default.DeleteSweep,
-                                contentDescription = "Clear all"
-                            )
-                        }
-                    }
-                    IconButton(onClick = onDismiss) {
+                if (historyItems.isNotEmpty()) {
+                    TextButton(onClick = { showClearConfirm = true }) {
                         Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Close"
+                            imageVector = Icons.Rounded.DeleteSweep,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "Clear",
+                            style = MaterialTheme.typography.labelLarge
                         )
                     }
                 }
             }
 
-            // Search bar
+            // Search bar — filled style matching the Converter input
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = spacing.small),
-                placeholder = { Text("Search conversions...") },
+                    .padding(bottom = 8.dp),
+                placeholder = { Text("Search conversions") },
                 leadingIcon = {
-                    Icon(Icons.Default.Search, contentDescription = "Search")
+                    Icon(
+                        Icons.Rounded.Search,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp)
+                    )
                 },
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
                         IconButton(onClick = { searchQuery = "" }) {
-                            Icon(Icons.Default.Clear, contentDescription = "Clear search")
+                            Icon(
+                                Icons.Rounded.Clear,
+                                contentDescription = "Clear search",
+                                modifier = Modifier.size(18.dp)
+                            )
                         }
                     }
                 },
-                singleLine = true
+                singleLine = true,
+                shape = RoundedCornerShape(14.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surfaceContainerLow
+                )
             )
 
-            // Tabs
-            TabRow(
+            // Tabs — PrimaryTabRow (replaces deprecated TabRow)
+            PrimaryTabRow(
                 selectedTabIndex = selectedTab,
-                modifier = Modifier.padding(bottom = spacing.small)
+                modifier = Modifier.padding(bottom = 8.dp),
+                containerColor = Color.Transparent
             ) {
                 Tab(
-                    selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 },
-                    text = { Text("Recent (${historyItems.size})") }
+                    selected = selectedTab == TAB_RECENT,
+                    onClick = { selectedTab = TAB_RECENT },
+                    text = {
+                        TabLabel(
+                            label = "Recent",
+                            count = historyItems.size,
+                            selected = selectedTab == TAB_RECENT
+                        )
+                    }
                 )
                 Tab(
-                    selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 },
-                    text = { Text("Bookmarks (${bookmarkedItems.size})") },
-                    icon = { Icon(Icons.Default.Star, contentDescription = null) }
+                    selected = selectedTab == TAB_BOOKMARKED,
+                    onClick = { selectedTab = TAB_BOOKMARKED },
+                    text = {
+                        TabLabel(
+                            label = "Bookmarks",
+                            count = bookmarkedItems.size,
+                            selected = selectedTab == TAB_BOOKMARKED
+                        )
+                    }
                 )
             }
 
-            // Content
             if (filteredItems.isEmpty()) {
-                EmptyHistoryView(
-                    isBookmarked = selectedTab == 1,
-                    hasSearchQuery = searchQuery.isNotEmpty()
-                )
+                when {
+                    searchQuery.isNotEmpty() -> EmptySearchState(query = searchQuery)
+                    selectedTab == TAB_BOOKMARKED -> EmptyBookmarksState()
+                    else -> EmptyHistoryState()
+                }
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(spacing.small),
-                    contentPadding = PaddingValues(bottom = spacing.large)
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    contentPadding = PaddingValues(top = 4.dp, bottom = 16.dp)
                 ) {
-                    items(
-                        items = filteredItems,
-                        key = { it.id }
-                    ) { item ->
+                    items(items = filteredItems, key = { it.id }) { item ->
                         HistoryItemCard(
                             item = item,
                             onItemClick = { onItemClick(item) },
@@ -156,72 +218,45 @@ fun HistoryBottomSheet(
         }
     }
 
-    // Clear All Confirmation Dialog
-    if (showClearDialog) {
-        AlertDialog(
-            onDismissRequest = { showClearDialog = false },
-            title = { Text("Clear History?") },
-            text = { Text("This will delete all conversion history. Bookmarked items will be preserved.") },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onClearAll()
-                        showClearDialog = false
-                    }
-                ) {
-                    Text("Clear All")
-                }
+    if (showClearConfirm) {
+        ConfirmationSheet(
+            title = "Clear History?",
+            message = "This will remove all conversion history. Bookmarked items will be preserved.",
+            confirmLabel = "Clear",
+            icon = Icons.Rounded.DeleteSweep,
+            onConfirm = {
+                onClearAll()
+                showClearConfirm = false
             },
-            dismissButton = {
-                TextButton(onClick = { showClearDialog = false }) {
-                    Text("Cancel")
-                }
-            }
+            onDismiss = { showClearConfirm = false }
         )
     }
 }
 
 @Composable
-private fun EmptyHistoryView(
-    isBookmarked: Boolean,
-    hasSearchQuery: Boolean
-) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(spacing.small)
-        ) {
-            Icon(
-                imageVector = when {
-                    hasSearchQuery -> Icons.Default.SearchOff
-                    isBookmarked -> Icons.Default.StarBorder
-                    else -> Icons.Default.History
-                },
-                contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                tint = MaterialTheme.colorScheme.outline
-            )
-            Text(
-                text = when {
-                    hasSearchQuery -> "No results found"
-                    isBookmarked -> "No bookmarks yet"
-                    else -> "No history yet"
-                },
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Text(
-                text = when {
-                    hasSearchQuery -> "Try a different search term"
-                    isBookmarked -> "Tap the star icon to bookmark conversions"
-                    else -> "Start converting numbers to see them here"
-                },
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.outline
-            )
+private fun TabLabel(label: String, count: Int, selected: Boolean) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelLarge,
+            fontWeight = FontWeight.SemiBold
+        )
+        if (count > 0) {
+            Spacer(modifier = Modifier.width(6.dp))
+            Surface(
+                shape = RoundedCornerShape(8.dp),
+                color = if (selected) MaterialTheme.colorScheme.primary
+                else MaterialTheme.colorScheme.surfaceContainerHigh
+            ) {
+                Text(
+                    text = count.toString(),
+                    style = MaterialTheme.typography.labelSmall,
+                    fontWeight = FontWeight.Bold,
+                    color = if (selected) MaterialTheme.colorScheme.onPrimary
+                    else MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp)
+                )
+            }
         }
     }
 }
@@ -234,112 +269,131 @@ private fun HistoryItemCard(
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val dateFormatter = remember { SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()) }
-    val timeFormatter = remember { SimpleDateFormat("hh:mm a", Locale.getDefault()) }
-    val formattedDate = remember(item.timestamp) {
-        dateFormatter.format(Date(item.timestamp))
-    }
-    val formattedTime = remember(item.timestamp) {
-        timeFormatter.format(Date(item.timestamp))
+    val timestamp = remember(item.timestamp) { formatTimestamp(item.timestamp) }
+
+    val containerColor = if (item.isBookmarked) {
+        MaterialTheme.colorScheme.primary.copy(alpha = 0.06f)
+    } else {
+        MaterialTheme.colorScheme.surfaceContainerLow
     }
 
-    ElevatedCard(
+    Surface(
         onClick = onItemClick,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        color = containerColor
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(spacing.small),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Conversion info
             Column(
                 modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                // From
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
-                ) {
-                    Text(
-                        text = item.fromBase.displayName,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Text(
-                        text = item.input,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-
-                // Arrow
-                Icon(
-                    imageVector = Icons.Default.ArrowDownward,
-                    contentDescription = null,
-                    modifier = Modifier.size(12.dp),
-                    tint = MaterialTheme.colorScheme.outline
+                // From row
+                ConversionLine(
+                    base = item.fromBase,
+                    value = item.input,
+                    accentColor = MaterialTheme.colorScheme.primary,
+                    valueWeight = FontWeight.Medium
                 )
-
-                // To
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(spacing.extraSmall)
-                ) {
-                    Text(
-                        text = item.toBase.displayName,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                    Text(
-                        text = item.output,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-
-                // Timestamp
+                // Direction arrow
+                Icon(
+                    imageVector = Icons.AutoMirrored.Rounded.ArrowForward,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(start = 4.dp)
+                        .size(14.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
+                )
+                // To row
+                ConversionLine(
+                    base = item.toBase,
+                    value = item.output,
+                    accentColor = MaterialTheme.colorScheme.tertiary,
+                    valueWeight = FontWeight.SemiBold
+                )
                 Text(
-                    text = "$formattedDate at $formattedTime",
+                    text = timestamp,
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.outline
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                 )
             }
 
-            // Actions
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(0.dp),
-                verticalAlignment = Alignment.CenterVertically
+            Spacer(modifier = Modifier.width(8.dp))
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                // Bookmark button
                 IconButton(
                     onClick = onToggleBookmark,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
-                        imageVector = if (item.isBookmarked) Icons.Default.Star else Icons.Default.StarBorder,
+                        imageVector = if (item.isBookmarked) Icons.Rounded.Star else Icons.Outlined.StarBorder,
                         contentDescription = if (item.isBookmarked) "Remove bookmark" else "Add bookmark",
                         modifier = Modifier.size(20.dp),
-                        tint = if (item.isBookmarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.outline
+                        tint = if (item.isBookmarked) MaterialTheme.colorScheme.primary
+                        else MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-
-                // Delete button
                 IconButton(
                     onClick = onDelete,
                     modifier = Modifier.size(36.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Delete,
+                        imageVector = Icons.Outlined.DeleteOutline,
                         contentDescription = "Delete",
-                        modifier = Modifier.size(18.dp),
-                        tint = MaterialTheme.colorScheme.error
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.error.copy(alpha = 0.85f)
                     )
                 }
             }
         }
     }
+}
+
+@Composable
+private fun ConversionLine(
+    base: NumberBase,
+    value: String,
+    accentColor: Color,
+    valueWeight: FontWeight
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Surface(
+            shape = RoundedCornerShape(6.dp),
+            color = accentColor.copy(alpha = 0.15f)
+        ) {
+            Text(
+                text = base.displayName.uppercase().take(3),
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.SemiBold,
+                color = accentColor,
+                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+            )
+        }
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = valueWeight,
+            color = MaterialTheme.colorScheme.onSurface,
+            modifier = Modifier.weight(1f, fill = false)
+        )
+    }
+}
+
+private val historyDateFormat = SimpleDateFormat("MMM d", Locale.getDefault())
+private val historyTimeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+
+private fun formatTimestamp(timestamp: Long): String {
+    val date = Date(timestamp)
+    return "${historyDateFormat.format(date)} · ${historyTimeFormat.format(date)}"
 }
