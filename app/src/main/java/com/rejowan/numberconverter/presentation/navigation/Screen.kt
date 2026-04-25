@@ -2,6 +2,7 @@ package com.rejowan.numberconverter.presentation.navigation
 
 sealed class Screen(val route: String) {
     // Parent Navigation Screens
+    data object Onboarding : Screen("onboarding")
     data object Home : Screen("home")
 
     // Home Navigation Screens (Bottom Nav)

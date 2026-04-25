@@ -30,6 +30,9 @@ class PreferencesManager(private val context: Context) {
         private val KEY_DYNAMIC_COLORS = booleanPreferencesKey("dynamic_colors")
         private val KEY_FONT_SIZE = stringPreferencesKey("font_size")
 
+        // Onboarding
+        private val KEY_ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
+
         // Default values
         const val DEFAULT_DECIMAL_PLACES = 15
         const val DEFAULT_THEME = "system"
@@ -106,6 +109,17 @@ class PreferencesManager(private val context: Context) {
     suspend fun setFontSize(size: String) {
         context.dataStore.edit { preferences ->
             preferences[KEY_FONT_SIZE] = size
+        }
+    }
+
+    // Onboarding
+    val onboardingCompleted: Flow<Boolean> = context.dataStore.data.map { preferences ->
+        preferences[KEY_ONBOARDING_COMPLETED] ?: false
+    }
+
+    suspend fun setOnboardingCompleted(completed: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[KEY_ONBOARDING_COMPLETED] = completed
         }
     }
 
