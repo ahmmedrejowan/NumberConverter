@@ -56,6 +56,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.rejowan.numberconverter.domain.model.NumberBase
@@ -111,6 +112,8 @@ fun ConverterScreen(
                 OutlinedTextField(
                     value = uiState.input,
                     onValueChange = { raw ->
+                        // filterInputForBase drops anything that isn't a valid digit
+                        // (including newlines), so wrapping never inserts \n into state.
                         viewModel.onInputChanged(filterInputForBase(raw, uiState.fromBase))
                     },
                     modifier = Modifier.fillMaxWidth(),
@@ -119,10 +122,14 @@ fun ConverterScreen(
                     supportingText = uiState.validationError?.let { msg ->
                         { Text(msg) }
                     },
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+                    // Multi-line wrapping instead of horizontal scroll — capped at 4
+                    // lines so a paste of a 10k-char value doesn't blow up the card.
+                    minLines = 1,
+                    maxLines = 4,
+                    textStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                     keyboardOptions = KeyboardOptions(
-                        keyboardType = getKeyboardTypeForBase(uiState.fromBase)
+                        keyboardType = getKeyboardTypeForBase(uiState.fromBase),
+                        imeAction = ImeAction.Done
                     ),
                     shape = RoundedCornerShape(14.dp),
                     colors = TextFieldDefaults.colors(
@@ -307,13 +314,13 @@ private fun OutputDisplay(output: String) {
             if (output.isEmpty()) {
                 Text(
                     text = "Result will appear here",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                 )
             } else {
                 Text(
                     text = output,
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colorScheme.primary
                 )
             }
