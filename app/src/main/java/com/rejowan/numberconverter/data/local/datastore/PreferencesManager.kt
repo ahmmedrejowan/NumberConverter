@@ -30,10 +30,6 @@ class PreferencesManager(private val context: Context) {
         private val KEY_DYNAMIC_COLORS = booleanPreferencesKey("dynamic_colors")
         private val KEY_FONT_SIZE = stringPreferencesKey("font_size")
 
-        // Learning preferences
-        private val KEY_AUTO_ADVANCE_LESSONS = booleanPreferencesKey("auto_advance_lessons")
-        private val KEY_DAILY_REMINDERS = booleanPreferencesKey("daily_reminders")
-
         // Default values
         const val DEFAULT_DECIMAL_PLACES = 15
         const val DEFAULT_THEME = "system"
@@ -110,27 +106,6 @@ class PreferencesManager(private val context: Context) {
     suspend fun setFontSize(size: String) {
         context.dataStore.edit { preferences ->
             preferences[KEY_FONT_SIZE] = size
-        }
-    }
-
-    // Learning preferences
-    val autoAdvanceLessons: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[KEY_AUTO_ADVANCE_LESSONS] ?: false
-    }
-
-    suspend fun setAutoAdvanceLessons(enabled: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[KEY_AUTO_ADVANCE_LESSONS] = enabled
-        }
-    }
-
-    val dailyReminders: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[KEY_DAILY_REMINDERS] ?: false
-    }
-
-    suspend fun setDailyReminders(enabled: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[KEY_DAILY_REMINDERS] = enabled
         }
     }
 

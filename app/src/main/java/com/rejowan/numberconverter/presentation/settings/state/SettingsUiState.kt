@@ -12,10 +12,6 @@ data class SettingsUiState(
     val showExplanations: Boolean = true,
     val inputValidation: String = "strict",
 
-    // Learning
-    val autoAdvanceLessons: Boolean = false,
-    val dailyReminders: Boolean = false,
-
     // UI state
     val isLoading: Boolean = false,
     val showThemeDialog: Boolean = false,

@@ -15,8 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.SearchOff
 import androidx.compose.material.icons.outlined.Bookmark
-import androidx.compose.material.icons.outlined.EmojiEvents
-import androidx.compose.material.icons.outlined.School
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -123,22 +121,3 @@ fun EmptySearchState(
     )
 }
 
-@Composable
-fun EmptyLessonsState(modifier: Modifier = Modifier) {
-    EmptyState(
-        icon = Icons.Outlined.School,
-        title = "Lessons Unavailable",
-        message = "Lessons could not be loaded. Please try again later.",
-        modifier = modifier
-    )
-}
-
-@Composable
-fun EmptyPracticeState(modifier: Modifier = Modifier) {
-    EmptyState(
-        icon = Icons.Outlined.EmojiEvents,
-        title = "Ready to Practice",
-        message = "Select a practice mode above to start improving your skills!",
-        modifier = modifier
-    )
-}

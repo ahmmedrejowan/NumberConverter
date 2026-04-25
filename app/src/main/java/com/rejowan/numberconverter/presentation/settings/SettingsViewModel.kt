@@ -37,8 +37,6 @@ class SettingsViewModel(
                         autoSaveHistory = settings.autoSaveHistory,
                         showExplanations = settings.showExplanations,
                         inputValidation = settings.inputValidation,
-                        autoAdvanceLessons = settings.autoAdvanceLessons,
-                        dailyReminders = settings.dailyReminders,
                         isLoading = false
                     )
                 }
@@ -47,92 +45,45 @@ class SettingsViewModel(
     }
 
     fun updateTheme(theme: String) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateTheme(theme)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateTheme(theme) }
     }
 
     fun updateDynamicColors(enabled: Boolean) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateDynamicColors(enabled)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateDynamicColors(enabled) }
     }
 
     fun updateFontSize(size: String) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateFontSize(size)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateFontSize(size) }
     }
 
     fun updateDecimalPlaces(places: Int) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateDecimalPlaces(places)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateDecimalPlaces(places) }
     }
 
     fun updateAutoSaveHistory(enabled: Boolean) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateAutoSaveHistory(enabled)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateAutoSaveHistory(enabled) }
     }
 
     fun updateShowExplanations(enabled: Boolean) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateShowExplanations(enabled)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateShowExplanations(enabled) }
     }
 
     fun updateInputValidation(mode: String) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateInputValidation(mode)
-        }
-    }
-
-    fun updateAutoAdvanceLessons(enabled: Boolean) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateAutoAdvanceLessons(enabled)
-        }
-    }
-
-    fun updateDailyReminders(enabled: Boolean) {
-        viewModelScope.launch {
-            updateSettingUseCase.updateDailyReminders(enabled)
-        }
+        viewModelScope.launch { updateSettingUseCase.updateInputValidation(mode) }
     }
 
     fun clearHistory() {
-        viewModelScope.launch {
-            deleteHistoryUseCase.deleteAll()
-        }
+        viewModelScope.launch { deleteHistoryUseCase.deleteAll() }
     }
 
     fun resetSettings() {
-        viewModelScope.launch {
-            updateSettingUseCase.resetAllSettings()
-        }
+        viewModelScope.launch { updateSettingUseCase.resetAllSettings() }
     }
 
-    fun showThemeDialog() {
-        _uiState.update { it.copy(showThemeDialog = true) }
-    }
-
-    fun hideThemeDialog() {
-        _uiState.update { it.copy(showThemeDialog = false) }
-    }
-
-    fun showFontSizeDialog() {
-        _uiState.update { it.copy(showFontSizeDialog = true) }
-    }
-
-    fun hideFontSizeDialog() {
-        _uiState.update { it.copy(showFontSizeDialog = false) }
-    }
-
-    fun showDecimalPlacesDialog() {
-        _uiState.update { it.copy(showDecimalPlacesDialog = true) }
-    }
-
-    fun hideDecimalPlacesDialog() {
-        _uiState.update { it.copy(showDecimalPlacesDialog = false) }
-    }
+    fun showThemeDialog() { _uiState.update { it.copy(showThemeDialog = true) } }
+    fun hideThemeDialog() { _uiState.update { it.copy(showThemeDialog = false) } }
+    fun showFontSizeDialog() { _uiState.update { it.copy(showFontSizeDialog = true) } }
+    fun hideFontSizeDialog() { _uiState.update { it.copy(showFontSizeDialog = false) } }
+    fun showDecimalPlacesDialog() { _uiState.update { it.copy(showDecimalPlacesDialog = true) } }
+    fun hideDecimalPlacesDialog() { _uiState.update { it.copy(showDecimalPlacesDialog = false) } }
 }

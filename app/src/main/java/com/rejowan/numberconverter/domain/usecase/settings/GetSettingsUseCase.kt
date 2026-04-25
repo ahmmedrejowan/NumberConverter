@@ -11,9 +11,7 @@ data class AppSettings(
     val decimalPlaces: Int,
     val autoSaveHistory: Boolean,
     val showExplanations: Boolean,
-    val inputValidation: String,
-    val autoAdvanceLessons: Boolean,
-    val dailyReminders: Boolean
+    val inputValidation: String
 )
 
 class GetSettingsUseCase(
@@ -27,9 +25,7 @@ class GetSettingsUseCase(
             preferencesManager.decimalPlaces,
             preferencesManager.autoSaveHistory,
             preferencesManager.showExplanations,
-            preferencesManager.inputValidation,
-            preferencesManager.autoAdvanceLessons,
-            preferencesManager.dailyReminders
+            preferencesManager.inputValidation
         )
         return combine(flows) { values ->
             AppSettings(
@@ -39,9 +35,7 @@ class GetSettingsUseCase(
                 decimalPlaces = values[3] as Int,
                 autoSaveHistory = values[4] as Boolean,
                 showExplanations = values[5] as Boolean,
-                inputValidation = values[6] as String,
-                autoAdvanceLessons = values[7] as Boolean,
-                dailyReminders = values[8] as Boolean
+                inputValidation = values[6] as String
             )
         }
     }

@@ -186,40 +186,6 @@ fun SkeletonListItem(modifier: Modifier = Modifier) {
 }
 
 /**
- * Skeleton loading for lesson card
- */
-@Composable
-fun SkeletonLessonCard(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        SkeletonBox(
-            modifier = Modifier.size(48.dp),
-            shape = RoundedCornerShape(50)
-        )
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Column(modifier = Modifier.weight(1f)) {
-            SkeletonBox(
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(18.dp)
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            SkeletonBox(
-                modifier = Modifier
-                    .fillMaxWidth(0.4f)
-                    .height(14.dp)
-            )
-        }
-    }
-}
-
-/**
  * Skeleton loading list with multiple items
  */
 @Composable
@@ -230,21 +196,6 @@ fun SkeletonList(
     Column(modifier = modifier) {
         repeat(itemCount) {
             SkeletonListItem()
-        }
-    }
-}
-
-/**
- * Skeleton loading for lesson list
- */
-@Composable
-fun SkeletonLessonList(
-    itemCount: Int = 4,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        repeat(itemCount) {
-            SkeletonLessonCard()
         }
     }
 }

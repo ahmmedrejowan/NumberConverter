@@ -3,7 +3,6 @@ package com.rejowan.numberconverter.presentation.home
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -27,11 +26,7 @@ import com.rejowan.numberconverter.presentation.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    onNavigateToSettings: () -> Unit,
-    onNavigateToLesson: (String) -> Unit,
-    onNavigateToPracticeSession: (String) -> Unit
-) {
+fun HomeScreen() {
     val homeNavController = rememberNavController()
     val navBackStackEntry by homeNavController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -44,8 +39,8 @@ fun HomeScreen(
             stringResource(R.string.title_calculator)
         currentDestination?.hierarchy?.any { it.route == Screen.Learn.route } == true ->
             stringResource(R.string.title_learn)
-        currentDestination?.hierarchy?.any { it.route == Screen.Practice.route } == true ->
-            stringResource(R.string.title_practice)
+        currentDestination?.hierarchy?.any { it.route == Screen.Settings.route } == true ->
+            stringResource(R.string.title_settings)
         else -> stringResource(R.string.app_name)
     }
 
@@ -64,12 +59,6 @@ fun HomeScreen(
                             )
                         }
                     }
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = "Open settings"
-                        )
-                    }
                 }
             )
         },
@@ -82,8 +71,6 @@ fun HomeScreen(
     ) { paddingValues ->
         HomeNavGraph(
             navController = homeNavController,
-            onNavigateToLesson = onNavigateToLesson,
-            onNavigateToPracticeSession = onNavigateToPracticeSession,
             showHistory = showHistorySheet,
             onHistoryDismissed = { showHistorySheet = false },
             modifier = Modifier.padding(paddingValues)

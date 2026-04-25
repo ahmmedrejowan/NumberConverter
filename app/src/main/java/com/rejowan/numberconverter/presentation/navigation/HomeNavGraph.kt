@@ -12,15 +12,13 @@ import androidx.navigation.compose.composable
 import com.rejowan.numberconverter.presentation.calculator.CalculatorScreen
 import com.rejowan.numberconverter.presentation.converter.ConverterScreen
 import com.rejowan.numberconverter.presentation.learn.LearnScreen
-import com.rejowan.numberconverter.presentation.practice.PracticeScreen
+import com.rejowan.numberconverter.presentation.settings.SettingsScreen
 
 private const val TAB_TRANSITION_DURATION = 200
 
 @Composable
 fun HomeNavGraph(
     navController: NavHostController,
-    onNavigateToLesson: (String) -> Unit,
-    onNavigateToPracticeSession: (String) -> Unit,
     showHistory: Boolean = false,
     onHistoryDismissed: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -46,15 +44,11 @@ fun HomeNavGraph(
             }
 
             composable(route = Screen.Learn.route) {
-                LearnScreen(
-                    onLessonClick = onNavigateToLesson
-                )
+                LearnScreen()
             }
 
-            composable(route = Screen.Practice.route) {
-                PracticeScreen(
-                    onNavigateToPracticeSession = onNavigateToPracticeSession
-                )
+            composable(route = Screen.Settings.route) {
+                SettingsScreen()
             }
         }
     }
