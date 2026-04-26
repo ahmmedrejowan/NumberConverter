@@ -1,5 +1,6 @@
 package com.rejowan.numberconverter.presentation.converter
 
+import android.content.ClipData
 import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -45,16 +46,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -63,6 +65,7 @@ import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.presentation.converter.components.BaseSelectorRow
 import com.rejowan.numberconverter.presentation.converter.components.ExplanationSheet
 import com.rejowan.numberconverter.presentation.converter.components.HistoryBottomSheet
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -76,8 +79,9 @@ fun ConverterScreen(
     val bookmarkedItems by viewModel.bookmarkedItems.collectAsState()
 
     val focusManager = LocalFocusManager.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
 
     var showExplanationSheet by remember { mutableStateOf(false) }
 
@@ -168,7 +172,11 @@ fun ConverterScreen(
                             icon = Icons.Outlined.ContentCopy,
                             label = "Copy",
                             onClick = {
-                                clipboardManager.setText(AnnotatedString(uiState.output))
+                                scope.launch {
+                                    clipboard.setClipEntry(
+                                        ClipEntry(ClipData.newPlainText("Conversion result", uiState.output))
+                                    )
+                                }
                             },
                             modifier = Modifier.weight(1f)
                         )

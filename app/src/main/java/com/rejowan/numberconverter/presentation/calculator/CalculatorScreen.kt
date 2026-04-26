@@ -1,5 +1,6 @@
 package com.rejowan.numberconverter.presentation.calculator
 
+import android.content.ClipData
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -44,14 +45,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.ClipEntry
+import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -62,6 +64,7 @@ import com.rejowan.numberconverter.domain.model.ExplanationPart
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.model.Operation
 import com.rejowan.numberconverter.presentation.common.theme.spacing
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -71,8 +74,9 @@ fun CalculatorScreen(
     val uiState by viewModel.uiState.collectAsState()
     val spacing = spacing
     val focusManager = LocalFocusManager.current
-    val clipboardManager = LocalClipboardManager.current
+    val clipboard = LocalClipboard.current
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     var showExplanation by remember { mutableStateOf(false) }
 
     Column(
@@ -226,7 +230,11 @@ fun CalculatorScreen(
                         ) {
                             IconButton(
                                 onClick = {
-                                    clipboardManager.setText(AnnotatedString(uiState.output))
+                                    scope.launch {
+                                        clipboard.setClipEntry(
+                                            ClipEntry(ClipData.newPlainText("Calculation result", uiState.output))
+                                        )
+                                    }
                                 },
                                 modifier = Modifier.size(48.dp)
                             ) {
