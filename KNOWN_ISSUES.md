@@ -55,12 +55,12 @@ This document lists known issues and limitations in Number Converter, along with
 
 ## Data
 
-### History and settings are lost if the database schema changes
-**Issue:** The database is currently configured for destructive migration, so a schema change in a future version clears saved history and bookmarks.
+### A schema change could still clear history
+**Issue:** The database falls back to destructive migration, so a future schema change without an accompanying `Migration` would clear saved history and bookmarks.
 
 **Workaround:** None currently — there is no export feature yet.
 
-**Status:** Open. 2.0.0 is unaffected (it is the first version with a database), but this must be resolved before any 2.x release that changes the schema.
+**Status:** Partly addressed in 2.0.0. Room schemas are now exported and committed (`app/schemas`), so real migrations can be written and tested from 2.0.0 onward. The destructive fallback remains as a last resort until an explicit migration is added.
 
 ---
 

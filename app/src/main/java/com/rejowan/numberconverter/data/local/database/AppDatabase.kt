@@ -12,7 +12,11 @@ import com.rejowan.numberconverter.data.local.database.entity.HistoryEntity
 @Database(
     entities = [HistoryEntity::class],
     version = 3,
-    exportSchema = false
+    // Schemas are exported to app/schemas and committed. This has to be on
+    // *before* a version ships: without the schema JSON for the released
+    // version there is nothing to migrate from, and a real Migration can never
+    // be written or tested for it afterwards.
+    exportSchema = true
 )
 @TypeConverters(NumberBaseConverter::class)
 abstract class AppDatabase : RoomDatabase() {

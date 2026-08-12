@@ -112,6 +112,13 @@ kotlin {
     }
 }
 
+ksp {
+    // Room writes the schema JSON for each database version here. These files
+    // are committed — they are the only record of what a released schema looked
+    // like, and Room's migration tests read them.
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 
 dependencies {
     // AndroidX Core
