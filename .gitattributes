@@ -1,0 +1,26 @@
+# Normalise line endings on checkin, checkout native
+* text=auto
+
+# Sources
+*.kt      text diff=kotlin
+*.kts     text diff=kotlin
+*.java    text diff=java
+*.xml     text
+*.md      text
+*.yml     text
+*.pro     text
+
+# Gradle wrapper must stay LF and executable-friendly
+gradlew   text eol=lf
+*.bat     text eol=crlf
+
+# Binary assets — never diff or normalise these
+*.png     binary
+*.webp    binary
+*.jpg     binary
+*.jar     binary
+*.keystore binary
+*.jks     binary
+
+# Keep the wrapper jar out of GitHub Linguist language stats
+gradle/wrapper/** linguist-vendored

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Release signing configuration driven by `keystore.properties` or CI environment variables
 
 ### Changed
+- **License changed from Apache 2.0 to GNU GPL v3.0** — the project is now copyleft; derivative works must be released under the same license
 - Dropped the Learn tab; the app is now Convert / Calculate / Settings
 - Dynamic colors now default to **off** so the app ships its own violet identity
 - Input filtering moved into `NumberBase`, shared by both screens

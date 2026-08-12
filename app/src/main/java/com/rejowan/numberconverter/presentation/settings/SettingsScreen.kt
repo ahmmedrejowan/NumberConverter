@@ -228,7 +228,7 @@ fun SettingsScreen(
             SettingsOptionItem(
                 icon = Icons.Rounded.Gavel,
                 title = "App License",
-                subtitle = "Apache License 2.0",
+                subtitle = "GNU GPL v3.0",
                 accentColor = SoftAccents.Purple,
                 onClick = { showLicenseSheet = true },
                 animationDelay = 700

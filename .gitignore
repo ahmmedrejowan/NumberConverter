@@ -1,17 +1,32 @@
 *.iml
 .gradle
 /local.properties
+local.properties
+
+# IDE
 .idea/
-.claude/
-.DS_Store
+
+# Build files
 /build
+*/build/
+*.apk
+*.aab
+
+# Other
+.DS_Store
 /captures
 .externalNativeBuild
 .cxx
-local.properties
-/plan/
+.kotlin/
 
-# Release signing — never commit keystores or their passwords
+# Signing
 keystore.properties
 *.keystore
 *.jks
+signing/
+
+# Claude
+.claude/
+
+# Documentation (local only)
+/plan/

@@ -547,7 +547,7 @@ private fun PolicySection(title: String, content: String) {
 }
 
 // ============================================================================
-// LICENSE SHEET (Apache 2.0)
+// LICENSE SHEET (GNU GPL v3.0)
 // ============================================================================
 
 @Composable
@@ -562,7 +562,7 @@ fun LicenseSheet(onDismiss: () -> Unit) {
                 .verticalScroll(rememberScrollState())
         ) {
             Text(
-                text = "Apache License 2.0",
+                text = "GNU General Public License v3.0",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -575,13 +575,15 @@ fun LicenseSheet(onDismiss: () -> Unit) {
                 color = MaterialTheme.colorScheme.surfaceContainerLow
             ) {
                 Text(
-                    text = "Copyright ${java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)} K M Rejowan Ahmmed\n\n" +
-                            "Licensed under the Apache License, Version 2.0 (the \"License\"); " +
-                            "you may not use this file except in compliance with the License. " +
-                            "You may obtain a copy of the License at the link below.\n\n" +
-                            "Unless required by applicable law or agreed to in writing, software " +
-                            "distributed under the License is distributed on an \"AS IS\" BASIS, " +
-                            "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
+                    text = "Copyright (C) ${java.util.Calendar.getInstance().get(java.util.Calendar.YEAR)} K M Rejowan Ahmmed\n\n" +
+                            "This program is free software: you can redistribute it and/or modify " +
+                            "it under the terms of the GNU General Public License as published by " +
+                            "the Free Software Foundation, either version 3 of the License, or " +
+                            "(at your option) any later version.\n\n" +
+                            "This program is distributed in the hope that it will be useful, " +
+                            "but WITHOUT ANY WARRANTY; without even the implied warranty of " +
+                            "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the " +
+                            "GNU General Public License for more details.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.padding(16.dp)
@@ -611,6 +613,30 @@ fun LicenseSheet(onDismiss: () -> Unit) {
                 }
             }
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // The copyleft half — this is what separates GPL from a permissive
+            // licence, so it gets equal billing rather than a footnote.
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surfaceContainerHigh
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "Conditions",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    LicenseTermItem("Disclose source")
+                    LicenseTermItem("License and copyright notice")
+                    LicenseTermItem("Same license")
+                    LicenseTermItem("State changes")
+                }
+            }
+
             Spacer(modifier = Modifier.height(20.dp))
 
             Surface(
@@ -619,7 +645,10 @@ fun LicenseSheet(onDismiss: () -> Unit) {
                     .clip(RoundedCornerShape(12.dp))
                     .clickable {
                         context.startActivity(
-                            Intent(Intent.ACTION_VIEW, "https://www.apache.org/licenses/LICENSE-2.0".toUri())
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                "https://www.gnu.org/licenses/gpl-3.0.en.html".toUri()
+                            )
                         )
                     },
                 shape = RoundedCornerShape(12.dp),
