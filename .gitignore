@@ -10,3 +10,8 @@
 .cxx
 local.properties
 /plan/
+
+# Release signing — never commit keystores or their passwords
+keystore.properties
+*.keystore
+*.jks

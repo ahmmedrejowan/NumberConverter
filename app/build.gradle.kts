@@ -1,9 +1,26 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlin.serialization)
 }
+
+// Load signing config from keystore.properties or environment variables.
+// keystore.properties is gitignored; CI supplies the same values as env vars.
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
+// True only when a real keystore is actually available. Without this the release
+// build would be configured with an empty password and fail to sign, so local
+// `assembleRelease` stays unsigned instead of breaking.
+val hasReleaseSigning = keystorePropertiesFile.exists() ||
+    System.getenv("KEYSTORE_PASSWORD") != null
 
 android {
     namespace = "com.rejowan.numberconverter"
@@ -26,12 +43,34 @@ android {
         buildConfigField("int", "VERSION_CODE", "$versionCode")
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                // keystore.properties first, then environment variables (CI)
+                storeFile = file(
+                    keystoreProperties.getProperty("storeFile")
+                        ?: System.getenv("KEYSTORE_FILE")
+                        ?: "release.keystore"
+                )
+                storePassword = keystoreProperties.getProperty("storePassword")
+                    ?: System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                    ?: System.getenv("KEY_ALIAS")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+                    ?: System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             isDebuggable = true
             isMinifyEnabled = false
         }
         release {
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(

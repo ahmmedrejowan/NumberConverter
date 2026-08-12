@@ -1,147 +1,248 @@
-<p align="center"><img src="https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/logo.png" width="100%" align="center"/></p>
-<p align="center"> <a href="https://www.android.com"><img src="https://img.shields.io/badge/platform-Android-yellow.svg" alt="platform"></a>
- <a href="https://android-arsenal.com/api?level=21"><img src="https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat" alt="API"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/blob/master/LICENSE"><img src="https://img.shields.io/github/license/ahmmedrejowan/Number-Converter-Compose" alt="GitHub license"></a> </p>
+<div align="center">
+  <img src="https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/logo.png" alt="Number Converter Logo" width="120" height="120">
 
- <p align="center"> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/issues"><img src="https://img.shields.io/github/issues/ahmmedrejowan/Number-Converter-Compose" alt="GitHub issues"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/network"><img src="https://img.shields.io/github/forks/ahmmedrejowan/Number-Converter-Compose" alt="GitHub forks"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/stargazers"><img src="https://img.shields.io/github/stars/ahmmedrejowan/Number-Converter-Compose" alt="GitHub stars"></a> <a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/graphs/contributors"> <img src="https://img.shields.io/github/contributors/ahmmedrejowan/Number-Converter-Compose" alt="GitHub contributors"></a>   </p>
-<hr>
+<h3>Number System Converter & Calculator for Android</h3>
 
-## About
-**Number Converter** is a comprehensive educational app for mastering number systems. It combines a powerful converter with interactive lessons and practice exercises to help you understand Binary, Octal, Decimal, and Hexadecimal number systems.
+<p>
+    An offline, privacy-focused converter for Binary, Octal, Decimal, and Hexadecimal — built with Jetpack Compose and Material 3. Every conversion and calculation comes with a step-by-step explanation of how the answer was reached.
+  </p>
 
+[![Android](https://img.shields.io/badge/Platform-Android-green.svg?style=flat)](https://www.android.com/)
+[![API](https://img.shields.io/badge/API-24%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=24)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![Kotlin](https://img.shields.io/badge/Kotlin-100%25-purple.svg)](https://kotlinlang.org/)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Latest-blue.svg)](https://developer.android.com/jetpack/compose)
+[![CI](https://github.com/ahmmedrejowan/NumberConverter/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmmedrejowan/NumberConverter/actions/workflows/ci.yml)
+
+</div>
+
+---
 
 ## Features
 
-### 🔄 Converter
-- Convert between Binary, Octal, Decimal, and Hexadecimal
-- Support for both integers and fractional numbers
-- Step-by-step conversion explanations
-- Copy, share, and save conversions
-- Conversion history with bookmarks
+- **Convert Any Base** — Binary, Octal, Decimal, and Hexadecimal in all 12 directions
+- **Fractional Support** — converts values with a fractional part, not just integers
+- **Step-by-Step Explanations** — every conversion opens a sheet showing positional notation, the division method, remainders, and the final result
+- **Mixed-Base Calculator** — add, subtract, multiply, and divide across *different* bases (e.g. `1010₂ + 17₁₀`), with the result in any base you pick
+- **Calculation Breakdowns** — the calculator explains operand conversion, the arithmetic, and the conversion back
+- **History & Bookmarks** — every conversion is saved, searchable, and can be starred for later
+- **Material 3 Design** — dark mode, optional dynamic colors, and adjustable font size
+- **100% Offline** — no permissions, no network, no ads, no tracking, no analytics
 
-### 🧮 Calculator
-- Perform arithmetic operations (+, -, ×, ÷) across different bases
-- Multi-base input support
-- Detailed calculation breakdowns
+---
 
-### 📚 Learn (30 Lessons)
-- **Beginner (1-10)**: Number system basics, binary, hex, octal fundamentals
-- **Intermediate (11-20)**: Fractional conversions, quick techniques, relationships
-- **Advanced (21-30)**: Two's complement, binary arithmetic, bitwise operations, BCD, Gray Code
+## Download
 
-### 📝 Practice
-- **Conversion Mode**: Practice number conversions
-- **Calculation Mode**: Practice arithmetic in different bases
-- **MCQ Mode**: Multiple choice questions
-- **Timed Exam Mode**: Test yourself with a timer
+![GitHub Release](https://img.shields.io/github/v/release/ahmmedrejowan/NumberConverter)
 
-### ⚙️ Settings
-- Light/Dark/System themes
-- Dynamic colors (Material You)
-- Adjustable font sizes
-- Customizable decimal places
-- Auto-save history toggle
+You can download the latest APK from here
+
+<a href="https://github.com/ahmmedrejowan/NumberConverter/releases/latest">
+<img src="https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/get.png" width="224px" align="center"/>
+</a>
+
+Check out the [releases](https://github.com/ahmmedrejowan/NumberConverter/releases) section for more details.
+
+---
 
 ## Screenshots
 
 | Shots | Shots | Shots |
-| ----- | ----- | ----- |
-| ![Screenshot 1](https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/shot1.png) | ![Screenshot 2](https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/shot2.png) | ![Screenshot 3](https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/shot3.png) |
-| ![Screenshot 4](https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/shot4.png) | ![Screenshot 5](https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/shot5.png) | ![Screenshot 6](https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/shot6.png) |
+| --- | --- | --- |
+| ![Screenshot 1](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot1.webp) | ![Screenshot 2](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot2.webp) | ![Screenshot 3](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot3.webp) |
+| ![Screenshot 4](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot4.webp) | ![Screenshot 5](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot5.webp) | ![Screenshot 6](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot6.webp) |
+| ![Screenshot 7](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot7.webp) | ![Screenshot 8](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot8.webp) | ![Screenshot 9](https://raw.githubusercontent.com/ahmmedrejowan/NumberConverter/master/files/shot9.webp) |
 
-
-## Download
-
-The app is not available on the Play Store yet. You can download the latest version (0.1) APK from here
-
-<a href="https://github.com/ahmmedrejowan/Number-Converter-Compose/releases/download/0.1/Number.Converter.apk">
-<img src="https://raw.githubusercontent.com/ahmmedrejowan/Number-Converter-Compose/master/files/1.png" width="256px" align="center"/>
-</a>
-
-<br>
-
-Check out the [releases](https://github.com/ahmmedrejowan/Number-Converter-Compose/releases) section for more details
-
-## Tech Stack
-- [Kotlin](https://kotlinlang.org/) - Primary language
-- [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern UI toolkit
-- [Material 3](https://m3.material.io/) - Design system
-- [Koin](https://insert-koin.io/) - Dependency injection
-- [Room](https://developer.android.com/training/data-storage/room) - Local database
-- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Preferences
-- [Coroutines & Flow](https://kotlinlang.org/docs/coroutines-overview.html) - Async programming
-- [Navigation Compose](https://developer.android.com/jetpack/compose/navigation) - Navigation
+---
 
 ## Architecture
-The app follows Clean Architecture with MVVM pattern:
-- **Presentation Layer**: Compose UI, ViewModels, State management
-- **Domain Layer**: Use cases, Repository interfaces, Models
-- **Data Layer**: Repository implementations, Room database, DataStore
+
+Number Converter follows **Clean Architecture** principles with the **MVVM** pattern:
+
+```
+app/src/main/java/com/rejowan/numberconverter/
+├── data/                      # Data layer
+│   ├── converter/             # BaseConverter + per-base converters, explanation generators
+│   ├── local/
+│   │   ├── database/          # Room database, DAO, entities
+│   │   └── datastore/         # PreferencesManager
+│   └── repository/            # Repository implementations
+│
+├── domain/                    # Domain layer
+│   ├── model/                 # NumberBase, Operation, Explanation, HistoryItem
+│   ├── repository/            # Repository interfaces
+│   └── usecase/               # converter / calculator / history / settings
+│
+├── presentation/              # Presentation layer (UI)
+│   ├── common/                # Shared components, theme, util
+│   ├── converter/             # Converter screen, state, components
+│   ├── calculator/            # Calculator screen, state, components
+│   ├── settings/              # Settings screen, state, components
+│   ├── onboarding/            # First-run onboarding
+│   ├── home/                  # Bottom-nav host
+│   ├── navigation/            # Parent + bottom-nav graphs
+│   └── main/                  # MainActivity
+│
+├── di/                        # Koin dependency injection
+└── util/                      # Utilities
+```
+
+### Tech Stack
+
+- **UI Framework**: Jetpack Compose (100% Compose UI)
+- **Language**: Kotlin (100%)
+- **Architecture**: MVVM + Clean Architecture
+- **Dependency Injection**: Koin
+- **Database**: Room (KSP)
+- **Preferences**: DataStore
+- **Async**: Kotlin Coroutines + Flow
+- **Navigation**: Jetpack Navigation Compose (type-safe routes via Kotlin Serialization)
+- **Design**: Material 3 with dynamic color support
+- **Precision**: `BigInteger` / `BigDecimal` for arbitrary-precision conversion
+- **Testing**: JUnit, MockK, Turbine
+
+---
+
+## Requirements
+
+- **Minimum SDK**: API 24 (Android 7.0 Nougat)
+- **Target SDK**: API 37
+- **Compile SDK**: API 37
+- **Gradle**: 9.7.0
+- **AGP**: 9.2.1
+- **Kotlin**: 2.4.10
+- **Java**: 17
+
+### Permissions
+
+**None.** The app declares no permissions at all — not even `INTERNET`.
+
+**Note:** This app does not collect or transmit any user data.
+
+---
+
+## Build & Run
+
+To build and run the project, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ahmmedrejowan/NumberConverter.git
+   ```
+2. Open the project in Android Studio.
+3. Sync the project with Gradle files.
+4. Connect your Android device or start an emulator.
+5. Click on the "Run" button in Android Studio to build and run the app.
+
+### Release Builds
+
+Release signing reads from `keystore.properties` in the project root (gitignored),
+falling back to the `KEYSTORE_FILE`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, and
+`KEY_PASSWORD` environment variables used by CI:
+
+```properties
+storeFile=release.keystore
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+Without either, `assembleRelease` still builds — it just produces an unsigned APK.
+
+---
 
 ## Testing
-- 167+ unit tests covering:
-  - Conversion logic (BaseConverter)
-  - Use cases (Validation, Formatting, Conversion)
-  - ViewModels (Converter, Calculator)
-  - Repository implementations
 
-## Releases
-- **Version 1.0.0** (Coming Soon)
-  - Complete rebuild with 30 lessons
-  - Calculator feature
-  - Practice modes (Conversion, Calculation, MCQ, Exam)
-  - Improved UI/UX with animations
-  - Full test coverage
+```bash
+# Run unit tests
+./gradlew test
+
+# Run instrumented tests
+./gradlew connectedAndroidTest
+```
+
+Conversion and calculation logic is covered by unit tests across `BaseConverter`,
+the explanation generators, the repositories, the use cases, and both ViewModels.
+
+---
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please fork this repository and contribute back using [pull requests](https://github.com/ahmmedrejowan/Number-Converter-Compose/pulls).
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-Any contributions, large or small, major features, bug fixes, are welcomed and appreciated.
+### Quick Start
 
-Let me know which features you want in the future in `Request Feature` tab.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-If this project helps you a little bit, then give a to Star ⭐ the Repo.
-
-## More
-Here are some of my other projects that you might be interested in:
-| Project | Description | Link | Technology |
-| ------- | ----------- | ---- | ---------- |
-| **Android Battery Viewer** | A lightweight Battery Status Viewer Library for Android | [GitHub](https://github.com/ahmmedrejowan/AndroidBatteryView) | Kotlin|
-| **OnboardingScreen-JetpackCompose** | A simple onboarding screen example for Android using Jetpack Compose | [GitHub](https://github.com/ahmmedrejowan/OnboardingScreen-JetpackCompose) | Jetpack Compose |
-| **PDF Reader Pro** | A PDF Viewer App for Android | [GitHub](https://github.com/ahmmedrejowan/PdfReaderPro) | Kotlin & Java |
-| **Country Code Picker Compose** | A Country Code Picker Created with Jetpack Compose for Android | [GitHub](https://github.com/ahmmedrejowan/CountryCodePickerCompose) | Jetpack Compose |
-| **Device Info** | An app for monitoring Hardware, Sensor, Software | [GitHub](https://github.com/ahmmedrejowan/DeviceInfo) | Kotlin |
-
-## Reach Me
-- [LinkedIn](https://www.linkedin.com/in/ahmmedrejowan/)
-- [Twitter](https://twitter.com/ahmmedrejowan)
-- [Dev](https://dev.to/ahmmedrejowan)
-- [Stack Overflow](https://stackoverflow.com/users/9932194/k-m-rejowan-ahmmed)
-- [Facebook](https://www.facebook.com/ahmmedrejowan/)
-- [Gmail](mailto:kmrejowan@gmail.com)
-
-> [!NOTE]  
-> Learn Android Development for free on [Tranquilly Coding](https://www.youtube.com/@TranquillyCoding)
-
+---
 
 ## License
 
-[Apache Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
-
 ```
-Copyright 2024 ahmmedrejowan
+Copyright (C) 2026 K M Rejowan Ahmmed
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
- http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
 ```
+
+See [LICENSE](LICENSE) for the full text.
+
+---
+
+## Community
+
+- [Discussions](https://github.com/ahmmedrejowan/NumberConverter/discussions) - Ask questions, share ideas
+- [Issues](https://github.com/ahmmedrejowan/NumberConverter/issues) - Report bugs, request features
+- [Releases](https://github.com/ahmmedrejowan/NumberConverter/releases) - Download latest versions
+
+---
+
+## Author
+
+**K M Rejowan Ahmmed**
+
+- GitHub: [@ahmmedrejowan](https://github.com/ahmmedrejowan)
+- Email: [kmrejowan@gmail.com](mailto:kmrejowan@gmail.com)
+
+---
+
+## Acknowledgments
+
+- [Jetpack Compose](https://developer.android.com/jetpack/compose) - Modern Android UI toolkit
+- [Material Design 3](https://m3.material.io/) - Design system
+- [Room](https://developer.android.com/training/data-storage/room) - Database library
+- [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - Preferences storage
+- [Koin](https://insert-koin.io/) - Dependency injection framework
+- [MockK](https://mockk.io/) - Mocking library for Kotlin
+- [Turbine](https://github.com/cashapp/turbine) - Testing library for Kotlin Flow
+- [Ubuntu](https://fonts.google.com/specimen/Ubuntu) - Typeface, via Google Fonts
+
+---
+
+## Changelog
+
+### v1.0.0 - Initial Release
+
+- Binary, Octal, Decimal, and Hexadecimal conversion with fractional support
+- Step-by-step explanation sheets for every conversion
+- Mixed-base calculator with `+`, `−`, `×`, `÷` and calculation breakdowns
+- Conversion history with search and bookmarks
+- Material 3 design with dark mode, dynamic colors, and font size options
+- Clean Architecture with MVVM, 100% Kotlin, fully offline
+
+See [CHANGELOG.md](CHANGELOG.md) for full version history.
+
+---
