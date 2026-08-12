@@ -1,18 +1,17 @@
 name: CI
 
+# No paths-ignore: CI runs on every push and PR, including docs-only changes.
+# A skipped run leaves a check permanently pending, which is indistinguishable
+# from a stuck one — always running keeps the signal honest and costs a few
+# minutes on doc edits.
+#
+# CI is deliberately NOT a required status check on master. It reports; it does
+# not gate the merge button.
 on:
   push:
     branches: [master, v1]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.github/ISSUE_TEMPLATE/**'
   pull_request:
     branches: [master, v1]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.github/ISSUE_TEMPLATE/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
