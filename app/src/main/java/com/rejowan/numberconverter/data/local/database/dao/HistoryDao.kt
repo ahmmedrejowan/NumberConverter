@@ -32,6 +32,9 @@ interface HistoryDao {
     @Query("DELETE FROM conversion_history")
     suspend fun deleteAll()
 
+    @Query("DELETE FROM conversion_history WHERE isBookmarked = 0")
+    suspend fun deleteAllUnbookmarked()
+
     @Query("SELECT COUNT(*) FROM conversion_history")
     fun getHistoryCount(): Flow<Int>
 

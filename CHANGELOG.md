@@ -66,6 +66,11 @@ a 1.0.0.
 - Rebuilt entirely on Jetpack Compose; the 0.1 View-based UI is gone
 - Data is now stored in a Room database and DataStore rather than SharedPreferences
 
+### Fixed
+- "Auto-save History" now actually controls whether conversions are saved
+- "Show Explanations" now actually controls whether step-by-step breakdowns are offered
+- History "Clear" now keeps bookmarked conversions, as its confirmation promises
+
 ### Technical
 - **Architecture:** Clean Architecture with MVVM
 - **UI:** Jetpack Compose with Material 3

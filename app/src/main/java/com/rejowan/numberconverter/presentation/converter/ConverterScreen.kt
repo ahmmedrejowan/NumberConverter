@@ -229,7 +229,7 @@ fun ConverterScreen(
             },
             onToggleBookmark = { id -> viewModel.toggleBookmark(id) },
             onDeleteItem = { item -> viewModel.deleteHistoryItem(item) },
-            onClearAll = { viewModel.clearAllHistory() }
+            onClearAll = { viewModel.clearHistoryKeepingBookmarks() }
         )
     }
 }

@@ -51,6 +51,10 @@ class HistoryRepositoryImpl(
         historyDao.deleteAll()
     }
 
+    override suspend fun deleteUnbookmarkedHistory() {
+        historyDao.deleteAllUnbookmarked()
+    }
+
     override suspend fun toggleBookmark(id: Long) {
         historyDao.toggleBookmark(id)
     }

@@ -45,7 +45,7 @@ val appModule = module {
     factory { CalculateUseCase() }
 
     // Use Cases - History
-    factory { SaveConversionUseCase(get()) }
+    factory { SaveConversionUseCase(get(), get()) }
     factory { GetHistoryUseCase(get()) }
     factory { DeleteHistoryUseCase(get()) }
     factory { ToggleBookmarkUseCase(get()) }
@@ -55,7 +55,7 @@ val appModule = module {
     factory { UpdateSettingUseCase(get()) }
 
     // ViewModels
-    viewModel { ConverterViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { ConverterViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { CalculatorViewModel(get(), get(), get()) }
     viewModel { SettingsViewModel(get(), get(), get()) }
     viewModel { OnboardingViewModel(get()) }

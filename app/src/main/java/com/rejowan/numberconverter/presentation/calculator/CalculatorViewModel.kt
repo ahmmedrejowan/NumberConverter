@@ -144,8 +144,11 @@ class CalculatorViewModel(
                 decimalPlaces = decimalPlaces
             ).fold(
                 onSuccess = { result ->
-                    // Generate explanation
-                    val explanation = try {
+                    // Generate explanation only when the user wants steps —
+                    // this also hides "Show steps", which requires a non-null one.
+                    val explanation = if (!preferencesManager.showExplanations.first()) {
+                        null
+                    } else try {
                         CalculatorExplanationGenerator.generate(
                             input1 = currentState.input1,
                             input1Base = currentState.input1Base,

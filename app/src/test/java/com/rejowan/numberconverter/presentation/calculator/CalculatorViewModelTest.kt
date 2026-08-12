@@ -34,6 +34,7 @@ class CalculatorViewModelTest {
         preferencesManager = mockk()
 
         every { preferencesManager.decimalPlaces } returns flowOf(15)
+        every { preferencesManager.showExplanations } returns flowOf(true)
 
         viewModel = CalculatorViewModel(
             calculateUseCase,
@@ -402,6 +403,7 @@ class CalculatorViewModelTest {
     @Test
     fun `calculation uses decimal places from preferences`() = runTest {
         every { preferencesManager.decimalPlaces } returns flowOf(8)
+        every { preferencesManager.showExplanations } returns flowOf(true)
 
         // Recreate ViewModel with new preference
         viewModel = CalculatorViewModel(

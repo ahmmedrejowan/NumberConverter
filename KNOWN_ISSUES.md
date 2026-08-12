@@ -2,36 +2,7 @@
 
 This document lists known issues and limitations in Number Converter, along with workarounds where available.
 
-## Settings
-
-### "Auto-save History" toggle has no effect
-**Issue:** The toggle persists correctly and survives a restart, but nothing reads it — conversions are saved to history regardless of its state.
-
-**Workaround:** Use **Settings → Clear History**, or delete individual entries from the history sheet.
-
-**Status:** Confirmed bug, fix planned
-
----
-
-### "Show Explanations" toggle has no effect
-**Issue:** Same as above — the preference is stored but never consulted. The "Show steps" button appears whenever an explanation is available, on both the Converter and the Calculator.
-
-**Workaround:** Simply don't tap "Show steps"; the sheet is never shown unless you open it.
-
-**Status:** Confirmed bug, fix planned
-
----
-
 ## History
-
-### "Clear" in the history sheet also deletes bookmarks
-**Issue:** The confirmation says *"Bookmarked items will be preserved"*, but the action clears the entire history table, bookmarks included. The Settings → Clear History dialog is accurate about this; the history sheet's wording is not.
-
-**Workaround:** Delete unwanted entries individually instead of using Clear.
-
-**Status:** Confirmed bug, fix planned
-
----
 
 ### History fills with partial values while typing
 **Issue:** Conversion is debounced and saved on each settled result, so typing `1010` one digit at a time can leave separate entries for `1`, `10`, `101`, and `1010`. There is no de-duplication and no cap on the number of stored rows.
@@ -137,6 +108,9 @@ Issues that have been fixed in recent releases:
 | Onboarding "Skip" | 2.0.0 | Skip scrolled to the last page instead of completing onboarding |
 | Silent copy/share | 2.0.0 | Copy and Share gave no confirmation, and could crash when no app could handle the intent |
 | Dynamic colors default | 2.0.0 | Material You replaced the app's own palette by default on Android 12+ |
+| "Auto-save History" toggle | 2.0.0 | Toggle was stored but never read — conversions saved regardless |
+| "Show Explanations" toggle | 2.0.0 | Toggle was stored but never read — "Show steps" always appeared |
+| History "Clear" deleted bookmarks | 2.0.0 | Clear wiped the whole table despite promising bookmarks would survive |
 
 ---
 

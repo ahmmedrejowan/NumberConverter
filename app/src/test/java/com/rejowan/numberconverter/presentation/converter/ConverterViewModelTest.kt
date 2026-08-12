@@ -5,6 +5,7 @@ import com.rejowan.numberconverter.domain.model.ConversionResult
 import com.rejowan.numberconverter.domain.model.Explanation
 import com.rejowan.numberconverter.domain.model.HistoryItem
 import com.rejowan.numberconverter.domain.model.NumberBase
+import com.rejowan.numberconverter.data.local.datastore.PreferencesManager
 import com.rejowan.numberconverter.domain.repository.ConverterRepository
 import com.rejowan.numberconverter.domain.usecase.converter.ConvertNumberUseCase
 import com.rejowan.numberconverter.domain.usecase.converter.FormatOutputUseCase
@@ -36,6 +37,7 @@ class ConverterViewModelTest {
     private lateinit var getHistoryUseCase: GetHistoryUseCase
     private lateinit var toggleBookmarkUseCase: ToggleBookmarkUseCase
     private lateinit var deleteHistoryUseCase: DeleteHistoryUseCase
+    private lateinit var preferencesManager: PreferencesManager
     private lateinit var viewModel: ConverterViewModel
 
     private val testDispatcher = StandardTestDispatcher()
@@ -52,10 +54,12 @@ class ConverterViewModelTest {
         getHistoryUseCase = mockk()
         toggleBookmarkUseCase = mockk(relaxed = true)
         deleteHistoryUseCase = mockk(relaxed = true)
+        preferencesManager = mockk(relaxed = true)
 
         // Default mocks
         every { getHistoryUseCase.invoke() } returns flowOf(emptyList())
         every { getHistoryUseCase.getBookmarked() } returns flowOf(emptyList())
+        every { preferencesManager.showExplanations } returns flowOf(true)
 
         viewModel = ConverterViewModel(
             convertNumberUseCase,
@@ -65,7 +69,8 @@ class ConverterViewModelTest {
             converterRepository,
             getHistoryUseCase,
             toggleBookmarkUseCase,
-            deleteHistoryUseCase
+            deleteHistoryUseCase,
+            preferencesManager
         )
     }
 
@@ -436,11 +441,31 @@ class ConverterViewModelTest {
     }
 
     @Test
-    fun `clearAllHistory calls use case`() = runTest {
-        viewModel.clearAllHistory()
+    fun `clearHistoryKeepingBookmarks preserves bookmarked entries`() = runTest {
+        viewModel.clearHistoryKeepingBookmarks()
         advanceUntilIdle()
 
-        coVerify { deleteHistoryUseCase.deleteAll() }
+        // The history sheet promises bookmarks survive, so it must NOT deleteAll.
+        coVerify { deleteHistoryUseCase.deleteUnbookmarked() }
+        coVerify(exactly = 0) { deleteHistoryUseCase.deleteAll() }
+    }
+
+    @Test
+    fun `explanation is not fetched when Show Explanations is off`() = runTest {
+        every { preferencesManager.showExplanations } returns flowOf(false)
+        val input = "10"
+        every { validateInputUseCase.invoke(input, NumberBase.DECIMAL) } returns ValidationResult(true)
+        coEvery { convertNumberUseCase.invoke(input, NumberBase.DECIMAL, NumberBase.BINARY) } returns
+            Result.success(ConversionResult(input, "1010", NumberBase.DECIMAL, NumberBase.BINARY))
+        every { formatOutputUseCase.invoke("1010") } returns "1010"
+
+        viewModel.onInputChanged(input)
+        advanceTimeBy(350)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        assertEquals("1010", viewModel.uiState.value.output)
+        assertNull(viewModel.uiState.value.explanation)
+        coVerify(exactly = 0) { converterRepository.explain(any(), any(), any()) }
     }
 
     // History state flows tests

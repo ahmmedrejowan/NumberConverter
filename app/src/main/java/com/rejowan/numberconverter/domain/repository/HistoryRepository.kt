@@ -12,5 +12,6 @@ interface HistoryRepository {
     suspend fun updateHistory(item: HistoryItem)
     suspend fun deleteHistory(item: HistoryItem)
     suspend fun deleteAllHistory()
+    suspend fun deleteUnbookmarkedHistory()
     suspend fun toggleBookmark(id: Long)
 }

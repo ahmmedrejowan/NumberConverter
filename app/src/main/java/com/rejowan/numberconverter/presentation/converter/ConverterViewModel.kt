@@ -2,6 +2,7 @@ package com.rejowan.numberconverter.presentation.converter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rejowan.numberconverter.data.local.datastore.PreferencesManager
 import com.rejowan.numberconverter.domain.model.HistoryItem
 import com.rejowan.numberconverter.domain.model.NumberBase
 import com.rejowan.numberconverter.domain.usecase.converter.ConvertNumberUseCase
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -31,7 +33,8 @@ class ConverterViewModel(
     private val converterRepository: com.rejowan.numberconverter.domain.repository.ConverterRepository,
     private val getHistoryUseCase: GetHistoryUseCase,
     private val toggleBookmarkUseCase: ToggleBookmarkUseCase,
-    private val deleteHistoryUseCase: DeleteHistoryUseCase
+    private val deleteHistoryUseCase: DeleteHistoryUseCase,
+    private val preferencesManager: PreferencesManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ConverterUiState())
@@ -159,8 +162,14 @@ class ConverterViewModel(
                         )
                     }
 
-                    // Fetch explanation
+                    // Fetch explanation — skipped entirely when the user has
+                    // turned explanations off, which also hides "Show steps"
+                    // since that button is conditioned on a non-null explanation.
                     viewModelScope.launch {
+                        if (!preferencesManager.showExplanations.first()) {
+                            _uiState.update { it.copy(explanation = null) }
+                            return@launch
+                        }
                         converterRepository.explain(
                             input = currentState.input,
                             fromBase = currentState.fromBase,
@@ -224,9 +233,13 @@ class ConverterViewModel(
         }
     }
 
-    fun clearAllHistory() {
+    /**
+     * Clears history from the history sheet, keeping bookmarked entries — the
+     * sheet's confirmation explicitly promises they survive.
+     */
+    fun clearHistoryKeepingBookmarks() {
         viewModelScope.launch {
-            deleteHistoryUseCase.deleteAll()
+            deleteHistoryUseCase.deleteUnbookmarked()
         }
     }
 }
