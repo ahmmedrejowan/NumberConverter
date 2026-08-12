@@ -1,0 +1,67 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "a961c3f09655f48e430fc20904b8e60f",
+    "entities": [
+      {
+        "tableName": "conversion_history",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `input` TEXT NOT NULL, `output` TEXT NOT NULL, `fromBase` TEXT NOT NULL, `toBase` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `isBookmarked` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "input",
+            "columnName": "input",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "output",
+            "columnName": "output",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromBase",
+            "columnName": "fromBase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "toBase",
+            "columnName": "toBase",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isBookmarked",
+            "columnName": "isBookmarked",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a961c3f09655f48e430fc20904b8e60f')"
+    ]
+  }
+}
