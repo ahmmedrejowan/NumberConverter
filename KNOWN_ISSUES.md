@@ -89,7 +89,7 @@ This document lists known issues and limitations in Number Converter, along with
 
 **Workaround:** None currently — there is no export feature yet.
 
-**Status:** Must be resolved before the first public release
+**Status:** Open. 2.0.0 is unaffected (it is the first version with a database), but this must be resolved before any 2.x release that changes the schema.
 
 ---
 
@@ -134,9 +134,9 @@ Issues that have been fixed in recent releases:
 
 | Issue | Fixed In | Description |
 |-------|----------|-------------|
-| Onboarding "Skip" | Unreleased | Skip scrolled to the last page instead of completing onboarding |
-| Silent copy/share | Unreleased | Copy and Share gave no confirmation, and could crash when no app could handle the intent |
-| Dynamic colors default | Unreleased | Material You replaced the app's own palette by default on Android 12+ |
+| Onboarding "Skip" | 2.0.0 | Skip scrolled to the last page instead of completing onboarding |
+| Silent copy/share | 2.0.0 | Copy and Share gave no confirmation, and could crash when no app could handle the intent |
+| Dynamic colors default | 2.0.0 | Material You replaced the app's own palette by default on Android 12+ |
 
 ---
 

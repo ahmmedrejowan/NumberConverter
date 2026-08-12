@@ -60,7 +60,7 @@ body:
     attributes:
       label: App Version
       description: What version of the app are you using? (Settings → Version)
-      placeholder: "e.g., 1.0.0"
+      placeholder: "e.g., 2.0.0"
     validations:
       required: true
 

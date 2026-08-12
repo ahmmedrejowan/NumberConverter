@@ -235,7 +235,7 @@ See [LICENSE](LICENSE) for the full text.
 
 ## Changelog
 
-### v1.0.0 - Initial Release
+### v2.0.0 (2026-08-12) - Full Rewrite
 
 - Binary, Octal, Decimal, and Hexadecimal conversion with fractional support
 - Step-by-step explanation sheets for every conversion
@@ -243,6 +243,11 @@ See [LICENSE](LICENSE) for the full text.
 - Conversion history with search and bookmarks
 - Material 3 design with dark mode, dynamic colors, and font size options
 - Clean Architecture with MVVM, 100% Kotlin, fully offline
+- Relicensed under GNU GPL v3.0
+
+### v0.1 (2024-06-25) - Initial Release
+
+- Single-screen View-based converter for the four number bases
 
 See [CHANGELOG.md](CHANGELOG.md) for full version history.
 

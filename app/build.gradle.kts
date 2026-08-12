@@ -30,8 +30,10 @@ android {
         applicationId = "com.rejowan.numberconverter"
         minSdk = 24
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0.0"
+        // versionCode must strictly increase across published builds. The 0.1
+        // release (June 2024) shipped versionCode 1, so 2 is the next free slot.
+        versionCode = 2
+        versionName = "2.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

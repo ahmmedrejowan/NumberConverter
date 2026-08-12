@@ -7,25 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-- Mixed-base calculator explanation sheet, matching the converter's step-by-step sheet
-- Shared component set across the Converter and Calculator screens
-- CI workflow (lint, unit tests, debug APK) and manual release workflow
-- Release signing configuration driven by `keystore.properties` or CI environment variables
-
-### Changed
-- **License changed from Apache 2.0 to GNU GPL v3.0** — the project is now copyleft; derivative works must be released under the same license
-- Dropped the Learn tab; the app is now Convert / Calculate / Settings
-- Dynamic colors now default to **off** so the app ships its own violet identity
-- Input filtering moved into `NumberBase`, shared by both screens
-
-### Fixed
-- Onboarding "Skip" now completes onboarding instead of scrolling to the last page
-- Copy and Share now confirm success, and report gracefully when no app can handle the intent
-
 ---
 
-## [1.0.0] - Unreleased
+## [2.0.0] - 2026-08-12
+
+A complete rewrite. Version 0.1 was a single-screen View-based converter; 2.0.0
+is a new app built from scratch on Jetpack Compose with Clean Architecture,
+step-by-step explanations, a mixed-base calculator, and searchable history.
+
+Because effectively nothing carries over from 0.1 — architecture, UI, data
+storage, and the license all changed — this is a major version bump rather than
+a 1.0.0.
 
 ### Added
 - **Conversion**
@@ -69,6 +61,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - First-run onboarding with morphing background shapes
   - Edge-to-edge with splash screen
 
+### Changed
+- **License changed from Apache 2.0 to GNU GPL v3.0** — the project is now copyleft; derivative works must be released under the same license
+- Rebuilt entirely on Jetpack Compose; the 0.1 View-based UI is gone
+- Data is now stored in a Room database and DataStore rather than SharedPreferences
+
 ### Technical
 - **Architecture:** Clean Architecture with MVVM
 - **UI:** Jetpack Compose with Material 3
@@ -81,13 +78,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1] - 2024-06-25
+
+Initial public release. Single-screen View-based converter for the four number
+bases, without explanations, calculator, or history.
+
+---
+
 ## Version History
 
 | Version | Release Date | Highlights |
 |---------|--------------|------------|
-| 1.0.0 | Unreleased | Initial release |
+| 2.0.0 | 2026-08-12 | Full Compose rewrite: explanations, calculator, history, GPL-3.0 |
+| 0.1 | 2024-06-25 | Initial release |
 
 ---
 
-[Unreleased]: https://github.com/ahmmedrejowan/NumberConverter/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/ahmmedrejowan/NumberConverter/releases/tag/v1.0.0
+[Unreleased]: https://github.com/ahmmedrejowan/NumberConverter/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/ahmmedrejowan/NumberConverter/releases/tag/v2.0.0
+[0.1]: https://github.com/ahmmedrejowan/NumberConverter/releases/tag/0.1

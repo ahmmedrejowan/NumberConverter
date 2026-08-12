@@ -423,14 +423,26 @@ fun ChangelogSheet(onDismiss: () -> Unit) {
 
             ChangelogEntry(
                 version = BuildConfig.VERSION_NAME,
-                date = "April 2026",
+                date = "August 2026",
                 changes = listOf(
-                    "Complete redesign with Material 3 violet theme",
-                    "Animated bottom navigation with cutout effect",
-                    "Onboarding with morphing background shapes",
-                    "Type-safe navigation with Kotlin Serialization",
-                    "Bottom-sheet settings dialogs",
-                    "About section with credits and license info"
+                    "Complete rewrite on Jetpack Compose and Material 3",
+                    "Step-by-step explanations for every conversion",
+                    "Mixed-base calculator with calculation breakdowns",
+                    "Conversion history with search and bookmarks",
+                    "Dark mode, dynamic colors, and font size options",
+                    "Fully offline — no permissions requested",
+                    "Now licensed under the GNU GPL v3.0"
+                )
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            ChangelogEntry(
+                version = "0.1",
+                date = "June 2024",
+                changes = listOf(
+                    "Initial release",
+                    "Single-screen converter for the four number bases"
                 )
             )
         }
