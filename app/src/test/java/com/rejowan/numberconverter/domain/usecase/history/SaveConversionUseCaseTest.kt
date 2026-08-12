@@ -44,7 +44,7 @@ class SaveConversionUseCaseTest {
         val saved = useCase(item)
 
         assertTrue(saved)
-        coVerify(exactly = 1) { repository.insertHistory(item) }
+        coVerify(exactly = 1) { repository.saveConversion(item) }
     }
 
     @Test
@@ -54,7 +54,7 @@ class SaveConversionUseCaseTest {
         val saved = useCase(item)
 
         assertFalse(saved)
-        coVerify(exactly = 0) { repository.insertHistory(any()) }
+        coVerify(exactly = 0) { repository.saveConversion(any()) }
     }
 
     @Test
@@ -66,6 +66,6 @@ class SaveConversionUseCaseTest {
         every { preferencesManager.autoSaveHistory } returns flowOf(false)
         useCase(item)
 
-        coVerify(exactly = 1) { repository.insertHistory(item) }
+        coVerify(exactly = 1) { repository.saveConversion(item) }
     }
 }

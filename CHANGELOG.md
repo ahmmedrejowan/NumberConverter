@@ -70,6 +70,7 @@ a 1.0.0.
 - "Auto-save History" now actually controls whether conversions are saved
 - "Show Explanations" now actually controls whether step-by-step breakdowns are offered
 - History "Clear" now keeps bookmarked conversions, as its confirmation promises
+- History no longer accumulates a row per keystroke — identical conversions move to the top instead of duplicating, a value still being typed replaces the prefix it supersedes, and unbookmarked history is capped at 200 entries
 
 ### Technical
 - **Architecture:** Clean Architecture with MVVM

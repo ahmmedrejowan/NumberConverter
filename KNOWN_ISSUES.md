@@ -2,17 +2,6 @@
 
 This document lists known issues and limitations in Number Converter, along with workarounds where available.
 
-## History
-
-### History fills with partial values while typing
-**Issue:** Conversion is debounced and saved on each settled result, so typing `1010` one digit at a time can leave separate entries for `1`, `10`, `101`, and `1010`. There is no de-duplication and no cap on the number of stored rows.
-
-**Workaround:** Paste values rather than typing them, and clear history periodically.
-
-**Status:** Known limitation, redesign planned
-
----
-
 ## Calculator
 
 ### Negative results cannot be re-entered
@@ -111,6 +100,7 @@ Issues that have been fixed in recent releases:
 | "Auto-save History" toggle | 2.0.0 | Toggle was stored but never read — conversions saved regardless |
 | "Show Explanations" toggle | 2.0.0 | Toggle was stored but never read — "Show steps" always appeared |
 | History "Clear" deleted bookmarks | 2.0.0 | Clear wiped the whole table despite promising bookmarks would survive |
+| History filled with partial values | 2.0.0 | Typing a value left a row per prefix; identical and superseded entries are now collapsed, and history is capped |
 
 ---
 

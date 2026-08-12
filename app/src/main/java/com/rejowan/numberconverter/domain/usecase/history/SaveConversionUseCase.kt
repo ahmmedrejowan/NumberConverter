@@ -19,7 +19,7 @@ class SaveConversionUseCase(
      */
     suspend operator fun invoke(item: HistoryItem): Boolean {
         if (!preferencesManager.autoSaveHistory.first()) return false
-        repository.insertHistory(item)
+        repository.saveConversion(item)
         return true
     }
 }
