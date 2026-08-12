@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val theme by preferencesManager.theme.collectAsState(initial = "system")
-            val dynamicColors by preferencesManager.dynamicColors.collectAsState(initial = true)
+            val dynamicColors by preferencesManager.dynamicColors.collectAsState(initial = false)
             val fontSize by preferencesManager.fontSize.collectAsState(initial = "medium")
 
             val isDarkTheme = when (theme) {

@@ -34,7 +34,6 @@ import com.rejowan.numberconverter.presentation.common.components.NavItem
 import com.rejowan.numberconverter.presentation.navigation.BottomNavGraph
 import com.rejowan.numberconverter.presentation.navigation.Calculator
 import com.rejowan.numberconverter.presentation.navigation.Converter
-import com.rejowan.numberconverter.presentation.navigation.Learn
 import com.rejowan.numberconverter.presentation.navigation.Settings
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,8 +51,7 @@ fun HomeScreen() {
         val newIndex = when {
             route.endsWith(".Converter") -> 0
             route.endsWith(".Calculator") -> 1
-            route.endsWith(".Learn") -> 2
-            route.endsWith(".Settings") -> 3
+            route.endsWith(".Settings") -> 2
             else -> -1
         }
         if (newIndex != -1 && newIndex != selectedNavIndex) {
@@ -61,11 +59,12 @@ fun HomeScreen() {
         }
     }
 
-    val current = NavItem.entries[selectedNavIndex]
+    // Coerced because the saved index survives process death — a value saved by
+    // an older build with more tabs would otherwise index out of bounds here.
+    val current = NavItem.entries[selectedNavIndex.coerceIn(NavItem.entries.indices)]
     val title = when (current) {
         NavItem.CONVERTER -> stringResource(R.string.title_converter)
         NavItem.CALCULATOR -> stringResource(R.string.title_calculator)
-        NavItem.LEARN -> stringResource(R.string.title_learn)
         NavItem.SETTINGS -> stringResource(R.string.title_settings)
     }
 
@@ -125,8 +124,7 @@ fun HomeScreen() {
                 val route: Any = when (index) {
                     0 -> Converter
                     1 -> Calculator
-                    2 -> Learn
-                    3 -> Settings
+                    2 -> Settings
                     else -> return@AnimatedBottomNav
                 }
                 bottomNavController.navigate(route) {

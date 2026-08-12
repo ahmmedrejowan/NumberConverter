@@ -70,8 +70,12 @@ class ConverterViewModel(
     }
 
     fun onInputChanged(input: String) {
-        _uiState.update { it.copy(input = input, validationError = null, explanation = null) }
-        _inputFlow.value = input
+        // Filter here rather than in the screen so the Converter and Calculator
+        // share one definition of "what may be typed for this base" — and so a
+        // paste containing newlines can never reach state.
+        val filtered = _uiState.value.fromBase.filterInput(input)
+        _uiState.update { it.copy(input = filtered, validationError = null, explanation = null) }
+        _inputFlow.value = filtered
     }
 
     fun onFromBaseChanged(base: NumberBase) {

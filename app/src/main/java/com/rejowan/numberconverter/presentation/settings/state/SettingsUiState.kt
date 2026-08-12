@@ -3,7 +3,7 @@ package com.rejowan.numberconverter.presentation.settings.state
 data class SettingsUiState(
     // Appearance
     val theme: String = "system",
-    val dynamicColors: Boolean = true,
+    val dynamicColors: Boolean = false,
     val fontSize: String = "medium",
 
     // Converter

@@ -44,13 +44,13 @@ class CalculatorViewModel(
     }
 
     fun onInput1Changed(input: String) {
-        val filtered = filterInputForBase(input, _uiState.value.input1Base)
+        val filtered = _uiState.value.input1Base.filterInput(input)
         _uiState.update { it.copy(input1 = filtered, validation1Error = null, explanation = null) }
         triggerCalculation()
     }
 
     fun onInput2Changed(input: String) {
-        val filtered = filterInputForBase(input, _uiState.value.input2Base)
+        val filtered = _uiState.value.input2Base.filterInput(input)
         _uiState.update { it.copy(input2 = filtered, validation2Error = null, explanation = null) }
         triggerCalculation()
     }
@@ -180,15 +180,5 @@ class CalculatorViewModel(
                 }
             )
         }
-    }
-
-    private fun filterInputForBase(input: String, base: NumberBase): String {
-        val allowedChars = when (base) {
-            NumberBase.BINARY -> "[01.]"
-            NumberBase.OCTAL -> "[0-7.]"
-            NumberBase.DECIMAL -> "[0-9.]"
-            NumberBase.HEXADECIMAL -> "[0-9a-fA-F.]"
-        }
-        return input.filter { it.toString().matches(Regex(allowedChars)) }
     }
 }

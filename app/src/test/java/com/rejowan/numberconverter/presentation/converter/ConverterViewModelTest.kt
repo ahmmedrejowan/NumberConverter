@@ -128,18 +128,65 @@ class ConverterViewModelTest {
     }
 
     @Test
-    fun `invalid input shows validation error`() = runTest {
-        val input = "ABC"
+    fun `input invalid for the new base shows validation error after a base switch`() = runTest {
+        // onInputChanged filters against the *current* base, so the only way an
+        // invalid value reaches validation is a base switch leaving stale input.
+        val input = "FF"
+        every { validateInputUseCase.invoke(input, NumberBase.HEXADECIMAL) } returns ValidationResult(true)
         every { validateInputUseCase.invoke(input, NumberBase.DECIMAL) } returns ValidationResult(false, "Invalid input for Decimal")
+        coEvery { convertNumberUseCase.invoke(input, NumberBase.HEXADECIMAL, NumberBase.BINARY) } returns
+            Result.success(ConversionResult(input, "11111111", NumberBase.HEXADECIMAL, NumberBase.BINARY))
+        every { formatOutputUseCase.invoke("11111111") } returns "11111111"
+        coEvery { converterRepository.explain(any(), any(), any()) } returns Result.failure(Exception())
 
+        viewModel.onFromBaseChanged(NumberBase.HEXADECIMAL)
         viewModel.onInputChanged(input)
         advanceTimeBy(350)
+        testDispatcher.scheduler.advanceUntilIdle()
+
+        // "FF" is meaningless in decimal — switching bases must surface that.
+        viewModel.onFromBaseChanged(NumberBase.DECIMAL)
         testDispatcher.scheduler.advanceUntilIdle()
 
         val state = viewModel.uiState.value
         assertEquals("", state.output)
         assertEquals("Invalid input for Decimal", state.validationError)
         assertNull(state.errorMessage)
+    }
+
+    // Filtering happens synchronously in onInputChanged; these only assert the
+    // resulting input. Validation is stubbed to fail so the debounced conversion
+    // that runTest drains at the end short-circuits before the other use cases.
+    private fun stubValidationRejects() {
+        every { validateInputUseCase.invoke(any(), any()) } returns ValidationResult(false, "stubbed")
+    }
+
+    @Test
+    fun `onInputChanged strips characters invalid for the current base`() = runTest {
+        stubValidationRejects()
+
+        // fromBase defaults to DECIMAL, so letters must never reach state.
+        viewModel.onInputChanged("12A3B")
+
+        assertEquals("123", viewModel.uiState.value.input)
+    }
+
+    @Test
+    fun `onInputChanged keeps only the first decimal point`() = runTest {
+        stubValidationRejects()
+
+        viewModel.onInputChanged("1.2.3")
+
+        assertEquals("1.23", viewModel.uiState.value.input)
+    }
+
+    @Test
+    fun `onInputChanged strips newlines from a pasted value`() = runTest {
+        stubValidationRejects()
+
+        viewModel.onInputChanged("12\n34")
+
+        assertEquals("1234", viewModel.uiState.value.input)
     }
 
     @Test
@@ -169,12 +216,12 @@ class ConverterViewModelTest {
 
     @Test
     fun `conversion success updates output`() = runTest {
-        val input = "FF"
-        val expected = ConversionResult(input, "255", NumberBase.HEXADECIMAL, NumberBase.DECIMAL)
+        val input = "255"
+        val expected = ConversionResult(input, "11111111", NumberBase.DECIMAL, NumberBase.BINARY)
 
         every { validateInputUseCase.invoke(input, NumberBase.DECIMAL) } returns ValidationResult(true)
         coEvery { convertNumberUseCase.invoke(input, NumberBase.DECIMAL, NumberBase.BINARY) } returns Result.success(expected)
-        every { formatOutputUseCase.invoke("255") } returns "255"
+        every { formatOutputUseCase.invoke("11111111") } returns "11111111"
         coEvery { converterRepository.explain(any(), any(), any()) } returns Result.failure(Exception())
 
         viewModel.onInputChanged(input)
@@ -182,7 +229,7 @@ class ConverterViewModelTest {
         testDispatcher.scheduler.advanceUntilIdle()
 
         val state = viewModel.uiState.value
-        assertEquals("255", state.output)
+        assertEquals("11111111", state.output)
         assertFalse(state.isLoading)
     }
 

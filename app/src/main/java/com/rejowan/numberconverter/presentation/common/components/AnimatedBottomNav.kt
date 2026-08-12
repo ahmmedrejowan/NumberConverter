@@ -71,7 +71,6 @@ enum class NavItem(
 ) {
     CONVERTER("Convert", Icons.Filled.SwapHoriz, Icons.Outlined.SwapHoriz),
     CALCULATOR("Calculate", Icons.Filled.Calculate, Icons.Outlined.Calculate),
-    LEARN("Learn", Icons.AutoMirrored.Filled.MenuBook, Icons.AutoMirrored.Outlined.MenuBook),
     SETTINGS("Settings", Icons.Filled.Settings, Icons.Outlined.Settings)
 }
 

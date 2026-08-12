@@ -10,7 +10,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rejowan.numberconverter.presentation.calculator.CalculatorScreen
 import com.rejowan.numberconverter.presentation.converter.ConverterScreen
-import com.rejowan.numberconverter.presentation.learn.LearnScreen
 import com.rejowan.numberconverter.presentation.settings.SettingsScreen
 
 private const val TAB_TRANSITION_DURATION = 200
@@ -44,9 +43,6 @@ fun BottomNavGraph(
         }
         composable<Calculator> {
             CalculatorScreen()
-        }
-        composable<Learn> {
-            LearnScreen()
         }
         composable<Settings> {
             SettingsScreen()

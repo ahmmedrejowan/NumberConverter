@@ -35,6 +35,7 @@ class PreferencesManager(private val context: Context) {
 
         // Default values
         const val DEFAULT_DECIMAL_PLACES = 15
+        const val DEFAULT_DYNAMIC_COLORS = false
         const val DEFAULT_THEME = "system"
         const val DEFAULT_FONT_SIZE = "medium"
         const val DEFAULT_INPUT_VALIDATION = "strict"
@@ -92,8 +93,10 @@ class PreferencesManager(private val context: Context) {
         }
     }
 
+    // Off by default so the app ships its own violet identity. Turning this on
+    // hands the whole palette to the wallpaper, which throws that identity away.
     val dynamicColors: Flow<Boolean> = context.dataStore.data.map { preferences ->
-        preferences[KEY_DYNAMIC_COLORS] ?: true
+        preferences[KEY_DYNAMIC_COLORS] ?: DEFAULT_DYNAMIC_COLORS
     }
 
     suspend fun setDynamicColors(enabled: Boolean) {

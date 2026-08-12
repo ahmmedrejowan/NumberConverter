@@ -516,11 +516,9 @@ fun OnboardingScreen(
                 ) {
                     if (!isLastPage) {
                         TextButton(
-                            onClick = {
-                                scope.launch {
-                                    pagerState.animateScrollToPage(onboardingPages.size - 1)
-                                }
-                            },
+                            // Skip means "skip onboarding" — jumping to the last
+                            // page just made the user tap twice to get out.
+                            onClick = onComplete,
                             modifier = Modifier.align(Alignment.CenterEnd)
                         ) {
                             Text(

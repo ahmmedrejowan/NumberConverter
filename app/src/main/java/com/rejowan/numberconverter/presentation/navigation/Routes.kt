@@ -26,7 +26,4 @@ object Converter
 object Calculator
 
 @Serializable
-object Learn
-
-@Serializable
 object Settings

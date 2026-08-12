@@ -21,6 +21,27 @@ enum class NumberBase(
         return getValidChars().contains(char, ignoreCase = true)
     }
 
+    /**
+     * Strips everything that can't appear in a number of this base, keeping at
+     * most one decimal point. Shared by every input field so the Converter and
+     * Calculator can never disagree about what a user is allowed to type.
+     */
+    fun filterInput(raw: String): String {
+        val valid = getValidChars()
+        val out = StringBuilder(raw.length)
+        var seenPoint = false
+        for (char in raw) {
+            when {
+                char == '.' && !seenPoint -> {
+                    out.append(char)
+                    seenPoint = true
+                }
+                valid.contains(char, ignoreCase = true) -> out.append(char)
+            }
+        }
+        return out.toString()
+    }
+
     companion object {
         fun fromValue(value: Int): NumberBase = entries.first { it.value == value }
     }
