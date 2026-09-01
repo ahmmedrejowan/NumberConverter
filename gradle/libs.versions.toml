@@ -12,7 +12,7 @@ lifecycleRuntimeKtx = "2.11.0"
 
 # Compose
 composeBom = "2026.06.01"
-composeNavigation = "2.9.8"
+composeNavigation = "2.10.0"
 
 # Koin
 koin = "4.2.2"
